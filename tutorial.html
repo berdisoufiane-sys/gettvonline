@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Guide & Live Support | GetTV.online</title>
+    
+    <link rel="icon" type="image/svg+xml" href="assets/images/favlogo2.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- THIS IS THE LINE YOU ARE MISSING ON THE OTHER PAGES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Make sure Tailwind is on every page too -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased flex flex-col min-h-screen">
+
+    <div id="header-placeholder"></div>
+
+    <!-- MAIN CONTENT AREA (This changes per page) -->
+   <main class="flex-grow container mx-auto px-6 py-20 max-w-4xl">
+        <h1 class="text-4xl font-bold text-center mb-12">How to Setup Your Device</h1>
+
+        <div class="space-y-6">
+            <!-- Android / Firestick -->
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <h2 class="text-2xl font-bold text-blue-400 mb-4">Android TV & Amazon Firestick</h2>
+                <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                    <li>Go to your App Store or use the "Downloader" app.</li>
+                    <li>Download a compatible player (e.g., TiviMate, IPTV Smarters Pro).</li>
+                    <li>Open the app and select "Login with Xtream Codes API".</li>
+                    <li>Enter the Username, Password, and Portal URL we emailed you.</li>
+                    <li>Click Login and wait for the categories to load.</li>
+                </ol>
+            </div>
+
+            <!-- Smart TV -->
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <h2 class="text-2xl font-bold text-blue-400 mb-4">Samsung & LG Smart TVs</h2>
+                <ol class="list-decimal list-inside space-y-2 text-gray-300">
+                    <li>Open your TV's App Store.</li>
+                    <li>Search for and install "IBO Player" or "Flix IPTV".</li>
+                    <li>Open the app and note the "Device MAC Address" displayed on the screen.</li>
+                    <li>Provide this MAC address to our support team, or log into the app's website to upload your M3U link.</li>
+                    <li>Restart the app on your TV.</li>
+                </ol>
+            </div>
+        </div>
+
+        <section class="mt-12 grid md:grid-cols-2 gap-6">
+            <article class="bg-gradient-to-br from-green-500/20 to-gray-800 border border-green-500/40 rounded-2xl p-7">
+                <div class="w-12 h-12 grid place-items-center rounded-xl bg-green-500 text-2xl mb-5"><i class="fa-brands fa-whatsapp"></i></div>
+                <h2 class="text-2xl font-bold">Need live setup help?</h2>
+                <p class="text-gray-300 mt-3">Chat with our support team on WhatsApp if you need help installing your player, entering your details, or getting started.</p>
+                <a href="https://wa.me/1234567890?text=Hello%20GetTV%20support%2C%20I%20need%20help%20with%20my%20device%20setup." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-5 py-3 rounded-lg transition mt-6">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Chat on WhatsApp
+                </a>
+            </article>
+
+            <article class="bg-gray-800 border border-gray-700 rounded-2xl p-7">
+                <div class="w-12 h-12 grid place-items-center rounded-xl bg-blue-600 text-2xl mb-5"><i class="fa-solid fa-book-open"></i></div>
+                <h2 class="text-2xl font-bold">Explore our blog</h2>
+                <p class="text-gray-400 mt-3">Read useful articles, device tips, and simple guides to help you make the most of your GetTV.online setup.</p>
+                <a href="blog.html" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-bold mt-6">
+                    Visit the GetTV blog <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </article>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+   <script type="module" src="assets/js/firebase.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

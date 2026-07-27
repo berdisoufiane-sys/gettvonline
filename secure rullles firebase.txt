@@ -1,0 +1,13 @@
+// A SAFER STARTING POINT
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow anyone to create a new contact, trial, etc.
+    match /{collection}/{documentId} {
+      allow create: if true;
+
+      // Deny reading, updating, or deleting for everyone
+      allow read, update, delete: if false;
+    }
+  }
+}

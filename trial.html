@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Trial Request | GetTV.online</title>
+    
+    <link rel="icon" type="image/svg+xml" href="assets/images/favlogo2.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- THIS IS THE LINE YOU ARE MISSING ON THE OTHER PAGES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Make sure Tailwind is on every page too -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased flex flex-col min-h-screen">
+
+    <div id="header-placeholder"></div>
+
+    <!-- MAIN CONTENT AREA (This changes per page) -->
+    <main class="flex-grow container mx-auto px-6 py-20 flex justify-center">
+        <div class="bg-gray-800 p-10 rounded-xl max-w-lg w-full border border-gray-700 shadow-2xl">
+            <h1 class="text-3xl font-bold mb-2 text-center">Request a Free Trial</h1>
+            <p class="text-gray-400 text-sm mb-8 text-center">Test our server stability before you buy. Trials are delivered within 1-2 hours.</p>
+            
+            <form id="trial-form" class="space-y-4">
+                <div>
+                    <label for="trial-name" class="block text-sm text-gray-400 mb-1">Your Name</label>
+                    <input id="trial-name" type="text" autocomplete="name" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="trial-email" class="block text-sm text-gray-400 mb-1">Email Address</label>
+                    <input id="trial-email" type="email" autocomplete="email" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="trial-device" class="block text-sm text-gray-400 mb-1">Primary Device (e.g., Smart TV, Firestick, Android)</label>
+                    <input id="trial-device" type="text" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="trial-mac-address" class="block text-sm text-gray-400 mb-1">MAC Address (Only if using MAG/STB)</label>
+                    <input id="trial-mac-address" type="text" placeholder="00:1A:79:..." class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <button id="trial-submit-btn" type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition mt-4">Send Trial Request</button>
+            </form>
+        </div>
+    </main>
+
+   <div id="footer-placeholder"></div>
+  <script type="module" src="assets/js/firebase.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/trial.js"></script>
+</body>
+</html>

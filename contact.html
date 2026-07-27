@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support | GetTV.online</title>
+    
+    <link rel="icon" type="image/png" href="assets/images/favlogo2.svg">
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- THIS IS THE LINE YOU ARE MISSING ON THE OTHER PAGES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Make sure Tailwind is on every page too -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased flex flex-col min-h-screen">
+
+   <div id="header-placeholder"></div>
+
+    <main class="flex-grow container mx-auto px-6 py-16 lg:py-20">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="inline-flex items-center gap-2 rounded-full bg-blue-500/10 border border-blue-400/20 px-4 py-2 text-sm text-blue-300">
+            <i class="fa-solid fa-headset"></i> GetTV Support
+          </span>
+          <h1 class="text-4xl md:text-5xl font-bold mt-5">How can we help?</h1>
+          <p class="text-gray-400 max-w-2xl mx-auto mt-4">Send our support team a message and we will help you get back to watching.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-5 gap-8 items-stretch">
+          <section class="lg:col-span-2 rounded-2xl overflow-hidden border border-gray-700 bg-gray-800">
+            <div class="relative h-52">
+              <img src="assets/images/supportgettv.webp" alt="GetTV entertainment service" class="w-full h-full object-cover opacity-70">
+              <div class="absolute inset-0 bg-gradient-to-t from-gray-800 to-transparent"></div>
+              <div class="absolute bottom-5 left-6">
+                <div class="w-12 h-12s grid place-items-center rounded-xl bg-blue-600 text-xl shadow-lg"><i class="fa-solid fa-headset"></i></div>
+              </div>
+            </div>
+
+            <div class="p-6 space-y-6">
+              <div>
+                <h2 class="text-2xl font-bold">Talk to our team</h2>
+                <p class="text-gray-400 text-sm mt-2">Friendly help for setup, subscriptions, billing, and streaming questions.</p>
+              </div>
+
+              <div class="space-y-4">
+                <div class="flex gap-4">
+                  <div class="w-10 h-10 shrink-0 grid place-items-center rounded-lg bg-gray-700 text-blue-400"><i class="fa-solid fa-location-dot"></i></div>
+                  <div><p class="font-semibold">Support location</p><p class="text-sm text-gray-400">Serving GetTV members worldwide, online.</p></div>
+                </div>
+                <div class="flex gap-4">
+                  <div class="w-10 h-10 shrink-0 grid place-items-center rounded-lg bg-gray-700 text-blue-400"><i class="fa-solid fa-clock"></i></div>
+                  <div><p class="font-semibold">Support hours</p><p class="text-sm text-gray-400">Monday–Sunday, 9:00 AM–10:00 PM.</p></div>
+                </div>
+                <div class="flex gap-4">
+                  <div class="w-10 h-10 shrink-0 grid place-items-center rounded-lg bg-gray-700 text-blue-400"><i class="fa-solid fa-users"></i></div>
+                  <div><p class="font-semibold">Dedicated support team</p><p class="text-sm text-gray-400">We typically reply within one business day.</p></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="lg:col-span-3 rounded-2xl border border-gray-700 bg-gray-800 p-6 md:p-8">
+            <h2 class="text-2xl font-bold">Send us a message</h2>
+            <p class="text-gray-400 text-sm mt-2 mb-7">Please include as much detail as possible so we can assist you quickly.</p>
+
+            <form id="contact-form" class="space-y-5">
+              <div>
+                <label for="contact-email" class="block text-sm font-medium text-gray-300 mb-2">Email address</label>
+                <div class="relative">
+                  <i class="fa-regular fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                  <input id="contact-email" type="email" placeholder="you@example.com" class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-11 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
+                </div>
+              </div>
+
+              <div>
+                <label for="contact-message" class="block text-sm font-medium text-gray-300 mb-2">How can we help?</label>
+                <textarea id="contact-message" rows="7" placeholder="Tell us about your question or issue..." class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-y" required></textarea>
+              </div>
+
+              <button id="submit-btn" type="submit" class="w-full bg-blue-600 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-800 text-white font-bold py-3 rounded-lg transition">
+                <i class="fa-solid fa-paper-plane mr-2"></i> Send Message
+              </button>
+            </form>
+          </section>
+        </div>
+      </div>
+    </main>
+  <div id="footer-placeholder"></div>
+  <script type="module" src="assets/js/firebase.js"></script>
+  <script type="module" src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/contact.js"></script>
+   
+</body>
+</html>
