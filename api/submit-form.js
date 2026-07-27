@@ -1,24 +1,43 @@
 const admin = require('firebase-admin');
 
+let db;
+let firebaseAdminError = null;
+
 // --- Helper function to initialize Firebase Admin SDK ---
 // This ensures we only initialize the app once per server instance.
 function initializeFirebaseAdmin() {
-  if (!admin.apps.length) {
-    try {
-      admin.initializeApp({
-        credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY))
-      });
-    } catch (error) {
-      console.error('Firebase admin initialization error', error.stack);
-    }
+  // Check if already initialized
+  if (admin.apps.length) {
+    db = admin.firestore();
+    return;
   }
-  return admin.firestore();
+
+  try {
+    // Check if the environment variable is set
+    if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+      throw new Error('FIREBASE_SERVICE_ACCOUNT_KEY environment variable is not set.');
+    }
+    admin.initializeApp({
+      credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY))
+    });
+    db = admin.firestore();
+  } catch (error) {
+    // Capture the error to be reported in the handler
+    firebaseAdminError = `Firebase admin initialization error: ${error.message}. Please check that the FIREBASE_SERVICE_ACCOUNT_KEY environment variable is set correctly in Vercel.`;
+    console.error(error.stack);
+  }
 }
 
-const db = initializeFirebaseAdmin();
+initializeFirebaseAdmin();
 
 // --- Main Serverless Function Handler ---
 export default async function handler(req, res) {
+  // Check if Firebase Admin SDK initialized correctly
+  if (firebaseAdminError) {
+    console.error(firebaseAdminError);
+    return res.status(500).json({ message: 'Server configuration error.', error: firebaseAdminError });
+  }
+
   // 1. Security: Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Only POST requests allowed' });
@@ -91,8 +110,8 @@ export default async function handler(req, res) {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        sender: { name: 'GetTV.online', email: 'noreply@yourdomain.com' }, // Use a verified sender email from Brevo
-        to: [{ email: 'your-admin-email@example.com' }], // **IMPORTANT: Change this to your admin email**
+        sender: { name: 'GetTV.online', email: process.env.SENDER_EMAIL }, // Your verified sender email from Brevo
+        to: [{ email: process.env.ADMIN_EMAIL }], // Your admin email to receive notifications
         subject: emailSubject,
         htmlContent: emailHtmlContent
       })
