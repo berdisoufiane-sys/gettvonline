@@ -48,19 +48,29 @@ function setupNewsletterForm() {
  * @param {string} url The URL of the HTML component to load.
  */
 async function loadComponent(id, url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Failed to load component: ${url}`);
-        }
-        const text = await response.text();
-        const element = document.getElementById(id);
-        if (element) {
-            element.innerHTML = text;
-        }
-    } catch (error) {
-        console.error(`Error loading component for #${id}:`, error);
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to load component: ${url}`);
     }
+    const text = await response.text();
+    const element = document.getElementById(id);
+    if (element) {
+      element.innerHTML = text;
+
+      // Scripts inserted via innerHTML are not executed by the browser.
+      // We need to find them, create new script elements, and append them to the document.
+      const scripts = Array.from(element.querySelectorAll('script'));
+      scripts.forEach(oldScript => {
+        const newScript = document.createElement('script');
+        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+      });
+    }
+  } catch (error) {
+    console.error(`Error loading component for #${id}:`, error);
+  }
 }
 
 /**
