@@ -1,8 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
   const trialForm = document.getElementById("trial-form");
   const submitButton = document.getElementById("trial-submit-btn");
+  const deviceSelect = document.getElementById("trial-device"); // Get device select
+  const macAddressContainer = document.getElementById("mac-address-container"); // Get MAC container
 
   if (!trialForm || !submitButton) return;
+
+  // NEW: Add event listener to show/hide MAC address field
+  if (deviceSelect && macAddressContainer) {
+    deviceSelect.addEventListener('change', function() {
+      if (this.value.toLowerCase().includes('mag')) {
+        macAddressContainer.classList.remove('hidden');
+      } else {
+        macAddressContainer.classList.add('hidden');
+      }
+    });
+  }
 
   trialForm.addEventListener("submit", async (event) => {
     event.preventDefault();
