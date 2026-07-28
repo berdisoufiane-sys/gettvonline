@@ -42,29 +42,55 @@ function setupNewsletterForm() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // Load Header (Notice the slash: components / header.html)
-    fetch('assets/components/header.html')
-        .then(response => {
-            if (!response.ok) throw new Error("Header file not found!");
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('header-placeholder').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading header:', error));
+/**
+ * Fetches and injects an HTML component into the DOM.
+ * @param {string} id The ID of the placeholder element.
+ * @param {string} url The URL of the HTML component to load.
+ */
+async function loadComponent(id, url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Failed to load component: ${url}`);
+        }
+        const text = await response.text();
+        const element = document.getElementById(id);
+        if (element) {
+            element.innerHTML = text;
+        }
+    } catch (error) {
+        console.error(`Error loading component for #${id}:`, error);
+    }
+}
 
-    // Load Footer (Notice the slash: components / footer.html)
-    fetch('assets/components/footer.html')
-        .then(response => {
-            if (!response.ok) throw new Error("Footer file not found!");
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('footer-placeholder').innerHTML = data;
-            setupNewsletterForm();
-        })
-        .catch(error => console.error('Error loading footer:', error));
+/**
+ * Initializes the mobile menu toggle functionality.
+ * This function should be called after the header is loaded.
+ */
+function initializeMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
 
-});
+    if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+}
+
+/**
+ * Main application entry point.
+ */
+async function main() {
+    // Load shared components and then initialize scripts
+    await Promise.all([
+        loadComponent("header-placeholder", "assets/components/header.html"),
+        loadComponent("footer-placeholder", "assets/components/footer.html")
+    ]);
+
+    initializeMobileMenu();
+    setupNewsletterForm(); // This is for the form in the footer
+}
+
+// Wait for the DOM to be fully loaded before running the main app logic
+document.addEventListener("DOMContentLoaded", main);
