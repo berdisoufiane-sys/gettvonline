@@ -122,8 +122,12 @@ export default async function handler(req, res) {
     });
 
     if (!brevoResponse.ok) {
-      console.error('Brevo API Error:', await brevoResponse.json());
-      // We don't throw an error here because the data is already saved.
+      const errorBody = await brevoResponse.json();
+      console.error('--- BREVO EMAIL SENDING FAILED ---');
+      console.error(`Status: ${brevoResponse.status}`);
+      console.error('Error Body:', JSON.stringify(errorBody, null, 2));
+      console.error('ACTION: Please check your BREVO_API_KEY and ensure your SENDER_EMAIL is verified in your Brevo account.');
+      // We still don't throw an error here because the data is already saved.
       // The user gets a success message, but we log the email failure.
     }
 
