@@ -71,6 +71,13 @@ export default async function handler(req, res) {
       case 'trial':
         collectionName = 'trialRequests';
         emailSubject = `New Free Trial Request from ${formData.name}`;
+
+        // Conditionally add MAC address if the device is a MAG box
+        let macAddressHtml = '';
+        if (formData.device && formData.device.toLowerCase().includes('mag') && formData.macAddress && formData.macAddress !== 'N/A') {
+            macAddressHtml = `<li><strong>MAC Address:</strong> ${formData.macAddress}</li>`;
+        }
+
         emailHtmlContent = `
           <p>You have a new free trial request:</p>
           <ul>
@@ -78,6 +85,8 @@ export default async function handler(req, res) {
             <li><strong>Email:</strong> ${formData.email || 'N/A'}</li>
             <li><strong>Country:</strong> ${formData.country || 'N/A'}</li>
             <li><strong>Plan:</strong> ${formData.plan || 'N/A'}</li>
+            <li><strong>Device:</strong> ${formData.device || 'N/A'}</li>
+            ${macAddressHtml}
           </ul>`;
         break;
       case 'newsletter':
@@ -129,6 +138,11 @@ export default async function handler(req, res) {
       console.error('ACTION: Please check your BREVO_API_KEY and ensure your SENDER_EMAIL is verified in your Brevo account.');
       // We still don't throw an error here because the data is already saved.
       // The user gets a success message, but we log the email failure.
+    } else {
+      // Log success to confirm the email API call was accepted.
+      console.log('--- BREVO EMAIL API CALL SUCCEEDED ---');
+      console.log(`Status: ${brevoResponse.status}`);
+      console.log(`Email sent to: ${process.env.ADMIN_EMAIL} from ${process.env.SENDER_EMAIL}`);
     }
 
     // 5. Send a success response back to the frontend

@@ -12,16 +12,35 @@ document.addEventListener("DOMContentLoaded", () => {
     submitButton.disabled = true;
     submitButton.classList.add("opacity-50", "cursor-not-allowed");
 
+    // Get form values
+    const name = document.getElementById("trial-name").value.trim();
+    const email = document.getElementById("trial-email").value.trim();
+    const country = document.getElementById("trial-country")?.value.trim(); // Required
+    const plan = document.getElementById("trial-plan")?.value.trim() || 'N/A';
+    const device = document.getElementById("trial-device")?.value.trim() || 'N/A';
+    const macAddress = document.getElementById("trial-mac")?.value.trim() || 'N/A';
+
+    // Validation - Country is now required
+    if (!country) {
+        alert('Please select your country.');
+        submitButton.innerHTML = originalButtonText;
+        submitButton.disabled = false;
+        submitButton.classList.remove("opacity-50", "cursor-not-allowed");
+        return; // Stop submission
+    }
+
     try {
       const response = await fetch('/api/submit-form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           formType: 'trial',
-          name: document.getElementById("trial-name").value.trim(),
-          email: document.getElementById("trial-email").value.trim(),
-          country: document.getElementById("trial-country")?.value.trim() || null,
-          plan: document.getElementById("trial-plan")?.value.trim() || null,
+          name: name,
+          email: email,
+          country: country,
+          plan: plan,
+          device: device,
+          macAddress: macAddress
         })
       });
 
