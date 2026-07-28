@@ -79,6 +79,27 @@ function initializeMobileMenu() {
 }
 
 /**
+ * Highlights the active navigation link based on the current page.
+ */
+function highlightActiveLink() {
+    // Use a simple check for the current page filename
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+    // Select all links in both desktop and mobile nav
+    const navLinks = document.querySelectorAll('header nav a, #mobile-menu a');
+
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href').split('/').pop() || 'index.html';
+
+        if (linkPage === currentPage) {
+            // These are Tailwind classes. Adjust if you use different ones for active state.
+            link.classList.add('bg-gray-700', 'text-white');
+            link.classList.remove('text-gray-300', 'hover:bg-gray-700', 'hover:text-white');
+        }
+    });
+}
+
+/**
  * Main application entry point.
  */
 async function main() {
@@ -89,6 +110,7 @@ async function main() {
     ]);
 
     initializeMobileMenu();
+    highlightActiveLink();
     setupNewsletterForm(); // This is for the form in the footer
 }
 
