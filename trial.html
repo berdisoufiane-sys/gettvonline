@@ -25,21 +25,41 @@
             <p class="text-gray-400 text-sm mb-8 text-center">Test our server stability before you buy. Trials are delivered within 1-2 hours.</p>
             
             <form id="trial-form" class="space-y-4">
-                <div>
-                    <label for="trial-name" class="block text-sm text-gray-400 mb-1">Your Name</label>
-                    <input id="trial-name" type="text" autocomplete="name" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
-                </div>
-                <div>
-                    <label for="trial-email" class="block text-sm text-gray-400 mb-1">Email Address</label>
-                    <input id="trial-email" type="email" autocomplete="email" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
-                </div>
+                                </div>
                 <div>
                     <label for="trial-device" class="block text-sm text-gray-400 mb-1">Primary Device (e.g., Smart TV, Firestick, Android)</label>
-                    <input id="trial-device" type="text" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
+                    <select id="trial-device" name="device" class="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-gray-700 border-gray-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md text-white" required>
+                        <option value="">Select your device</option>
+                        <option value="Smart TV (Samsung, LG, TCL)">Smart TV (Samsung, LG, TCL)</option>
+                        <option value="Android Box / Firestick">Android Box / Firestick</option>
+                        <option value="MAG Box">MAG Box</option>
+                        <option value="Apple TV / iOS">Apple TV / iOS</option>
+                        <option value="Windows / Mac">Windows / Mac</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div id="mac-address-container" class="hidden">
+                    <label for="trial-mac" class="block text-sm text-gray-400 mb-1">MAC Address (for MAG Box)</label>
+                    <input id="trial-mac" type="text" placeholder="00:1A:79:XX:XX:XX" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
                 </div>
                 <div>
-                    <label for="trial-mac-address" class="block text-sm text-gray-400 mb-1">MAC Address (Only if using MAG/STB)</label>
-                    <input id="trial-mac-address" type="text" placeholder="00:1A:79:..." class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                    <label for="trial-country" class="block text-sm text-gray-400 mb-1">Country</label>
+                    <select id="trial-country" name="country" class="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-gray-700 border-gray-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md text-white" required>
+                        <option value="">Please select your country</option>
+                        <option value="USA">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Germany">Germany</option>
+                        <option value="France">France</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="trial-plan" class="block text-sm text-gray-400 mb-1">Preferred Plan (Optional)</label>
+                    <input id="trial-plan" type="text" placeholder="e.g., 1 Month, 3 Months" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
                 </div>
                 <button id="trial-submit-btn" type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition mt-4">Send Trial Request</button>
             </form>
