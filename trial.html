@@ -25,9 +25,16 @@
             <p class="text-gray-400 text-sm mb-8 text-center">Test our server stability before you buy. Trials are delivered within 1-2 hours.</p>
             
             <form id="trial-form" class="space-y-4">
-                                </div>
                 <div>
-                    <label for="trial-device" class="block text-sm text-gray-400 mb-1">Primary Device (e.g., Smart TV, Firestick, Android)</label>
+                    <label for="trial-name" class="block text-sm text-gray-400 mb-1">Full Name</label>
+                    <input id="trial-name" type="text" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="trial-email" class="block text-sm text-gray-400 mb-1">Email Address</label>
+                    <input id="trial-email" type="email" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="trial-device" class="block text-sm text-gray-400 mb-1">Primary Device</label>
                     <select id="trial-device" name="device" class="mt-1 block w-full pl-3 pr-10 py-2 text-base bg-gray-700 border-gray-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md text-white" required>
                         <option value="">Select your device</option>
                         <option value="Smart TV (Samsung, LG, TCL)">Smart TV (Samsung, LG, TCL)</option>
