@@ -110,6 +110,57 @@ function highlightActiveLink() {
 }
 
 /**
+ * Initializes the "Back to Top" button functionality.
+ */
+function initializeBackToTopButton() {
+    const backToTopButton = document.getElementById('back-to-top');
+    if (!backToTopButton) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) { // Show button after scrolling 200px
+            backToTopButton.classList.remove('opacity-0', 'invisible');
+            backToTopButton.classList.add('opacity-100', 'visible');
+        } else {
+            backToTopButton.classList.remove('opacity-100', 'visible');
+            backToTopButton.classList.add('opacity-0', 'invisible');
+        }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+/**
+ * Initializes the cookie consent banner functionality.
+ */
+function initializeCookieConsent() {
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('accept-cookies');
+    const declineButton = document.getElementById('decline-cookies');
+
+    if (!cookieBanner || !acceptButton || !declineButton) return;
+
+    const cookieConsent = localStorage.getItem('cookieConsent');
+
+    if (cookieConsent === null) {
+        // If no choice has been made, show the banner
+        cookieBanner.classList.remove('hidden');
+    }
+
+    acceptButton.addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', 'accepted');
+        cookieBanner.classList.add('hidden');
+    });
+
+    declineButton.addEventListener('click', () => {
+        localStorage.setItem('cookieConsent', 'declined');
+        cookieBanner.classList.add('hidden');
+        // Optionally, you might want to disable certain scripts here
+    });
+}
+
+/**
  * Main application entry point.
  */
 async function main() {
@@ -122,6 +173,8 @@ async function main() {
     initializeMobileMenu();
     highlightActiveLink();
     setupNewsletterForm(); // This is for the form in the footer
+    initializeBackToTopButton();
+    initializeCookieConsent();
 }
 
 // Wait for the DOM to be fully loaded before running the main app logic

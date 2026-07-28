@@ -182,6 +182,20 @@
     <script type="module" src="assets/js/firebase.js"></script>
     <script type="module" src="assets/js/app.js"></script>
     <!-- Only add admin.js to pages that require admin privileges -->
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 shadow-lg z-50 hidden">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+            <p class="text-sm text-gray-300 text-center md:text-left">
+                We use cookies to ensure you get the best experience on our website. By continuing to use this site, you agree to our <a href="privacy.html" class="text-blue-400 hover:underline">Privacy Policy</a>.
+            </p>
+            <div class="flex space-x-3">
+                <button id="accept-cookies" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-md text-sm font-medium transition">Accept</button>
+                <button id="decline-cookies" class="bg-gray-700 hover:bg-gray-600 text-gray-300 px-4 py-2 rounded-md text-sm font-medium transition">Decline</button>
+            </div>
+        </div>
+    </div>
+
     <!-- <script src="assets/js/admin.js"></script> -->
     <script type="application/ld+json">
     {

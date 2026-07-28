@@ -13,6 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault(); // Stops the page from refreshing on submit
 
             // Get the text the user typed
+            // Helper function to display messages
+            function showFormMessage(message, isSuccess) {
+                if (!messageContainer) return;
+                messageContainer.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'border-green-400', 'bg-red-100', 'text-red-700', 'border-red-400');
+                if (isSuccess) {
+                    messageContainer.classList.add('bg-green-100', 'text-green-700', 'border-green-400');
+                } else {
+                    messageContainer.classList.add('bg-red-100', 'text-red-700', 'border-red-400');
+                }
+                messageContainer.innerText = message;
+                setTimeout(() => {
+                    messageContainer.classList.add('hidden');
+                }, 5000); // Message disappears after 5 seconds
+            }
             const userName = nameInput ? nameInput.value.trim() : 'N/A';
             const userEmail = emailInput.value.trim();
             const userMessage = messageInput.value.trim();
@@ -43,14 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     throw new Error('Server responded with an error.');
                 }
 
-                // Success! Show an alert and clear the form
-                alert("Your message has been sent successfully! Our support team will respond shortly.");
+                showFormMessage("Your message has been sent successfully! Our support team will respond shortly.", true);
                 contactForm.reset();
 
             } catch (error) {
                 // If it fails, log the error to the console and warn the user
                 console.error("Error adding document: ", error);
-                alert("There was an error sending your message. Please try again later.");
+                showFormMessage("There was an error sending your message. Please try again later.", false);
             } finally {
                 // Restore the button to its original state
                 submitBtn.innerText = originalBtnText;
