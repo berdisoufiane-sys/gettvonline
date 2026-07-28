@@ -1,4 +1,4 @@
-const admin = require('firebase-admin');
+import admin from 'firebase-admin';
 
 let db;
 let firebaseAdminError = null;
@@ -17,15 +17,19 @@ function initializeFirebaseAdmin() {
     if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
       throw new Error('FIREBASE_SERVICE_ACCOUNT_KEY environment variable is not set.');
     }
+    const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
     admin.initializeApp({
-      credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY))
+      credential: admin.credential.cert(serviceAccount)
     });
-    db = admin.firestore();
   } catch (error) {
     // Capture the error to be reported in the handler
     firebaseAdminError = `Firebase admin initialization error: ${error.message}. Please check that the FIREBASE_SERVICE_ACCOUNT_KEY environment variable is set correctly in Vercel.`;
     console.error(error.stack);
+    // Explicitly return here to prevent db from being assigned on failure.
+    return;
   }
+  // Assign db only after a successful initialization.
+  db = admin.firestore();
 }
 
 initializeFirebaseAdmin();
