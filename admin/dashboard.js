@@ -92,7 +92,7 @@ async function loadAndDisplayData(collectionName, tableBodyId, rowTemplate) {
     try {
         const querySnapshot = await getDocs(collection(db, collectionName));
         if (querySnapshot.empty) {
-            tableBody.innerHTML = \`<tr><td colspan="100%" class="text-center py-4 text-gray-500">No entries found.</td></tr>\`;
+            tableBody.innerHTML = `<tr><td colspan="100%" class="text-center py-4 text-gray-500">No entries found.</td></tr>`;
             return;
         }
 
@@ -103,6 +103,6 @@ async function loadAndDisplayData(collectionName, tableBodyId, rowTemplate) {
         tableBody.innerHTML = rowsHtml;
     } catch (error) {
         console.error(\`Error loading ${collectionName}:\`, error);
-        tableBody.innerHTML = \`<tr><td colspan="100%" class="text-center py-4 text-red-500">Error loading data.</td></tr>\`;
+        tableBody.innerHTML = `<tr><td colspan="100%" class="text-center py-4 text-red-500">Error loading data.</td></tr>`;
     }
 }
