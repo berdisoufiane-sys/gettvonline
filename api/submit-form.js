@@ -114,35 +114,46 @@ export default async function handler(req, res) {
       status: 'new' // A consistent status for all submissions
     });
 
-    // 4. Send the email notification using Brevo
-    const brevoResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
-      method: 'POST',
-      headers: {
-        'accept': 'application/json',
-        'api-key': process.env.BREVO_API_KEY, // Your secret key from Vercel environment variables
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        sender: { name: 'GetTV.online', email: process.env.SENDER_EMAIL }, // Your verified sender email from Brevo
-        to: [{ email: process.env.ADMIN_EMAIL }], // Your admin email to receive notifications
-        subject: emailSubject,
-        htmlContent: emailHtmlContent
-      })
-    });
-
-    if (!brevoResponse.ok) {
-      const errorBody = await brevoResponse.json();
-      console.error('--- BREVO EMAIL SENDING FAILED ---');
-      console.error(`Status: ${brevoResponse.status}`);
-      console.error('Error Body:', JSON.stringify(errorBody, null, 2));
-      console.error('ACTION: Please check your BREVO_API_KEY and ensure your SENDER_EMAIL is verified in your Brevo account.');
-      // We still don't throw an error here because the data is already saved.
-      // The user gets a success message, but we log the email failure.
+    // --- 4. Send email notification using Brevo with enhanced logging ---
+    console.log('--- PREPARING TO SEND BREVO EMAIL ---');
+    if (!process.env.BREVO_API_KEY || !process.env.SENDER_EMAIL || !process.env.ADMIN_EMAIL) {
+        console.error('ERROR: One or more email environment variables (BREVO_API_KEY, SENDER_EMAIL, ADMIN_EMAIL) are not set in Vercel.');
     } else {
-      // Log success to confirm the email API call was accepted.
-      console.log('--- BREVO EMAIL API CALL SUCCEEDED ---');
-      console.log(`Status: ${brevoResponse.status}`);
-      console.log(`Email sent to: ${process.env.ADMIN_EMAIL} from ${process.env.SENDER_EMAIL}`);
+        console.log(`Attempting to send email from [${process.env.SENDER_EMAIL}] to [${process.env.ADMIN_EMAIL}]`);
+    }
+
+    try {
+        const brevoResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'api-key': process.env.BREVO_API_KEY,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                sender: { name: 'GetTV.online', email: process.env.SENDER_EMAIL },
+                to: [{ email: process.env.ADMIN_EMAIL }],
+                subject: emailSubject,
+                htmlContent: emailHtmlContent
+            })
+        });
+
+        if (!brevoResponse.ok) {
+            const errorBody = await brevoResponse.json();
+            console.error('--- BREVO EMAIL SENDING FAILED (API Response not OK) ---');
+            console.error(`Status: ${brevoResponse.status} ${brevoResponse.statusText}`);
+            console.error('Error Body:', JSON.stringify(errorBody, null, 2));
+            console.error('ACTION: Please check your BREVO_API_KEY, SENDER_EMAIL, and ADMIN_EMAIL environment variables in Vercel. Also ensure your sender email is verified in your Brevo account.');
+        } else {
+            const responseBody = await brevoResponse.json();
+            console.log('--- BREVO EMAIL API CALL SUCCEEDED ---');
+            console.log(`Status: ${brevoResponse.status}`);
+            console.log('Brevo Response Body:', JSON.stringify(responseBody, null, 2));
+        }
+    } catch (networkError) {
+        console.error('--- BREVO EMAIL SENDING FAILED (Network or Fetch Error) ---');
+        console.error('This usually means there is a problem with the Vercel function environment or network, not your code.');
+        console.error(networkError);
     }
 
     // 5. Send a success response back to the frontend
