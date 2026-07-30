@@ -1,3 +1,5 @@
+import { db, collection, addDoc, serverTimestamp } from './firebase.js';
+
 document.addEventListener("DOMContentLoaded", () => {
     // Select the form and inputs using the IDs we just added
     const contactForm = document.getElementById("contact-form");
@@ -39,27 +41,16 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.classList.add("opacity-50", "cursor-not-allowed");
 
             try {
-                // NEW: Send data to our serverless function backend
-                const response = await fetch('/api/submit-form', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        formType: 'contact', // To identify the form on the backend
-                        name: userName,
-                        email: userEmail,
-                        subject: userSubject,
-                        message: userMessage,
-                    })
+                await addDoc(collection(db, 'contact'), {
+                    name: userName,
+                    email: userEmail,
+                    subject: userSubject,
+                    message: userMessage,
+                    timestamp: serverTimestamp()
                 });
-
-                if (!response.ok) {
-                    // If the server responds with an error, throw it to the catch block
-                    throw new Error('Server responded with an error.');
-                }
 
                 showFormMessage("Your message has been sent successfully! Our support team will respond shortly.", true);
                 contactForm.reset();
-
             } catch (error) {
                 // If it fails, log the error to the console and warn the user
                 console.error("Error adding document: ", error);

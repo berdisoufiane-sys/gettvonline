@@ -1,3 +1,5 @@
+import { db, collection, addDoc, serverTimestamp } from './firebase.js';
+
 document.addEventListener("DOMContentLoaded", () => {
   const trialForm = document.getElementById("trial-form");
   const submitButton = document.getElementById("trial-submit-btn");
@@ -59,27 +61,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch('/api/submit-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          formType: 'trial',
-          name: name,
-          email: email,
-          country: country,
-          plan: plan,
-          device: device,
-          macAddress: macAddress
-        })
+      await addDoc(collection(db, 'trial'), {
+        name: name,
+        email: email,
+        country: country,
+        plan: plan,
+        device: device,
+        macAddress: macAddress,
+        timestamp: serverTimestamp()
       });
-
-      if (!response.ok) {
-        throw new Error('Server responded with an error.');
-      }
 
       showFormMessage("Your trial request has been sent. Our team will contact you within 1-2 hours.", true);
       trialForm.reset();
-
     } catch (error) {
       console.error("Error submitting trial request:", error);
       showFormMessage("We could not send your request. Please try again shortly.", false);

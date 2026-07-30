@@ -1,3 +1,5 @@
+import { db, collection, addDoc, serverTimestamp } from './firebase.js';
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("channel-list-form");
   const emailInput = document.getElementById("channel-list-email");
@@ -31,23 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
     submitButton.classList.add("opacity-50", "cursor-not-allowed");
 
     try {
-      const response = await fetch('/api/submit-form', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          formType: 'channelList',
-          email: emailInput.value.trim(),
-          preferredRegion: regionInput.value.trim() || null,
-        })
+      await addDoc(collection(db, 'channelList'), {
+        email: emailInput.value.trim(),
+        preferredRegion: regionInput.value.trim() || null,
+        timestamp: serverTimestamp()
       });
-
-      if (!response.ok) {
-        throw new Error('Server responded with an error.');
-      }
 
       form.reset();
       showFormMessage("Your request has been sent. Our support team will email the channel-list information soon.", true);
-
     } catch (error) {
       console.error("Error requesting channel list:", error);
       showFormMessage("We could not send your request. Please try again shortly.", false);
