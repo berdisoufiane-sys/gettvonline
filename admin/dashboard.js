@@ -1,6 +1,13 @@
 import { auth, db, collection, getDocs, doc, deleteDoc } from '../assets/js/firebase.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+const formatDate = (timestamp) => {
+    if (!timestamp || !timestamp.seconds) {
+        return 'N/A';
+    }
+    return new Date(timestamp.seconds * 1000).toLocaleDateString();
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logout-button');
     const mainContent = document.querySelector('main');
@@ -54,10 +61,23 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadAllSubmissions() {
+    // Load Posts
+    loadAndDisplayData('posts', 'posts-body', (item) => `
+        <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700/50">
+            <td class="px-6 py-4">${formatDate(item.createdAt)}</td>
+            <td class="px-6 py-4 font-medium text-white">${item.title}</td>
+            <td class="px-6 py-4">${item.author || 'N/A'}</td>
+            <td class="px-6 py-4">
+                <a href="edit-post.html?id=${item.id}" class="text-blue-400 hover:text-blue-300 font-medium mr-4"><i class="fa-solid fa-pencil-alt mr-1"></i>Edit</a>
+                <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="posts"><i class="fa-solid fa-trash mr-1"></i>Delete</button>
+            </td>
+        </tr>
+    `);
+
     // Load Trial Requests
     loadAndDisplayData('trials', 'trial-requests-body', (item) => `
         <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700/50">
-            <td class="px-6 py-4">${new Date(item.timestamp.seconds * 1000).toLocaleDateString()}</td>
+            <td class="px-6 py-4">${formatDate(item.timestamp)}</td>
             <td class="px-6 py-4 font-medium text-white">${item.name}</td>
             <td class="px-6 py-4">${item.email}</td>
             <td class="px-6 py-4">${item.device}</td>
@@ -73,11 +93,38 @@ async function loadAllSubmissions() {
     // Load Contact Messages
     loadAndDisplayData('contacts', 'contact-messages-body', (item) => `
         <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700/50">
-            <td class="px-6 py-4">${new Date(item.timestamp.seconds * 1000).toLocaleDateString()}</td>
+            <td class="px-6 py-4">${formatDate(item.timestamp)}</td>
             <td class="px-6 py-4 font-medium text-white">${item.email}</td>
             <td class="px-6 py-4 max-w-sm truncate" title="${item.message}">${item.message}</td>
             <td class="px-6 py-4">
                 <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="contacts">
+                    <i class="fa-solid fa-trash mr-1"></i>Delete
+                </button>
+            </td>
+        </tr>
+    `);
+
+    // Load Newsletter Subscriptions
+    loadAndDisplayData('newsletter', 'newsletter-body', (item) => `
+        <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700/50">
+            <td class="px-6 py-4">${formatDate(item.timestamp)}</td>
+            <td class="px-6 py-4 font-medium text-white">${item.email}</td>
+            <td class="px-6 py-4">
+                <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="newsletter">
+                    <i class="fa-solid fa-trash mr-1"></i>Delete
+                </button>
+            </td>
+        </tr>
+    `);
+
+    // Load Channel List Requests
+    loadAndDisplayData('channelList', 'channel-list-body', (item) => `
+        <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700/50">
+            <td class="px-6 py-4">${formatDate(item.timestamp)}</td>
+            <td class="px-6 py-4 font-medium text-white">${item.email}</td>
+            <td class="px-6 py-4">${item.preferredRegion || 'N/A'}</td>
+            <td class="px-6 py-4">
+                <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="channelList">
                     <i class="fa-solid fa-trash mr-1"></i>Delete
                 </button>
             </td>

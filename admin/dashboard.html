@@ -24,21 +24,25 @@
                     <i class="fa-solid fa-tachometer-alt w-5 text-center"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition">
-                    <i class="fa-solid fa-envelope-open-text w-5 text-center"></i>
-                    <span>Contact Messages</span>
+                <a href="#posts-management" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition">
+                    <i class="fa-solid fa-file-alt w-5 text-center"></i>
+                    <span>Posts</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition">
-                    <i class="fa-solid fa-newspaper w-5 text-center"></i>
-                    <span>Newsletter</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition">
+                <a href="#trial-requests" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition">
                     <i class="fa-solid fa-ticket w-5 text-center"></i>
                     <span>Free Trials</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition">
-                    <i class="fa-solid fa-users w-5 text-center"></i>
-                    <span>Users</span>
+                <a href="#contact-messages" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition">
+                    <i class="fa-solid fa-envelope-open-text w-5 text-center"></i>
+                    <span>Contact Messages</span>
+                </a>
+                <a href="#newsletter-subscriptions" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition">
+                    <i class="fa-solid fa-newspaper w-5 text-center"></i>
+                    <span>Newsletter</span>
+                </a>
+                <a href="#channel-list-requests" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition">
+                    <i class="fa-solid fa-list-alt w-5 text-center"></i>
+                    <span>Channel Lists</span>
                 </a>
                 <a href="#" class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700 transition">
                     <i class="fa-solid fa-cog w-5 text-center"></i>
@@ -58,8 +62,33 @@
         <main class="flex-1 p-10">
             <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
             
+            <!-- Posts Section -->
+            <section id="posts-management" class="mb-12">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-semibold text-blue-400">Blog Posts</h2>
+                    <a href="edit-post.html" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg transition">
+                        <i class="fa-solid fa-plus mr-2"></i>Create New Post
+                    </a>
+                </div>
+                <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-300">
+                            <thead class="text-xs text-gray-400 uppercase bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Date</th>
+                                    <th scope="col" class="px-6 py-3">Title</th>
+                                    <th scope="col" class="px-6 py-3">Author</th>
+                                    <th scope="col" class="px-6 py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="posts-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
             <!-- Trial Requests Section -->
-            <section class="mb-12">
+            <section id="trial-requests" class="mb-12">
                 <h2 class="text-2xl font-semibold mb-4 text-blue-400">Free Trial Requests</h2>
                 <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
                     <div class="overflow-x-auto">
@@ -83,7 +112,7 @@
             </section>
 
             <!-- Contact Messages Section -->
-            <section class="mb-12">
+            <section id="contact-messages" class="mb-12">
                 <h2 class="text-2xl font-semibold mb-4 text-blue-400">Contact Messages</h2>
                 <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
                     <div class="overflow-x-auto">
@@ -99,6 +128,45 @@
                             <tbody id="contact-messages-body">
                                 <!-- Rows will be inserted here by JavaScript -->
                             </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newsletter Subscriptions Section -->
+            <section id="newsletter-subscriptions" class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-400">Newsletter Subscriptions</h2>
+                <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-300">
+                            <thead class="text-xs text-gray-400 uppercase bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Date</th>
+                                    <th scope="col" class="px-6 py-3">Email</th>
+                                    <th scope="col" class="px-6 py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="newsletter-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Channel List Requests Section -->
+            <section id="channel-list-requests" class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-400">Channel List Requests</h2>
+                <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-300">
+                            <thead class="text-xs text-gray-400 uppercase bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Date</th>
+                                    <th scope="col" class="px-6 py-3">Email</th>
+                                    <th scope="col" class="px-6 py-3">Region</th>
+                                    <th scope="col" class="px-6 py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="channel-list-body"></tbody>
                         </table>
                     </div>
                 </div>
