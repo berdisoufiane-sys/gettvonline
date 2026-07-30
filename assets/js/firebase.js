@@ -10,6 +10,8 @@ import {
   getDoc,
   updateDoc,
   serverTimestamp,
+  query,
+  orderBy,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
@@ -28,4 +30,4 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
 
-export { db, auth, storage, collection, addDoc, getDocs, doc, deleteDoc, getDoc, updateDoc, serverTimestamp, storageRef, uploadBytes, getDownloadURL };
+export { db, auth, storage, collection, addDoc, getDocs, doc, deleteDoc, getDoc, updateDoc, serverTimestamp, storageRef, uploadBytes, getDownloadURL, query, orderBy };

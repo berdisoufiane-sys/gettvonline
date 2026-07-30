@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <h2 class="text-2xl font-bold mb-2 hover:text-blue-400 cursor-pointer">${post.title}</h2>
                     <p class="text-sm text-gray-500 mb-4">Published on ${postDate} by ${post.author || 'Anonymous'}</p>
                     <p class="text-gray-300 mb-4">${snippet}</p>
-                    <a href="#" class="text-blue-500 font-bold">Read More →</a>
+                    <a href="post.html?id=${postId}" class="text-blue-500 font-bold">Read More →</a>
                 </article>
             `;
         });
