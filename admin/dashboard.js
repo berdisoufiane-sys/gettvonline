@@ -64,6 +64,9 @@ async function loadAllSubmissions() {
     // Load Posts
     loadAndDisplayData('posts', 'posts-body', (item) => `
         <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700/50">
+            <td class="px-6 py-4">
+                ${item.imageUrl ? `<img src="${item.imageUrl}" alt="Cover" class="h-10 w-16 object-cover rounded">` : 'No Image'}
+            </td>
             <td class="px-6 py-4">${formatDate(item.createdAt)}</td>
             <td class="px-6 py-4 font-medium text-white">${item.title}</td>
             <td class="px-6 py-4">${item.author || 'N/A'}</td>

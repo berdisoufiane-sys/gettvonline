@@ -11,7 +11,7 @@ import {
   updateDoc,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDa4XAodIoKBkcWBB5JQLgIuPEQ7QH8S9c",
@@ -28,4 +28,4 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
 
-export { db, auth, storage, collection, addDoc, getDocs, doc, deleteDoc, getDoc, updateDoc, serverTimestamp };
+export { db, auth, storage, collection, addDoc, getDocs, doc, deleteDoc, getDoc, updateDoc, serverTimestamp, storageRef, uploadBytes, getDownloadURL };

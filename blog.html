@@ -22,25 +22,15 @@
     <main class="flex-grow container mx-auto px-6 py-20 max-w-4xl">
         <h1 class="text-4xl font-bold text-center mb-12">GetTV Tech Blog</h1>
 
-        <div class="space-y-8">
-            <article class="bg-gray-800 p-6 rounded-xl border border-gray-700">
-                <h2 class="text-2xl font-bold mb-2 hover:text-blue-400 cursor-pointer">How to Fix Buffering on Smart TVs (2026 Guide)</h2>
-                <p class="text-sm text-gray-500 mb-4">Published: July 20, 2026</p>
-                <p class="text-gray-300 mb-4">Buffering is the enemy of cord-cutters. Learn how to optimize your router settings, clear your device cache, and ensure you are getting the most out of your bandwidth...</p>
-                <a href="#" class="text-blue-500 font-bold">Read More →</a>
-            </article>
-
-            <article class="bg-gray-800 p-6 rounded-xl border border-gray-700">
-                <h2 class="text-2xl font-bold mb-2 hover:text-blue-400 cursor-pointer">The Best Media Players for Android Devices</h2>
-                <p class="text-sm text-gray-500 mb-4">Published: July 15, 2026</p>
-                <p class="text-gray-300 mb-4">Not all media players are built the same. We review the top lightweight, fast, and feature-rich player applications to use with your subscription...</p>
-                <a href="#" class="text-blue-500 font-bold">Read More →</a>
-            </article>
+        <!-- Container for dynamic blog posts -->
+        <div id="blog-posts-container" class="space-y-8">
+            <!-- Blog posts will be injected here by JavaScript -->
         </div>
     </main>
 
   <div id="footer-placeholder"></div>
    <script type="module" src="assets/js/firebase.js"></script>
     <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/blog.js"></script>
 </body>
 </html>
