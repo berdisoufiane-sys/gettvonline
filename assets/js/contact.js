@@ -43,13 +43,23 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.classList.add("opacity-50", "cursor-not-allowed");
 
             try {
-                await addDoc(collection(db, 'contact'), {
-                    name: userName,
-                    email: userEmail,
-                    subject: userSubject,
-                    message: userMessage,
-                    timestamp: serverTimestamp()
+                // NEW: Send data to our serverless function backend
+                const response = await fetch('/api/submit-form', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        formType: 'contact', // To identify the form on the backend
+                        name: userName,
+                        email: userEmail,
+                        subject: userSubject,
+                        message: userMessage,
+                    })
                 });
+
+                if (!response.ok) {
+                    // If the server responds with an error, throw it to the catch block
+                    throw new Error('Server responded with an error.');
+                }
 
                 showFormMessage("Your message has been sent successfully! Our support team will respond shortly.", true);
                 contactForm.reset();

@@ -61,15 +61,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      await addDoc(collection(db, 'trial'), {
-        name: name,
-        email: email,
-        country: country,
-        plan: plan,
-        device: device,
-        macAddress: macAddress,
-        timestamp: serverTimestamp()
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'trial',
+          name: name,
+          email: email,
+          country: country,
+          plan: plan,
+          device: device,
+          macAddress: macAddress
+        })
       });
+
+      if (!response.ok) {
+        throw new Error('Server responded with an error.');
+      }
 
       showFormMessage("Your trial request has been sent. Our team will contact you within 1-2 hours.", true);
       trialForm.reset();

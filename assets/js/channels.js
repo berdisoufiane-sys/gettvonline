@@ -33,11 +33,19 @@ document.addEventListener("DOMContentLoaded", () => {
     submitButton.classList.add("opacity-50", "cursor-not-allowed");
 
     try {
-      await addDoc(collection(db, 'channelList'), {
-        email: emailInput.value.trim(),
-        preferredRegion: regionInput.value.trim() || null,
-        timestamp: serverTimestamp()
+      const response = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'channelList',
+          email: emailInput.value.trim(),
+          preferredRegion: regionInput.value.trim() || null,
+        })
       });
+
+      if (!response.ok) {
+        throw new Error('Server responded with an error.');
+      }
 
       form.reset();
       showFormMessage("Your request has been sent. Our support team will email the channel-list information soon.", true);

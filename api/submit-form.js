@@ -57,7 +57,7 @@ export default async function handler(req, res) {
 
     switch (formData.formType) {
       case 'contact':
-        collectionName = 'contacts';
+        collectionName = 'contact';
         emailSubject = `New Contact Message: ${formData.subject || 'No Subject'}`;
         emailHtmlContent = `
           <p>You have a new contact message:</p>
@@ -69,7 +69,7 @@ export default async function handler(req, res) {
           </ul>`;
         break;
       case 'trial':
-        collectionName = 'trialRequests';
+        collectionName = 'trial';
         emailSubject = `New Free Trial Request from ${formData.name}`;
 
         // Conditionally add MAC address if the device is a MAG box
@@ -95,7 +95,7 @@ export default async function handler(req, res) {
         emailHtmlContent = `<p>A new user has subscribed: <strong>${formData.email}</strong></p>`;
         break;
       case 'channelList':
-        collectionName = 'channelListRequests';
+        collectionName = 'channelList';
         emailSubject = `Channel List Request from ${formData.email}`;
         emailHtmlContent = `<p>A user requested the channel list:</p>
           <ul>
@@ -110,7 +110,7 @@ export default async function handler(req, res) {
     // 3. Save the data to Firestore
     await db.collection(collectionName).add({
       ...formData,
-      createdAt: new Date(),
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
       status: 'new' // A consistent status for all submissions
     });
 
