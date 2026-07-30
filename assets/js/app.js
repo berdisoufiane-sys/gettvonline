@@ -1,3 +1,5 @@
+import { db, collection, addDoc, serverTimestamp } from './firebase.js';
+
 function setupNewsletterForm() {
     const newsletterForm = document.getElementById("newsletter-form");
     const emailInput = document.getElementById("newsletter-email");
@@ -15,18 +17,10 @@ function setupNewsletterForm() {
         submitButton.classList.add("opacity-50", "cursor-not-allowed");
 
         try {
-            const response = await fetch('/api/submit-form', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    formType: 'newsletter',
-                    email: emailInput.value.trim(),
-                })
+            await addDoc(collection(db, 'newsletter'), {
+                email: emailInput.value.trim(),
+                timestamp: serverTimestamp()
             });
-
-            if (!response.ok) {
-                throw new Error('Server responded with an error.');
-            }
 
             newsletterForm.reset();
 
