@@ -1,4 +1,4 @@
-import { auth, db, collection, getDocs, doc, deleteDoc } from '../assets/js/firebase.js';
+import { auth, db, collection, getDocs, doc, deleteDoc, query, orderBy } from '../assets/js/firebase.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const formatDate = (timestamp) => {
@@ -145,7 +145,9 @@ async function loadAndDisplayData(collectionName, tableBodyId, rowTemplate) {
     if (!tableBody) return;
 
     try {
-        const querySnapshot = await getDocs(collection(db, collectionName));
+        // Order posts by creation date, newest first. Other collections are not ordered.
+        const dataQuery = collectionName === 'posts' ? query(collection(db, collectionName), orderBy("createdAt", "desc")) : query(collection(db, collectionName));
+        const querySnapshot = await getDocs(dataQuery);
         if (querySnapshot.empty) {
             tableBody.innerHTML = `<tr><td colspan="100%" class="text-center py-4 text-gray-500">No entries found.</td></tr>`;
             return;

@@ -128,19 +128,24 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             let imageUrl = postImageUrl; // Keep existing image URL by default
 
-            // If a new image is selected, upload it
-            if (imageFile) {
-                const imageRef = storageRef(storage, `posts/${Date.now()}_${imageFile.name}`);
-                const snapshot = await uploadBytes(imageRef, imageFile);
-                imageUrl = await getDownloadURL(snapshot.ref);
+            if (removeImage) {
+                imageUrl = null;
+            } else if (imageFile) {
+                // If a new image is selected, upload it
+                try {
+                    const imageRef = storageRef(storage, `posts/${Date.now()}_${imageFile.name}`);
+                    const snapshot = await uploadBytes(imageRef, imageFile);
+                    imageUrl = await getDownloadURL(snapshot.ref);
+                } catch (uploadError) {
+                    console.error("Image upload failed: ", uploadError);
+                    alert('Image upload failed. Post was not saved.');
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = 'Save Post';
+                    return; // Stop the save process
+                }
             }
 
-            const postData = {
-                title,
-                author,
-                content,
-                imageUrl // This will be the new URL, the existing one, or null
-            };
+            const postData = { title, author, content, status, imageUrl };
 
             if (postId) {
                 postData.updatedAt = serverTimestamp();
