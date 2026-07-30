@@ -71,6 +71,11 @@ async function loadAllSubmissions() {
             <td class="px-6 py-4 font-medium text-white">${item.title}</td>
             <td class="px-6 py-4">${item.author || 'N/A'}</td>
             <td class="px-6 py-4">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${item.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}">
+                    ${item.status === 'published' ? 'Published' : 'Draft'}
+                </span>
+            </td>
+            <td class="px-6 py-4">
                 <a href="edit-post.html?id=${item.id}" class="text-blue-400 hover:text-blue-300 font-medium mr-4"><i class="fa-solid fa-pencil-alt mr-1"></i>Edit</a>
                 <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="posts"><i class="fa-solid fa-trash mr-1"></i>Delete</button>
             </td>

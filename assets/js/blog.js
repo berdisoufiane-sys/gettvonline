@@ -1,4 +1,4 @@
-import { db, collection, getDocs, query, orderBy } from './firebase.js';
+import { db, collection, getDocs, query, orderBy, where } from './firebase.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const postsContainer = document.getElementById('blog-posts-container');
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     postsContainer.innerHTML = '<p class="text-center text-gray-400">Loading posts...</p>';
 
     try {
-        const postsQuery = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
+        const postsQuery = query(collection(db, 'posts'), where('status', '==', 'published'), orderBy('createdAt', 'desc'));
         const querySnapshot = await getDocs(postsQuery);
 
         if (querySnapshot.empty) {
