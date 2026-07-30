@@ -102,7 +102,7 @@ async function loadAndDisplayData(collectionName, tableBodyId, rowTemplate) {
         });
         tableBody.innerHTML = rowsHtml;
     } catch (error) {
-        console.error(\`Error loading ${collectionName}:\`, error);
+        console.error(`Error loading ${collectionName}:`, error);
         tableBody.innerHTML = `<tr><td colspan="100%" class="text-center py-4 text-red-500">Error loading data.</td></tr>`;
     }
 }
