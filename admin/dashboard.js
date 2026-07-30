@@ -75,7 +75,7 @@ async function loadAllSubmissions() {
     `);
 
     // Load Trial Requests
-    loadAndDisplayData('trials', 'trial-requests-body', (item) => `
+    loadAndDisplayData('trial', 'trial-requests-body', (item) => `
         <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700/50">
             <td class="px-6 py-4">${formatDate(item.timestamp)}</td>
             <td class="px-6 py-4 font-medium text-white">${item.name}</td>
@@ -83,7 +83,7 @@ async function loadAllSubmissions() {
             <td class="px-6 py-4">${item.device}</td>
             <td class="px-6 py-4">${item.country}</td>
             <td class="px-6 py-4">
-                <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="trials">
+                <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="trial">
                     <i class="fa-solid fa-trash mr-1"></i>Delete
                 </button>
             </td>
@@ -91,13 +91,13 @@ async function loadAllSubmissions() {
     `);
 
     // Load Contact Messages
-    loadAndDisplayData('contacts', 'contact-messages-body', (item) => `
+    loadAndDisplayData('contact', 'contact-messages-body', (item) => `
         <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700/50">
             <td class="px-6 py-4">${formatDate(item.timestamp)}</td>
             <td class="px-6 py-4 font-medium text-white">${item.email}</td>
             <td class="px-6 py-4 max-w-sm truncate" title="${item.message}">${item.message}</td>
             <td class="px-6 py-4">
-                <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="contacts">
+                <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="contact">
                     <i class="fa-solid fa-trash mr-1"></i>Delete
                 </button>
             </td>
