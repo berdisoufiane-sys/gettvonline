@@ -1,32 +1,32 @@
-import { auth } from '../../assets/js/firebase.js';
+import { auth } from '../assets/js/firebase.js';
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const loginForm = document.getElementById('login-form');
-const loginButton = document.getElementById('login-button');
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    if (!loginForm) return;
 
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    const loginButton = document.getElementById('login-button');
 
-    const email = loginForm.email.value;
-    const password = loginForm.password.value;
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    // Disable button and show loading state
-    const originalButtonText = loginButton.innerHTML;
-    loginButton.innerHTML = 'Signing In...';
-    loginButton.disabled = true;
+        const email = loginForm.email.value;
+        const password = loginForm.password.value;
 
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        // Signed in 
-        const user = userCredential.user;
-        // Redirect to dashboard
-        window.location.href = 'dashboard.html';
-    } catch (error) {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(`Login Failed: ${errorMessage}`);
-        // Restore button
-        loginButton.innerHTML = originalButtonText;
-        loginButton.disabled = false;
-    }
+        // Disable button and show loading state
+        const originalButtonText = loginButton.innerHTML;
+        loginButton.innerHTML = 'Signing In...';
+        loginButton.disabled = true;
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            // Redirect to dashboard on success
+            window.location.href = 'dashboard.html';
+        } catch (error) {
+            alert(`Login Failed: ${error.message}`);
+            // Restore button
+            loginButton.innerHTML = originalButtonText;
+            loginButton.disabled = false;
+        }
+    });
 });

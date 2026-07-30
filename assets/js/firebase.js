@@ -4,6 +4,9 @@ import {
   getFirestore,
   collection,
   addDoc,
+  getDocs,
+  doc,
+  deleteDoc,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
@@ -22,4 +25,4 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
 
-export { db, auth, storage, collection, addDoc };
+export { db, auth, storage, collection, addDoc, getDocs, doc, deleteDoc };

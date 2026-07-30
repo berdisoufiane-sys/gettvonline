@@ -57,11 +57,56 @@
         <!-- Main Content -->
         <main class="flex-1 p-10">
             <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
-            <!-- Dashboard content will go here -->
+            
+            <!-- Trial Requests Section -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-400">Free Trial Requests</h2>
+                <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-300">
+                            <thead class="text-xs text-gray-400 uppercase bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Date</th>
+                                    <th scope="col" class="px-6 py-3">Name</th>
+                                    <th scope="col" class="px-6 py-3">Email</th>
+                                    <th scope="col" class="px-6 py-3">Device</th>
+                                    <th scope="col" class="px-6 py-3">Country</th>
+                                    <th scope="col" class="px-6 py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trial-requests-body">
+                                <!-- Rows will be inserted here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Messages Section -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 text-blue-400">Contact Messages</h2>
+                <div class="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-300">
+                            <thead class="text-xs text-gray-400 uppercase bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Date</th>
+                                    <th scope="col" class="px-6 py-3">Email</th>
+                                    <th scope="col" class="px-6 py-3">Message</th>
+                                    <th scope="col" class="px-6 py-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contact-messages-body">
+                                <!-- Rows will be inserted here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
-    <script type="module" src="../assets/js/firebase.js"></script>
-    <script type="module" src="assets/js/dashboard.js"></script>
+<script type="module" src="../assets/js/firebase.js"></script>
+<script type="module" src="dashboard.js"></script>
 </body>
 </html>
