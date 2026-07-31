@@ -166,23 +166,29 @@ function initializeCookieConsent() {
  * Initializes the Tawk.to widget and adjusts its size for mobile devices.
  */
 function initializeTawkToWidget() {
-    // The Tawk_API object is created by the Tawk.to script.
-    // If it doesn't exist, the script isn't on this page.
-    if (typeof Tawk_API === 'undefined') {
-        return;
-    }
+    // This needs to be defined before the Tawk.to script loads to ensure
+    // the onBeforeLoad event is captured.
+    window.Tawk_API = window.Tawk_API || {};
 
-    // This function will be called once the widget is loaded
-    Tawk_API.onLoad = function() {
-        // Check if on a mobile device (e.g., screen width <= 768px)
+    // Use onBeforeLoad to set attributes *before* the widget is rendered.
+    // This prevents the large widget from flashing on mobile before resizing.
+    window.Tawk_API.onBeforeLoad = function() {
         if (window.innerWidth <= 768) {
-            // This makes the chat window take up a percentage of the screen, which is much better for mobile.
             Tawk_API.setAttributes({
                 "mobile-browser-visitor-chat-width" : "85vw",
                 "mobile-browser-visitor-chat-height" : "80vh",
             });
         }
     };
+
+    // In case the Tawk.to script has already loaded and `onBeforeLoad` has fired,
+    // we check if the API is ready and apply the attributes directly.
+    if (typeof Tawk_API.setAttributes === 'function' && window.innerWidth <= 768) {
+        Tawk_API.setAttributes({
+            "mobile-browser-visitor-chat-width" : "85vw",
+            "mobile-browser-visitor-chat-height" : "80vh",
+        });
+    }
 }
 
 /**
