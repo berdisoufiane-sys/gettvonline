@@ -23,12 +23,8 @@
     
     <link rel="icon" type="image/svg+xml" href="assets/images/favlogo2.svg">
     <link rel="stylesheet" href="assets/css/style.css">
-    
-    <!-- THIS IS THE LINE YOU ARE MISSING ON THE OTHER PAGES -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Make sure Tailwind is on every page too -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white font-sans antialiased flex flex-col min-h-screen">
 
@@ -65,11 +61,11 @@
         </div>
 
         <section class="mt-12 grid md:grid-cols-2 gap-6">
-            <article class="bg-gradient-to-br from-green-500/20 to-gray-800 border border-green-500/40 rounded-2xl p-7">
+            <article class="bg-gradient-to-br from-green-500 to-gray-800 border border-green-500 border-opacity-40 rounded-2xl p-7">
                 <div class="w-12 h-12 grid place-items-center rounded-xl bg-green-500 text-2xl mb-5"><i class="fa-brands fa-whatsapp"></i></div>
                 <h2 class="text-2xl font-bold">Need live setup help?</h2>
                 <p class="text-gray-300 mt-3">Chat with our support team on WhatsApp if you need help installing your player, entering your details, or getting started.</p>
-                <a href="https://wa.me/1234567890?text=Hello%20GetTV%20support%2C%20I%20need%20help%20with%20my%20device%20setup." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-5 py-3 rounded-lg transition mt-6">
+                <a href="https://wa.me/1234567890?text=Hello%20GetTV%20support%2C%20I%20need%20help%20with%20my%20device%20setup." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-gray-900 font-bold px-5 py-3 rounded-lg transition mt-6">
                     <i class="fa-brands fa-whatsapp text-xl"></i> Chat on WhatsApp
                 </a>
             </article>
@@ -86,8 +82,8 @@
     </main>
 
     <div id="footer-placeholder"></div>
-   <script type="module" src="assets/js/firebase.js"></script>
-    <script type="module" src="assets/js/app.js"></script>
+   <script type="module" src="assets/js/firebase.js" defer></script>
+    <script type="module" src="assets/js/app.js" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",

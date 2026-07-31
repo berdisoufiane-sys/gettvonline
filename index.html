@@ -24,12 +24,8 @@
     
     <link rel="icon" type="image/png" href="assets/images/favlogo2.svg">
     <link rel="stylesheet" href="assets/css/style.css">
-    
-    <!-- THIS IS THE LINE YOU ARE MISSING ON THE OTHER PAGES -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Make sure Tailwind is on every page too -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white font-sans antialiased flex flex-col min-h-screen">
 
@@ -45,8 +41,8 @@
                 <h1 class="text-5xl md:text-7xl font-extrabold mb-6 text-white drop-shadow-lg">Next-Generation <span class="text-blue-500">Media Routing.</span></h1>
                 <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto drop-shadow">Fast, secure, and compatible with all your favorite media players. Experience seamless connectivity with 99.9% uptime.</p>
                 <div class="space-x-4">
-                    <a href="pricing.html" class="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-lg font-bold text-lg transition inline-block shadow-lg shadow-blue-500/30">View Plans</a>
-                    <a href="channels.html" class="bg-gray-800/80 backdrop-blur hover:bg-gray-700 border border-gray-600 px-8 py-4 rounded-lg font-bold text-lg transition inline-block text-white">View Categories</a>
+                    <a href="pricing.html" class="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-lg font-bold text-lg transition inline-block shadow-lg">View Plans</a>
+                    <a href="channels.html" class="bg-gray-800 bg-opacity-80 backdrop-blur hover:bg-gray-700 border border-gray-600 px-8 py-4 rounded-lg font-bold text-lg transition inline-block text-white">View Categories</a>
                 </div>
             </div>
         </header>
@@ -58,20 +54,20 @@
             <div class="scroller">
                 <div class="scroller__inner text-gray-400">
                     <!-- Set 1 (Replace src with your custom AI sports graphics) -->
-                    <img src="https://placehold.co/400x600/1e3a8a/ffffff?text=Football+Graphic" alt="Football" class="carousel-image">
-                    <img src="https://placehold.co/400x600/1e40af/ffffff?text=Basketball+Graphic" alt="Basketball" class="carousel-image">
-                    <img src="https://placehold.co/400x600/1d4ed8/ffffff?text=MMA+Action" alt="MMA" class="carousel-image">
-                    <img src="https://placehold.co/400x600/2563eb/ffffff?text=Racing+Graphic" alt="Racing" class="carousel-image">
-                    <img src="https://placehold.co/400x600/3b82f6/ffffff?text=Tennis+Graphic" alt="Tennis" class="carousel-image">
-                    <img src="https://placehold.co/400x600/60a5fa/ffffff?text=Boxing+PPV" alt="Boxing" class="carousel-image">
+                    <img src="https://placehold.co/400x600/1e3a8a/ffffff?text=Football+Graphic" alt="Football" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="https://placehold.co/400x600/1e40af/ffffff?text=Basketball+Graphic" alt="Basketball" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="https://placehold.co/400x600/1d4ed8/ffffff?text=MMA+Action" alt="MMA" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="https://placehold.co/400x600/2563eb/ffffff?text=Racing+Graphic" alt="Racing" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="https://placehold.co/400x600/3b82f6/ffffff?text=Tennis+Graphic" alt="Tennis" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="https://placehold.co/400x600/60a5fa/ffffff?text=Boxing+PPV" alt="Boxing" class="carousel-image" loading="lazy" decoding="async">
                     
                     <!-- Set 2 (Duplicated exactly for seamless infinite loop) -->
-                    <img src="https://placehold.co/400x600/1e3a8a/ffffff?text=Football+Graphic" alt="Football" class="carousel-image">
-                    <img src="https://placehold.co/400x600/1e40af/ffffff?text=Basketball+Graphic" alt="Basketball" class="carousel-image">
-                    <img src="https://placehold.co/400x600/1d4ed8/ffffff?text=MMA+Action" alt="MMA" class="carousel-image">
-                    <img src="https://placehold.co/400x600/2563eb/ffffff?text=Racing+Graphic" alt="Racing" class="carousel-image">
-                    <img src="https://placehold.co/400x600/3b82f6/ffffff?text=Tennis+Graphic" alt="Tennis" class="carousel-image">
-                    <img src="https://placehold.co/400x600/60a5fa/ffffff?text=Boxing+PPV" alt="Boxing" class="carousel-image">
+                    <img src="https://placehold.co/400x600/1e3a8a/ffffff?text=Football+Graphic" alt="Football" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="https://placehold.co/400x600/1e40af/ffffff?text=Basketball+Graphic" alt="Basketball" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="https://placehold.co/400x600/1d4ed8/ffffff?text=MMA+Action" alt="MMA" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="https://placehold.co/400x600/2563eb/ffffff?text=Racing+Graphic" alt="Racing" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="https://placehold.co/400x600/3b82f6/ffffff?text=Tennis+Graphic" alt="Tennis" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="https://placehold.co/400x600/60a5fa/ffffff?text=Boxing+PPV" alt="Boxing" class="carousel-image" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
@@ -84,20 +80,20 @@
                 <!-- data-direction="right" makes this row scroll in the opposite direction for a cooler effect -->
                 <div class="scroller__inner text-gray-400" data-direction="right">
                     <!-- Set 1 (Replace src with your custom AI cinematic posters) -->
-                    <img src="assets/images/livetv.svg" alt="Action" class="carousel-image">
-                    <img src="assets/images/buytv.webp" alt="Sci-Fi" class="carousel-image">
-                    <img src="assets/images/smartv.webp" alt="Comedy" class="carousel-image">
-                    <img src="assets/images/gettvonline.webp" alt="Drama" class="carousel-image">
-                    <img src="assets/images/streamtv.webp" alt="Thriller" class="carousel-image">
-                    <img src="assets/images/onlinetv.webp" alt="Doc" class="carousel-image">
+                    <img src="assets/images/livetv.svg" alt="Action" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="assets/images/buytv.webp" alt="Sci-Fi" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="assets/images/smartv.webp" alt="Comedy" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="assets/images/gettvonline.webp" alt="Drama" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="assets/images/streamtv.webp" alt="Thriller" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="assets/images/onlinetv.webp" alt="Doc" class="carousel-image" loading="lazy" decoding="async">
                     
                     <!-- Set 2 (Duplicated exactly for seamless infinite loop) -->
-                    <img src="assets/images/livetv.webp" alt="Action" class="carousel-image">
-                    <img src="assets/images/buytv.webp" alt="Sci-Fi" class="carousel-image">
-                    <img src="assets/images/smartv.webp" alt="Comedy" class="carousel-image">
-                    <img src="assets/images/gettvonline.webp" alt="Drama" class="carousel-image">
-                    <img src="assets/images/streamtv.webp" alt="Thriller" class="carousel-image">
-                    <img src="assets/images/onlinetv.webp" alt="Doc" class="carousel-image">
+                    <img src="assets/images/livetv.webp" alt="Action" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="assets/images/buytv.webp" alt="Sci-Fi" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="assets/images/smartv.webp" alt="Comedy" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="assets/images/gettvonline.webp" alt="Drama" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="assets/images/streamtv.webp" alt="Thriller" class="carousel-image" loading="lazy" decoding="async">
+                    <img src="assets/images/onlinetv.webp" alt="Doc" class="carousel-image" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
@@ -111,25 +107,25 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                <article class="relative bg-gray-800/60 border border-gray-700 rounded-2xl p-7 text-center hover:border-blue-500/70 transition">
+                <article class="relative bg-gray-800 bg-opacity-60 border border-gray-700 rounded-2xl p-7 text-center hover:border-blue-500 hover:border-opacity-70 transition">
                     <span class="absolute -top-4 left-1/2 -translate-x-1/2 w-9 h-9 grid place-items-center rounded-full bg-blue-600 font-bold border-4 border-gray-900">1</span>
-                    <div class="w-14 h-14 mx-auto mt-3 mb-5 grid place-items-center rounded-xl bg-blue-500/10 text-blue-400 text-2xl"><i class="fa-solid fa-tv"></i></div>
+                    <div class="w-14 h-14 mx-auto mt-3 mb-5 grid place-items-center rounded-xl bg-blue-500 bg-opacity-10 text-blue-400 text-2xl"><i class="fa-solid fa-tv"></i></div>
                     <h3 class="text-xl font-bold">Choose your plan</h3>
                     <p class="text-gray-400 text-sm mt-3">Browse the available GetTV.online options and select the plan that suits your viewing needs.</p>
                     <a href="pricing.html" class="inline-block text-blue-400 hover:text-blue-300 font-semibold text-sm mt-5">View plans <i class="fa-solid fa-arrow-right ml-1"></i></a>
                 </article>
 
-                <article class="relative bg-gray-800/60 border border-gray-700 rounded-2xl p-7 text-center hover:border-blue-500/70 transition">
+                <article class="relative bg-gray-800 bg-opacity-60 border border-gray-700 rounded-2xl p-7 text-center hover:border-blue-500 hover:border-opacity-70 transition">
                     <span class="absolute -top-4 left-1/2 -translate-x-1/2 w-9 h-9 grid place-items-center rounded-full bg-blue-600 font-bold border-4 border-gray-900">2</span>
-                    <div class="w-14 h-14 mx-auto mt-3 mb-5 grid place-items-center rounded-xl bg-blue-500/10 text-blue-400 text-2xl"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                    <div class="w-14 h-14 mx-auto mt-3 mb-5 grid place-items-center rounded-xl bg-blue-500 bg-opacity-10 text-blue-400 text-2xl"><i class="fa-solid fa-mobile-screen-button"></i></div>
                     <h3 class="text-xl font-bold">Pick your device</h3>
                     <p class="text-gray-400 text-sm mt-3">Use your compatible Smart TV, Android device, Fire TV, phone, tablet, or media player.</p>
                     <a href="tutorial.html" class="inline-block text-blue-400 hover:text-blue-300 font-semibold text-sm mt-5">See the setup guide <i class="fa-solid fa-arrow-right ml-1"></i></a>
                 </article>
 
-                <article class="relative bg-gray-800/60 border border-gray-700 rounded-2xl p-7 text-center hover:border-blue-500/70 transition">
+                <article class="relative bg-gray-800 bg-opacity-60 border border-gray-700 rounded-2xl p-7 text-center hover:border-blue-500 hover:border-opacity-70 transition">
                     <span class="absolute -top-4 left-1/2 -translate-x-1/2 w-9 h-9 grid place-items-center rounded-full bg-blue-600 font-bold border-4 border-gray-900">3</span>
-                    <div class="w-14 h-14 mx-auto mt-3 mb-5 grid place-items-center rounded-xl bg-blue-500/10 text-blue-400 text-2xl"><i class="fa-solid fa-circle-play"></i></div>
+                    <div class="w-14 h-14 mx-auto mt-3 mb-5 grid place-items-center rounded-xl bg-blue-500 bg-opacity-10 text-blue-400 text-2xl"><i class="fa-solid fa-circle-play"></i></div>
                     <h3 class="text-xl font-bold">Start watching</h3>
                     <p class="text-gray-400 text-sm mt-3">Follow the simple instructions you receive, then enjoy a smooth experience on your chosen device.</p>
                     <a href="trial.html" class="inline-block text-blue-400 hover:text-blue-300 font-semibold text-sm mt-5">Request a free trial <i class="fa-solid fa-arrow-right ml-1"></i></a>
@@ -147,27 +143,27 @@
                 </div>
 
                 <div class="space-y-3">
-                    <details class="group bg-gray-800/60 border border-gray-700 rounded-xl p-5">
+                    <details class="group bg-gray-800 bg-opacity-60 border border-gray-700 rounded-xl p-5">
                         <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-white">What is IPTV?<i class="fa-solid fa-plus text-blue-400 transition group-open:rotate-45"></i></summary>
                         <p class="text-gray-400 text-sm leading-6 mt-4">IPTV is a way of delivering television content through an internet connection instead of a traditional cable or satellite signal. Your experience depends on your internet connection, device, and the service you choose.</p>
                     </details>
-                    <details class="group bg-gray-800/60 border border-gray-700 rounded-xl p-5">
+                    <details class="group bg-gray-800 bg-opacity-60 border border-gray-700 rounded-xl p-5">
                         <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-white">What do I need to get TV online?<i class="fa-solid fa-plus text-blue-400 transition group-open:rotate-45"></i></summary>
                         <p class="text-gray-400 text-sm leading-6 mt-4">You need a stable internet connection, a compatible device, and a service plan. Many people use a Smart TV, Android device, Fire TV device, smartphone, tablet, or media player.</p>
                     </details>
-                    <details class="group bg-gray-800/60 border border-gray-700 rounded-xl p-5">
+                    <details class="group bg-gray-800 bg-opacity-60 border border-gray-700 rounded-xl p-5">
                         <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-white">Which devices are compatible with GetTV.online?<i class="fa-solid fa-plus text-blue-400 transition group-open:rotate-45"></i></summary>
                         <p class="text-gray-400 text-sm leading-6 mt-4">GetTV.online is designed for popular compatible devices, including Smart TVs, Android devices, Fire TV devices, phones, tablets, and supported media players. Contact support if you need help checking a specific device.</p>
                     </details>
-                    <details class="group bg-gray-800/60 border border-gray-700 rounded-xl p-5">
+                    <details class="group bg-gray-800 bg-opacity-60 border border-gray-700 rounded-xl p-5">
                         <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-white">How fast should my internet be for IPTV?<i class="fa-solid fa-plus text-blue-400 transition group-open:rotate-45"></i></summary>
                         <p class="text-gray-400 text-sm leading-6 mt-4">A reliable connection matters more than the advertised maximum speed. For best results, use a stable connection, reduce competing downloads, and connect by Ethernet where possible.</p>
                     </details>
-                    <details class="group bg-gray-800/60 border border-gray-700 rounded-xl p-5">
+                    <details class="group bg-gray-800 bg-opacity-60 border border-gray-700 rounded-xl p-5">
                         <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-white">Can I try GetTV.online before choosing a plan?<i class="fa-solid fa-plus text-blue-400 transition group-open:rotate-45"></i></summary>
                         <p class="text-gray-400 text-sm leading-6 mt-4">Yes. You can request a free trial to check compatibility and setup on your device before choosing a plan. Trial requests are reviewed by the support team.</p>
                     </details>
-                    <details class="group bg-gray-800/60 border border-gray-700 rounded-xl p-5">
+                    <details class="group bg-gray-800 bg-opacity-60 border border-gray-700 rounded-xl p-5">
                         <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-white">Is IPTV legal?<i class="fa-solid fa-plus text-blue-400 transition group-open:rotate-45"></i></summary>
                         <p class="text-gray-400 text-sm leading-6 mt-4">The technology itself is legal. Users must ensure that they have the right to access the content they watch and should follow all applicable laws and content licensing requirements in their location.</p>
                     </details>
@@ -177,15 +173,15 @@
 
         <!-- Features -->
         <section class="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center border-t border-gray-800">
-            <div class="p-6 bg-gray-800/50 rounded-xl hover:bg-gray-800 transition">
+            <div class="p-6 bg-gray-800 bg-opacity-50 rounded-xl hover:bg-gray-800 transition">
                 <h3 class="text-xl font-bold mb-3 text-blue-400">Anti-Buffer Tech</h3>
                 <p class="text-gray-400 text-sm">Our infrastructure is built to handle high-bandwidth data routing seamlessly.</p>
             </div>
-            <div class="p-6 bg-gray-800/50 rounded-xl hover:bg-gray-800 transition">
+            <div class="p-6 bg-gray-800 bg-opacity-50 rounded-xl hover:bg-gray-800 transition">
                 <h3 class="text-xl font-bold mb-3 text-blue-400">Multi-Device</h3>
                 <p class="text-gray-400 text-sm">Compatible with Smart TVs, Android, iOS, FireOS, and Windows.</p>
             </div>
-            <div class="p-6 bg-gray-800/50 rounded-xl hover:bg-gray-800 transition">
+            <div class="p-6 bg-gray-800 bg-opacity-50 rounded-xl hover:bg-gray-800 transition">
                 <h3 class="text-xl font-bold mb-3 text-blue-400">Instant Delivery</h3>
                 <p class="text-gray-400 text-sm">Automated systems ensure your access credentials arrive instantly.</p>
             </div>
@@ -195,8 +191,8 @@
    <div id="footer-placeholder"></div>
     
     <!-- Link your JS files here, in the order they need to load -->
-    <script type="module" src="assets/js/firebase.js"></script>
-    <script type="module" src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/firebase.js" defer></script>
+    <script type="module" src="assets/js/app.js" defer></script>
     <!-- Only add admin.js to pages that require admin privileges -->
 
     <!-- Structured Data -->

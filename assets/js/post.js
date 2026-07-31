@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         postContainer.innerHTML = `
             <article class="prose prose-invert lg:prose-xl mx-auto">
-                ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="w-full rounded-lg mb-8">` : ''}
+                ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="w-full rounded-lg mb-8" loading="lazy" decoding="async">` : ''}
                 <div class="text-center mb-8">
                     <h1 class="text-4xl md:text-5xl font-bold">${post.title}</h1>
                     <p class="text-gray-400 mt-2">Published on ${postDate} by ${post.author || 'Anonymous'}</p>

@@ -23,12 +23,8 @@
     
     <link rel="icon" type="image/png" href="assets/images/favlogo2.svg">
     <link rel="stylesheet" href="assets/css/style.css">
-    
-    <!-- THIS IS THE LINE YOU ARE MISSING ON THE OTHER PAGES -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Make sure Tailwind is on every page too -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white font-sans antialiased flex flex-col min-h-screen">
 
@@ -37,7 +33,7 @@
     <main class="flex-grow container mx-auto px-6 py-16 lg:py-20">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-12">
-          <span class="inline-flex items-center gap-2 rounded-full bg-blue-500/10 border border-blue-400/20 px-4 py-2 text-sm text-blue-300">
+          <span class="inline-flex items-center gap-2 rounded-full bg-blue-500 bg-opacity-10 border border-blue-400 border-opacity-20 px-4 py-2 text-sm text-blue-300">
             <i class="fa-solid fa-headset"></i> GetTV Support
           </span>
           <h1 class="text-4xl md:text-5xl font-bold mt-5">How can we help?</h1>
@@ -47,7 +43,7 @@
         <div class="grid lg:grid-cols-5 gap-8 items-stretch">
           <section class="lg:col-span-2 rounded-2xl overflow-hidden border border-gray-700 bg-gray-800">
             <div class="relative h-52">
-              <img src="assets/images/supportgettv.webp" alt="GetTV entertainment service" class="w-full h-full object-cover opacity-70">
+              <img src="assets/images/supportgettv.webp" alt="GetTV entertainment service" class="w-full h-full object-cover opacity-70" loading="lazy" decoding="async">
               <div class="absolute inset-0 bg-gradient-to-t from-gray-800 to-transparent"></div>
               <div class="absolute bottom-5 left-6">
                 <div class="w-12 h-12s grid place-items-center rounded-xl bg-blue-600 text-xl shadow-lg"><i class="fa-solid fa-headset"></i></div>
@@ -107,9 +103,9 @@
       </div>
     </main>
   <div id="footer-placeholder"></div>
-  <script type="module" src="assets/js/firebase.js"></script>
-  <script type="module" src="assets/js/app.js"></script>
-  <script type="module" src="assets/js/contact.js"></script>
+  <script type="module" src="assets/js/firebase.js" defer></script>
+  <script type="module" src="assets/js/app.js" defer></script>
+  <script type="module" src="assets/js/contact.js" defer></script>
    
 </body>
 </html>

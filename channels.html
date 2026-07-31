@@ -23,12 +23,8 @@
     
     <link rel="icon" type="image/svg+xml" href="assets/images/favlogo2.svg">
     <link rel="stylesheet" href="assets/css/style.css">
-    
-    <!-- THIS IS THE LINE YOU ARE MISSING ON THE OTHER PAGES -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Make sure Tailwind is on every page too -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white font-sans antialiased flex flex-col min-h-screen">
 
@@ -51,7 +47,7 @@
         </div>
 
         <section class="max-w-4xl mx-auto mt-16 pt-14 border-t border-gray-800">
-            <div class="bg-gradient-to-br from-blue-600/20 via-gray-800 to-gray-800 border border-blue-500/40 rounded-2xl p-7 md:p-10">
+            <div class="bg-gradient-to-br from-blue-600 via-gray-800 to-gray-800 border border-blue-500 border-opacity-40 rounded-2xl p-7 md:p-10">
                 <div class="grid md:grid-cols-[1fr_auto] gap-8 items-center">
                     <div>
                         <div class="w-12 h-12 grid place-items-center rounded-xl bg-blue-600 text-xl mb-5"><i class="fa-solid fa-envelope-open-text"></i></div>
@@ -60,7 +56,7 @@
                         <p class="text-sm text-gray-400 mt-4"><i class="fa-solid fa-shield-halved text-blue-400 mr-2"></i>Your email is used only to reply to this request.</p>
                     </div>
 
-                    <form id="channel-list-form" class="w-full md:w-80 space-y-4 bg-gray-900/70 border border-gray-700 rounded-xl p-5">
+                    <form id="channel-list-form" class="w-full md:w-80 space-y-4 bg-gray-900 bg-opacity-70 border border-gray-700 rounded-xl p-5">
                         <div>
                             <label for="channel-list-email" class="block text-sm font-medium text-gray-300 mb-2">Email address</label>
                             <input id="channel-list-email" type="email" autocomplete="email" placeholder="you@example.com" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
@@ -80,8 +76,8 @@
     </main>
 
     <div id="footer-placeholder"></div>
-   <script type="module" src="assets/js/firebase.js"></script>
-    <script type="module" src="assets/js/app.js"></script>
-    <script type="module" src="assets/js/channels.js"></script>
+   <script type="module" src="assets/js/firebase.js" defer></script>
+    <script type="module" src="assets/js/app.js" defer></script>
+    <script type="module" src="assets/js/channels.js" defer></script>
 </body>
 </html>

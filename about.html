@@ -23,12 +23,8 @@
     
     <link rel="icon" type="image/svg+xml" href="assets/images/favlogo2.svg">
     <link rel="stylesheet" href="assets/css/style.css">
-    
-    <!-- THIS IS THE LINE YOU ARE MISSING ON THE OTHER PAGES -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Make sure Tailwind is on every page too -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white font-sans antialiased flex flex-col min-h-screen">
 
@@ -45,7 +41,7 @@
     </main>
 
     <div id="footer-placeholder"></div>
-   <script type="module" src="assets/js/firebase.js"></script>
-    <script type="module" src="assets/js/app.js"></script>
+   <script type="module" src="assets/js/firebase.js" defer></script>
+    <script type="module" src="assets/js/app.js" defer></script>
 </body>
 </html>
