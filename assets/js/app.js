@@ -171,23 +171,16 @@ function initializeTawkToWidget() {
     window.Tawk_API = window.Tawk_API || {};
 
     // Use onBeforeLoad to set attributes *before* the widget is rendered.
-    // This prevents the large widget from flashing on mobile before resizing.
     window.Tawk_API.onBeforeLoad = function() {
         if (window.innerWidth <= 768) {
-            Tawk_API.setAttributes({
-                "mobile-browser-visitor-chat-width" : "55vw",
-                "mobile-browser-visitor-chat-height" : "50vh",
-            });
+            Tawk_API.hideWidget();
         }
     };
 
     // In case the Tawk.to script has already loaded and `onBeforeLoad` has fired,
-    // we check if the API is ready and apply the attributes directly.
-    if (typeof Tawk_API.setAttributes === 'function' && window.innerWidth <= 768) {
-        Tawk_API.setAttributes({
-            "mobile-browser-visitor-chat-width" : "85vw",
-            "mobile-browser-visitor-chat-height" : "80vh",
-        });
+    // we check if the API is ready and hide the widget directly.
+    if (typeof Tawk_API.hideWidget === 'function' && window.innerWidth <= 768) {
+        Tawk_API.hideWidget();
     }
 }
 
