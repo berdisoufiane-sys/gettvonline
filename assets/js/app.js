@@ -175,8 +175,8 @@ function initializeTawkToWidget() {
     window.Tawk_API.onBeforeLoad = function() {
         if (window.innerWidth <= 768) {
             Tawk_API.setAttributes({
-                "mobile-browser-visitor-chat-width" : "85vw",
-                "mobile-browser-visitor-chat-height" : "80vh",
+                "mobile-browser-visitor-chat-width" : "55vw",
+                "mobile-browser-visitor-chat-height" : "50vh",
             });
         }
     };
