@@ -1,5 +1,22 @@
 import { db, doc, getDoc } from './firebase.js';
 
+// Helper function to create or update a meta tag by property
+function updateMetaTag(property, content) {
+    let tag = document.querySelector(`meta[property='${property}']`);
+    if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('property', property);
+        document.head.appendChild(tag);
+    }
+    tag.setAttribute('content', content);
+}
+
+// Helper function to update the meta description tag by name
+function updateDescriptionTag(content) {
+    let tag = document.querySelector(`meta[name='description']`);
+    if (tag) tag.setAttribute('content', content);
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const postContainer = document.getElementById('post-content-container');
     if (!postContainer) return;
@@ -24,22 +41,68 @@ document.addEventListener('DOMContentLoaded', async () => {
         const post = postSnap.data();
 
         // --- SEO and Metadata ---
-        document.title = `${post.title} | GetTV.online Blog`;
-        // Create or update meta description
-        let metaDesc = document.querySelector('meta[name="description"]');
-        if (!metaDesc) {
-            metaDesc = document.createElement('meta');
-            metaDesc.name = 'description';
-            document.head.appendChild(metaDesc);
-        }
+        const pageTitle = `${post.title} | GetTV.online Blog`;
+        document.title = pageTitle;
+
         // Create a snippet for the description
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = post.content;
-        const snippet = tempDiv.textContent.substring(0, 160).trim();
-        metaDesc.content = snippet;
+        const snippet = tempDiv.textContent.substring(0, 160).trim() + '...';
+        
+        // Update standard meta description
+        updateDescriptionTag(snippet);
+
+        // Update Canonical URL
+        const postUrl = window.location.href;
+        let canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) canonical.setAttribute('href', postUrl);
+
+        // Update Open Graph tags
+        updateMetaTag('og:title', pageTitle);
+        updateMetaTag('og:description', snippet);
+        updateMetaTag('og:url', postUrl);
+        if (post.imageUrl) {
+            updateMetaTag('og:image', post.imageUrl);
+        }
+
+        // Update Twitter Card tags
+        updateMetaTag('twitter:title', pageTitle);
+        updateMetaTag('twitter:description', snippet);
+        if (post.imageUrl) {
+            updateMetaTag('twitter:image', post.imageUrl);
+        }
+
+        // Add Article Structured Data
+        const postDate = post.createdAt ? new Date(post.createdAt.seconds * 1000) : new Date();
+        const modifiedDate = post.updatedAt ? new Date(post.updatedAt.seconds * 1000) : postDate;
+
+        const articleSchema = {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": post.title,
+            "image": post.imageUrl || "https://gettv.online/assets/images/gettvonline.webp",
+            "author": {
+                "@type": "Person",
+                "name": post.author || "GetTV.online Team"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "GetTV.online",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://gettv.online/assets/images/logogettv.svg"
+                }
+            },
+            "datePublished": postDate.toISOString(),
+            "dateModified": modifiedDate.toISOString()
+        };
+
+        let schemaScript = document.createElement('script');
+        schemaScript.type = 'application/ld+json';
+        schemaScript.textContent = JSON.stringify(articleSchema, null, 2);
+        document.head.appendChild(schemaScript);
 
         // --- Social Sharing ---
-        const postUrl = window.location.href;
         const postTitle = encodeURIComponent(post.title);
 
         const shareHtml = `

@@ -1,5 +1,3 @@
-# Allow all user-agents to crawl the entire site
 User-agent: *
 Allow: /
-
-Sitemap: https://www.gettv.online/sitemap.xml
+Sitemap: https://gettv.online/sitemap.xml
