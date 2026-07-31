@@ -165,23 +165,23 @@ function initializeCookieConsent() {
 /**
  * Initializes the Tawk.to widget and adjusts its size for mobile devices.
  */
-function initializeTawkToWidget() {
+// function initializeTawkToWidget() {
     const isMobile = window.innerWidth <= 768;
 
     if (isMobile) {
         // This is a more forceful approach to ensure the widget is hidden on mobile devices.
 
         // 1. Use the Tawk.to API to tell the widget to hide before it even loads.
-        window.Tawk_API = window.Tawk_API || {};
-        window.Tawk_API.onBeforeLoad = function() {
-            window.Tawk_API.hideWidget();
+        // window.Tawk_API = window.Tawk_API || {};
+        // window.Tawk_API.onBeforeLoad = function() {
+            // window.Tawk_API.hideWidget();
         };
 
         // 2. As a fallback, inject a CSS rule to forcefully hide the widget.
         // This is very effective and will override other styles.
-        const style = document.createElement('style');
-        style.innerHTML = `iframe[id^="tawk-"], div[id^="tawk-widget-"] { display: none !important; }`;
-        document.head.appendChild(style);
+       //  const style = document.createElement('style');
+       //  style.innerHTML = `iframe[id^="tawk-"], div[id^="tawk-widget-"] { display: none !important; }`;
+        // document.head.appendChild(style);
     }
 }
 
