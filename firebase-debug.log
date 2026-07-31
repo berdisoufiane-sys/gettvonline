@@ -1,0 +1,49 @@
+[debug] [2026-07-31T09:22:04.335Z] ----------------------------------------------------------------------
+[debug] [2026-07-31T09:22:04.371Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\BADR GRAPHISTE\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only firestore:rules
+[debug] [2026-07-31T09:22:04.372Z] CLI Version:   15.24.0
+[debug] [2026-07-31T09:22:04.373Z] Platform:      win32
+[debug] [2026-07-31T09:22:04.373Z] Node Version:  v24.18.0
+[debug] [2026-07-31T09:22:04.374Z] Detected Agent: unknown
+[debug] [2026-07-31T09:22:04.374Z] Time:          Fri Jul 31 2026 10:22:04 GMT+0100 (UTC+01:00)
+[debug] [2026-07-31T09:22:04.375Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-07-31T09:22:17.900Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-31T09:22:17.901Z] > authorizing via signed-in user (seipartv@gmail.com)
+[debug] [2026-07-31T09:22:17.902Z] [iam] checking project gettv-7764b for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2026-07-31T09:22:17.960Z] Checked if tokens are valid: false, expires at: 1785449750349
+[debug] [2026-07-31T09:22:17.960Z] Checked if tokens are valid: false, expires at: 1785449750349
+[debug] [2026-07-31T09:22:17.961Z] > refreshing access token with scopes: []
+[debug] [2026-07-31T09:22:17.968Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-31T09:22:17.969Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-31T09:22:25.770Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-31T09:22:25.771Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-31T09:22:25.803Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/gettv-7764b:testIamPermissions [none]
+[debug] [2026-07-31T09:22:25.804Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/gettv-7764b:testIamPermissions  x-goog-user-project=gettv-7764b
+[debug] [2026-07-31T09:22:25.804Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gettv-7764b:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2026-07-31T09:22:35.229Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/gettv-7764b:testIamPermissions 200
+[debug] [2026-07-31T09:22:35.230Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gettv-7764b:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'gettv-7764b'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[info] i  firestore: ensuring required API firestore.googleapis.com is enabled... 
+[debug] [2026-07-31T09:22:35.246Z] Checked if tokens are valid: true, expires at: 1785493344771
+[debug] [2026-07-31T09:22:35.246Z] Checked if tokens are valid: true, expires at: 1785493344771
+[debug] [2026-07-31T09:22:35.247Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/gettv-7764b/databases/(default) [none]
+[debug] [2026-07-31T09:22:44.211Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/gettv-7764b/databases/(default) 200
+[debug] [2026-07-31T09:22:44.212Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/gettv-7764b/databases/(default) {"name":"projects/gettv-7764b/databases/(default)","uid":"a64b72d6-a379-4a12-953c-50276a471a7f","createTime":"2026-07-25T17:43:17.793303Z","updateTime":"2026-07-25T17:43:17.793303Z","locationId":"nam5","type":"FIRESTORE_NATIVE","concurrencyMode":"PESSIMISTIC","versionRetentionPeriod":"3600s","earliestVersionTime":"2026-07-31T08:22:41.997134Z","appEngineIntegrationMode":"DISABLED","keyPrefix":"s","pointInTimeRecoveryEnablement":"POINT_IN_TIME_RECOVERY_DISABLED","deleteProtectionState":"DELETE_PROTECTION_DISABLED","databaseEdition":"STANDARD","freeTier":true,"realtimeUpdatesMode":"REALTIME_UPDATES_MODE_ENABLED","etag":"IK6ejtjL/JUDMNeVxd2x8JUD"}
+[debug] [2026-07-31T09:22:44.216Z] [rules read error] Error: ENOENT: no such file or directory, open 'C:\Users\BADR GRAPHISTE\Desktop\gettv.online\firestore.rules'
+    at Object.readFileSync (node:fs:441:20)
+    at RulesDeploy.addFile (C:\Users\BADR GRAPHISTE\AppData\Roaming\npm\node_modules\firebase-tools\lib\rulesDeploy.js:40:22)
+    at prepareRules (C:\Users\BADR GRAPHISTE\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\firestore\prepare.js:16:17)
+    at default_1 (C:\Users\BADR GRAPHISTE\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\firestore\prepare.js:124:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async chain (C:\Users\BADR GRAPHISTE\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:105:9)
+    at async deploy (C:\Users\BADR GRAPHISTE\AppData\Roaming\npm\node_modules\firebase-tools\lib\deploy\index.js:184:9)
+[debug] [2026-07-31T09:22:49.240Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\BADR GRAPHISTE\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:296:49)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+[error] 
+[error] Error: An unexpected error has occurred.

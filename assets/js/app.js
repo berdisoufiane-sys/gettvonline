@@ -163,6 +163,29 @@ function initializeCookieConsent() {
 }
 
 /**
+ * Initializes the Tawk.to widget and adjusts its size for mobile devices.
+ */
+function initializeTawkToWidget() {
+    // The Tawk_API object is created by the Tawk.to script.
+    // If it doesn't exist, the script isn't on this page.
+    if (typeof Tawk_API === 'undefined') {
+        return;
+    }
+
+    // This function will be called once the widget is loaded
+    Tawk_API.onLoad = function() {
+        // Check if on a mobile device (e.g., screen width <= 768px)
+        if (window.innerWidth <= 768) {
+            // This makes the chat window take up a percentage of the screen, which is much better for mobile.
+            Tawk_API.setAttributes({
+                "mobile-browser-visitor-chat-width" : "85vw",
+                "mobile-browser-visitor-chat-height" : "80vh",
+            });
+        }
+    };
+}
+
+/**
  * Main application entry point.
  */
 async function main() {
@@ -177,6 +200,7 @@ async function main() {
     setupNewsletterForm(); // This is for the form in the footer
     initializeBackToTopButton();
     initializeCookieConsent();
+    initializeTawkToWidget();
 }
 
 // Wait for the DOM to be fully loaded before running the main app logic

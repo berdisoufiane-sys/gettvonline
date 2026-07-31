@@ -1,0 +1,40 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check if a user is an authenticated admin
+    function isAdmin() {
+      return request.auth != null;
+    }
+
+    // Posts can be read by anyone, but only created, updated, or deleted by an admin.
+    match /posts/{postId} {
+      allow read: if true;
+      allow write: if isAdmin(); // Covers create, update, delete
+    }
+
+    // Trial requests, contact messages, newsletter signups, and channel list requests
+    // are only created via the backend function.
+    // They can only be read or deleted by an admin from the dashboard.
+    match /trial/{trialId} {
+      allow read, delete: if isAdmin();
+      allow create, update: if false; // Prevent client-side writes
+    }
+
+    match /contact/{contactId} {
+      allow read, delete: if isAdmin();
+      allow create, update: if false; // Prevent client-side writes
+    }
+
+    match /newsletter/{newsletterId} {
+      allow read, delete: if isAdmin();
+      allow create, update: if false; // Prevent client-side writes
+    }
+
+    match /channelList/{channelListId} {
+      allow read, delete: if isAdmin();
+      allow create, update: if false; // Prevent client-side writes
+    }
+  }
+}
