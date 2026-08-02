@@ -1,0 +1,41 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    // This is a catch-all for blog posts. It routes any path that doesn't match a static file to the blog post template.
+    // It explicitly ignores asset folders and only triggers if a destination (like a static page) is not found.
+    {
+      "source": "/:path((?!api/|_next/|assets/|images/).+)",
+      "missing": [{ "type": "destination" }],
+      "destination": "/blog-post.html"
+    }
+  ],
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/pricing.html", "destination": "/pricing", "permanent": true },
+    { "source": "/channels.html", "destination": "/channels", "permanent": true },
+    { "source": "/tutorial.html", "destination": "/tutorial", "permanent": true },
+    { "source": "/contact.html", "destination": "/contact", "permanent": true },
+    { "source": "/trial.html", "destination": "/trial", "permanent": true },
+    { "source": "/blog.html", "destination": "/blog-listing.html", "permanent": false },
+    { "source": "/blog-listing.html", "destination": "/blog", "permanent": true },
+    { "source": "/about.html", "destination": "/about", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
+    { "source": "/refund-policy.html", "destination": "/refund-policy", "permanent": true },
+    { "source": "/terms-of-service.html", "destination": "/terms-of-service", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://scripts.clarity.ms https://translate.google.com https://www.gstatic.com https://embed.tawk.to; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; img-src 'self' data:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://*.firebaseio.com wss://*.firebaseio.com https://www.clarity.ms https://www.google-analytics.com https://www.google.com https://www.googletagmanager.com https://www.gstatic.com https://*.tawk.to wss://*.tawk.to; frame-src 'self' https://tawk.to/;" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" }
+      ]
+    }
+  ]
+}

@@ -10,3 +10,4 @@ Thumbs.db
 
 # Environment variables file (if you ever create one)
 .env
+.env*

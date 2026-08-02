@@ -168,8 +168,8 @@ function initializeCookieConsent() {
 async function main() {
     // Load shared components and then initialize scripts
     await Promise.all([
-        loadComponent("header-placeholder", "assets/components/header.html"),
-        loadComponent("footer-placeholder", "assets/components/footer.html")
+        loadComponent("header-placeholder", "/assets/components/header.html"),
+        loadComponent("footer-placeholder", "/assets/components/footer.html")
     ]);
 
     initializeMobileMenu();

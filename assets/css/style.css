@@ -1,12 +1,11 @@
-<style>
-    /* Infinite Scrolling Marquee Animation */
-    .scroller {
-        max-width: 100%;
-        overflow: hidden;
-        -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
-        mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
-    }
-    .scroller__inner {
+/* Infinite Scrolling Marquee Animation */
+.scroller {
+    max-width: 100%;
+    overflow: hidden;
+    -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+    mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+}
+.scroller__inner {
         padding-block: 1rem;
         display: flex;
         flex-wrap: nowrap;
@@ -34,4 +33,3 @@
     .carousel-image:hover {
         transform: scale(1.05);
     }
-</style>
