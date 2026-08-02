@@ -23,7 +23,7 @@
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/((?!admin).*)",
       "headers": [
         { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://scripts.clarity.ms https://translate.google.com https://www.gstatic.com https://embed.tawk.to; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; img-src 'self' data:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self' https://*.firebaseio.com wss://*.firebaseio.com https://www.clarity.ms https://www.google-analytics.com https://www.google.com https://www.googletagmanager.com https://www.gstatic.com https://*.tawk.to wss://*.tawk.to; frame-src 'self' https://tawk.to/;" },
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
