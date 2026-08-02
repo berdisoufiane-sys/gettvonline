@@ -3,8 +3,7 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/:path((?!api/|_next/|assets/|images/).+)",
-      "missing": [{ "type": "destination" }],
+      "source": "/:path((?!pricing|channels|tutorial|contact|trial|blog|about|privacy|refund-policy|terms-of-service|admin|api|_next|assets|images).+)",
       "destination": "/blog-post.html"
     }
   ],
