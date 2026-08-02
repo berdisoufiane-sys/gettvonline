@@ -1,49 +1,59 @@
-import { db, collection, getDocs, query, orderBy, where } from './firebase.js';
+import { db, collection, getDocs, query, where, orderBy } from './firebase.js';
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const postsContainer = document.getElementById('blog-posts-container');
-    if (!postsContainer) return;
+async function loadBlogPosts() {
+    const container = document.getElementById('blog-posts-container');
+    if (!container) return;
 
-    // Show a loading state
-    postsContainer.innerHTML = '<p class="text-center text-gray-400">Loading posts...</p>';
+    container.innerHTML = '<p class="text-center text-gray-400">Loading articles...</p>'; // Loading state
 
     try {
-        const postsQuery = query(collection(db, 'posts'), where('status', '==', 'published'), orderBy('createdAt', 'desc'));
-        const querySnapshot = await getDocs(postsQuery);
+        const postsRef = collection(db, 'blogPosts');
+        const q = query(postsRef, where("status", "==", "published"), orderBy("publishedDate", "desc"));
+        const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
-            postsContainer.innerHTML = '<p class="text-center text-gray-400">No blog posts found yet. Check back soon!</p>';
+            container.innerHTML = '<p class="text-center text-gray-400">No articles have been published yet. Check back soon!</p>';
             return;
         }
 
-        let postsHtml = '';
-        querySnapshot.forEach(doc => {
+        let postsHTML = '';
+        querySnapshot.forEach((doc) => {
             const post = doc.data();
-            const postId = doc.id;
-
-            const postDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString('en-US', {
+            const postUrl = `/${post.slug}`;
+            const publishedDate = new Date(post.publishedDate.seconds * 1000).toLocaleDateString('en-US', {
                 year: 'numeric', month: 'long', day: 'numeric'
-            }) : 'Date not available';
+            });
 
-            // Create a snippet from the content
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = post.content;
-            const snippet = tempDiv.textContent.substring(0, 200) + '...';
+            const snippet = post.metaDescription ? `${post.metaDescription.substring(0, 150)}...` : '';
 
-            postsHtml += `
-                <article class="bg-gray-800 p-6 rounded-xl border border-gray-700">
-                    ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="w-full h-64 object-cover rounded-lg mb-4">` : ''}
-                    <h2 class="text-2xl font-bold mb-2 hover:text-blue-400 cursor-pointer">${post.title}</h2>
-                    <p class="text-sm text-gray-500 mb-4">Published on ${postDate} by ${post.author || 'Anonymous'}</p>
-                    <p class="text-gray-300 mb-4">${snippet}</p>
-                    <a href="post.html?id=${postId}" class="text-blue-500 font-bold">Read More →</a>
+            postsHTML += `
+                <article class="bg-gray-800 border border-gray-700 rounded-2xl overflow-hidden flex flex-col md:flex-row hover:border-blue-500 transition-all duration-300 shadow-lg">
+                    ${post.featuredImage ? `
+                    <a href="${postUrl}" class="block md:w-1/3 flex-shrink-0">
+                        <img src="${post.featuredImage}" alt="${post.title}" class="w-full h-48 md:h-full object-cover">
+                    </a>` : ''}
+                    <div class="p-6 flex flex-col justify-between flex-1">
+                        <div>
+                            <p class="text-sm text-gray-400 mb-2">${publishedDate}</p>
+                            <h2 class="text-2xl font-bold mb-3">
+                                <a href="${postUrl}" class="hover:text-blue-400 transition">${post.title}</a>
+                            </h2>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">${snippet}</p>
+                        </div>
+                        <a href="${postUrl}" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold mt-4 self-start">
+                            Read More <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </article>
             `;
         });
 
-        postsContainer.innerHTML = postsHtml;
+        container.innerHTML = postsHTML;
+
     } catch (error) {
-        console.error("Error fetching blog posts: ", error);
-        postsContainer.innerHTML = '<p class="text-center text-red-500">Could not load blog posts. Please try again later.</p>';
+        console.error("Error loading blog posts:", error);
+        container.innerHTML = '<p class="text-center text-red-400">Could not load articles. Please try again later.</p>';
     }
-});
+}
+
+document.addEventListener('DOMContentLoaded', loadBlogPosts);

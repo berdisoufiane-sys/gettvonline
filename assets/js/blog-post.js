@@ -115,7 +115,7 @@ async function loadBlogPost() {
         setJsonLd('breadcrumb-schema', breadcrumbSchema);
 
         // 6. Render the article content into the page.
-        const publishedDate = new Date(post.publishedDate.seconds * 1000).toLocaleDate-String('en-US', {
+        const publishedDate = new Date(post.publishedDate.seconds * 1000).toLocaleDateString('en-US', {
             year: 'numeric', month: 'long', day: 'numeric'
         });
 
