@@ -2,8 +2,6 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    // This is a catch-all for blog posts. It routes any path that doesn't match a static file to the blog post template.
-    // It explicitly ignores asset folders and only triggers if a destination (like a static page) is not found.
     {
       "source": "/:path((?!api/|_next/|assets/|images/).+)",
       "missing": [{ "type": "destination" }],
