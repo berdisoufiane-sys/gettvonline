@@ -41,7 +41,7 @@ async function loadBlogPosts() {
                             <p class="text-gray-400 text-sm leading-relaxed mb-4">${snippet}</p>
                         </div>
                         <a href="${postUrl}" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold mt-4 self-start">
-                            Read More <i class="fa-solid fa-arrow-right"></i>
+                            Read More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                         </a>
                     </div>
                 </article>
