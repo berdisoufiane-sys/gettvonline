@@ -23,12 +23,12 @@
   <url>
     <loc>https://gettv.online/contact</loc>
     <lastmod>2024-07-15</lastmod>
-    <priority>0.60</priority>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://gettv.online/trial</loc>
     <lastmod>2024-07-15</lastmod>
-    <priority>0.70</priority>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://gettv.online/blog</loc>
@@ -38,21 +38,21 @@
   <url>
     <loc>https://gettv.online/about</loc>
     <lastmod>2024-07-15</lastmod>
-    <priority>0.50</priority>
+    <priority>0.80</priority>
   </url>
   <url>
     <loc>https://gettv.online/privacy</loc>
     <lastmod>2024-07-15</lastmod>
-    <priority>0.30</priority>
+    <priority>0.50</priority>
   </url>
   <url>
     <loc>https://gettv.online/refund-policy</loc>
     <lastmod>2024-07-15</lastmod>
-    <priority>0.30</priority>
+    <priority>0.50</priority>
   </url>
   <url>
     <loc>https://gettv.online/terms-of-service</loc>
     <lastmod>2024-07-15</lastmod>
-    <priority>0.30</priority>
+    <priority>0.50</priority>
   </url>
 </urlset>

@@ -1,5 +1,3 @@
 User-agent: *
-Disallow: /admin/
-Disallow: /api/
-
+Allow: /
 Sitemap: https://gettv.online/sitemap.xml
