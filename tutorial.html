@@ -85,20 +85,20 @@
 
         <section class="mt-12 grid md:grid-cols-2 gap-6">
             <article class="bg-gradient-to-br from-green-500 to-gray-800 border border-green-500 border-opacity-40 rounded-2xl p-7">
-                <div class="w-12 h-12 grid place-items-center rounded-xl bg-green-500 text-2xl mb-5"><i class="fa-brands fa-whatsapp"></i></div>
+                <div class="w-12 h-12 grid place-items-center rounded-xl bg-green-500 text-2xl mb-5"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></div>
                 <h2 class="text-2xl font-bold">Need live setup help?</h2>
                 <p class="text-gray-300 mt-3">Chat with our support team on WhatsApp if you need help installing your player, entering your details, or getting started.</p>
                 <a href="https://wa.me/1234567890?text=Hello%20GetTV%20support%2C%20I%20need%20help%20with%20my%20device%20setup." target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-gray-900 font-bold px-5 py-3 rounded-lg transition mt-6">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> Chat on WhatsApp
+                    <i class="fa-brands fa-whatsapp text-xl" aria-hidden="true"></i> Chat on WhatsApp
                 </a>
             </article>
 
             <article class="bg-gray-800 border border-gray-700 rounded-2xl p-7">
-                <div class="w-12 h-12 grid place-items-center rounded-xl bg-blue-600 text-2xl mb-5"><i class="fa-solid fa-book-open"></i></div>
+                <div class="w-12 h-12 grid place-items-center rounded-xl bg-blue-600 text-2xl mb-5"><i class="fa-solid fa-book-open" aria-hidden="true"></i></div>
                 <h2 class="text-2xl font-bold">Explore our blog</h2>
                 <p class="text-gray-400 mt-3">Read useful articles, device tips, and simple guides to help you make the most of your GetTV.online IPTV setup.</p>
                 <a href="/blog" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-bold mt-6">
-                    Visit the GetTV blog <i class="fa-solid fa-arrow-right"></i>
+                    Visit the GetTV blog <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                 </a>
             </article>
         </section>
@@ -107,17 +107,64 @@
     <div id="footer-placeholder"></div>
    <script type="module" src="/assets/js/firebase.js" defer></script>
     <script type="module" src="/assets/js/app.js" defer></script>
+    <!-- SEO Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {"@type":"Question","name":"What is IPTV?","acceptedAnswer":{"@type":"Answer","text":"IPTV delivers television content through an internet connection instead of a traditional cable or satellite signal."}},
-        {"@type":"Question","name":"What do I need to get TV online?","acceptedAnswer":{"@type":"Answer","text":"You need a stable internet connection, a compatible device, and a service plan."}},
-        {"@type":"Question","name":"Which devices are compatible with GetTV.online?","acceptedAnswer":{"@type":"Answer","text":"GetTV.online is designed for popular compatible devices including Smart TVs, Android devices, Fire TV devices, phones, tablets, and supported media players."}},
-        {"@type":"Question","name":"How fast should my internet be for IPTV?","acceptedAnswer":{"@type":"Answer","text":"A reliable connection matters more than the advertised maximum speed. Use a stable connection and connect by Ethernet where possible."}},
-        {"@type":"Question","name":"Can I try GetTV.online before choosing a plan?","acceptedAnswer":{"@type":"Answer","text":"You can request a free trial to check compatibility and setup on your device before choosing a plan."}},
-        {"@type":"Question","name":"Is IPTV legal?","acceptedAnswer":{"@type":"Answer","text":"The technology itself is legal. Users must ensure they have the right to access content and follow applicable laws and licensing requirements."}}
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://gettv.online/#organization",
+          "name": "GetTV.online",
+          "url": "https://gettv.online",
+          "logo": "https://gettv.online/assets/images/logogettv.svg",
+          "contactPoint": [
+            { "@type": "ContactPoint", "contactType": "customer service", "email": "support@gettv.online", "areaServed": "Worldwide", "availableLanguage": ["en", "fr", "ar", "es", "de"] },
+            { "@type": "ContactPoint", "email": "sales@gettv.online", "contactType": "sales", "areaServed": "Worldwide", "availableLanguage": ["en", "fr", "ar", "es", "de"] }
+          ],
+          "sameAs": [
+            "https://www.facebook.com/GetTvonline",
+            "https://x.com/GeTVonline",
+            "https://www.pinterest.com/GeTvonline",
+            "https://www.quora.com/profile/GeTvonline",
+            "https://www.reddit.com/user/GetTVonline/",
+            "https://t.me/Gettvonline"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://gettv.online/#website",
+          "url": "https://gettv.online/",
+          "name": "GetTV.online",
+          "description": "Get the best IPTV service with GetTV.online. Simple setup for your compatible device, premium channels, and fast support. Start your IPTV subscription today.",
+          "publisher": { "@id": "https://gettv.online/#organization" },
+          "potentialAction": { "@type": "SearchAction", "target": "https://gettv.online/search?q={search_term_string}", "query-input": "required name=search_term_string" },
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://gettv.online/tutorial#webpage",
+          "url": "https://gettv.online/tutorial",
+          "name": "IPTV Setup Guide & Live Support | GetTV.online",
+          "description": "Follow our simple IPTV setup guides for Android, Firestick, Samsung, and LG Smart TVs. Get live support from our team to start watching quickly.",
+          "isPartOf": { "@id": "https://gettv.online/#website" },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gettv.online/" },
+              { "@type": "ListItem", "position": 2, "name": "Setup Guide", "item": "https://gettv.online/tutorial" }
+            ]
+          }
+        },
+        {
+          "@type": "HowTo",
+          "name": "How to Setup Your Device for GetTV.online",
+          "description": "Step-by-step guides for setting up IPTV on Android TV, Amazon Firestick, Samsung, and LG Smart TVs.",
+          "step": [
+            { "@type": "HowToStep", "name": "Android TV & Amazon Firestick Setup", "text": "Go to your App Store or use the 'Downloader' app. Download a compatible player (e.g., TiviMate, IPTV Smarters Pro). Open the app and select 'Login with Xtream Codes API'. Enter the Username, Password, and Portal URL we emailed you. Click Login and wait for the categories to load.", "itemListElement": [{ "@type": "HowToDirection", "text": "Go to your App Store or use the 'Downloader' app." }, { "@type": "HowToDirection", "text": "Download a compatible player (e.g., TiviMate, IPTV Smarters Pro)." }, { "@type": "HowToDirection", "text": "Open the app and select 'Login with Xtream Codes API'." }, { "@type": "HowToDirection", "text": "Enter the Username, Password, and Portal URL we emailed you." }, { "@type": "HowToDirection", "text": "Click Login and wait for the categories to load." }] },
+            { "@type": "HowToStep", "name": "Samsung & LG Smart TVs Setup", "text": "Open your TV's App Store. Search for and install 'IBO Player' or 'Flix IPTV'. Open the app and note the 'Device MAC Address' displayed on the screen. Provide this MAC address to our support team, or log into the app's website to upload your M3U link. Restart the app on your TV.", "itemListElement": [{ "@type": "HowToDirection", "text": "Open your TV's App Store." }, { "@type": "HowToDirection", "text": "Search for and install 'IBO Player' or 'Flix IPTV'." }, { "@type": "HowToDirection", "text": "Open the app and note the 'Device MAC Address' displayed on the screen." }, { "@type": "HowToDirection", "text": "Provide this MAC address to our support team, or log into the app's website to upload your M3U link." }, { "@type": "HowToDirection", "text": "Restart the app on your TV." }] }
+          ]
+        }
       ]
     }
     </script>

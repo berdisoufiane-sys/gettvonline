@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/blog", "destination": "/blog-listing.html" },
     {
       "source": "/:path((?!pricing|channels|tutorial|contact|trial|blog|about|privacy|refund-policy|terms-of-service|admin|api|_next|assets|images).+)",
       "destination": "/blog-post.html"
@@ -14,7 +15,6 @@
     { "source": "/tutorial.html", "destination": "/tutorial", "permanent": true },
     { "source": "/contact.html", "destination": "/contact", "permanent": true },
     { "source": "/trial.html", "destination": "/trial", "permanent": true },
-    { "source": "/blog.html", "destination": "/blog-listing.html", "permanent": false },
     { "source": "/blog-listing.html", "destination": "/blog", "permanent": true },
     { "source": "/about.html", "destination": "/about", "permanent": true },
     { "source": "/privacy.html", "destination": "/privacy", "permanent": true },

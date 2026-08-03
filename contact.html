@@ -130,6 +130,71 @@
   <script type="module" src="/assets/js/firebase.js" defer></script>
   <script type="module" src="/assets/js/app.js" defer></script>
   <script type="module" src="/assets/js/contact.js" defer></script>
-   
+  <!-- SEO Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://gettv.online/#organization",
+        "name": "GetTV.online",
+        "url": "https://gettv.online",
+        "logo": "https://gettv.online/assets/images/logogettv.svg",
+        "contactPoint": [
+          { "@type": "ContactPoint", "contactType": "customer service", "email": "support@gettv.online", "areaServed": "Worldwide", "availableLanguage": ["en", "fr", "ar", "es", "de"] },
+          { "@type": "ContactPoint", "email": "sales@gettv.online", "contactType": "sales", "areaServed": "Worldwide", "availableLanguage": ["en", "fr", "ar", "es", "de"] }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/GetTvonline",
+          "https://x.com/GeTVonline",
+          "https://www.pinterest.com/GeTvonline",
+          "https://www.quora.com/profile/GeTvonline",
+          "https://www.reddit.com/user/GetTVonline/",
+          "https://t.me/Gettvonline"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://gettv.online/#website",
+        "url": "https://gettv.online/",
+        "name": "GetTV.online",
+        "description": "Get the best IPTV service with GetTV.online. Simple setup for your compatible device, premium channels, and fast support. Start your IPTV subscription today.",
+        "publisher": { "@id": "https://gettv.online/#organization" },
+        "potentialAction": { "@type": "SearchAction", "target": "https://gettv.online/search?q={search_term_string}", "query-input": "required name=search_term_string" },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://gettv.online/contact#webpage",
+        "url": "https://gettv.online/contact",
+        "name": "Contact IPTV Support | GetTV.online",
+        "description": "Get in touch with the GetTV.online support team. Send us a message for help with IPTV setup, subscriptions, billing, or any streaming questions.",
+        "isPartOf": { "@id": "https://gettv.online/#website" },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gettv.online/" },
+            { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://gettv.online/contact" }
+          ]
+        }
+      },
+      {
+        "@type": "ContactPage",
+        "name": "Contact GetTV.online Support",
+        "description": "Send a message to GetTV.online support for help with IPTV setup, subscriptions, billing, or any streaming questions.",
+        "url": "https://gettv.online/contact",
+        "contactPoint": [
+          { "@type": "ContactPoint", "contactType": "customer service", "email": "support@gettv.online", "areaServed": "Worldwide", "availableLanguage": ["en", "fr", "ar", "es", "de"] },
+          { "@type": "ContactPoint", "contactType": "technical support", "email": "support@gettv.online", "areaServed": "Worldwide", "availableLanguage": ["en", "fr", "ar", "es", "de"] },
+          { "@type": "ContactPoint", "contactType": "sales", "email": "sales@gettv.online", "areaServed": "Worldwide", "availableLanguage": ["en", "fr", "ar", "es", "de"] }
+        ],
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "09:00", "closes": "22:00" }
+        ]
+      }
+    ]
+  }
+  </script>
 </body>
 </html>

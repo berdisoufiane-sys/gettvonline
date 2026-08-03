@@ -68,5 +68,64 @@
    <script type="module" src="/assets/js/firebase.js" defer></script>
     <script type="module" src="/assets/js/app.js" defer></script>
     <script type="module" src="/assets/js/blog.js" defer></script>
+    <!-- SEO Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://gettv.online/#organization",
+          "name": "GetTV.online",
+          "url": "https://gettv.online",
+          "logo": "https://gettv.online/assets/images/logogettv.svg",
+          "contactPoint": [
+            { "@type": "ContactPoint", "contactType": "customer service", "email": "support@gettv.online", "areaServed": "Worldwide", "availableLanguage": ["en", "fr", "ar", "es", "de"] },
+            { "@type": "ContactPoint", "email": "sales@gettv.online", "contactType": "sales", "areaServed": "Worldwide", "availableLanguage": ["en", "fr", "ar", "es", "de"] }
+          ],
+          "sameAs": [
+            "https://www.facebook.com/GetTvonline",
+            "https://x.com/GeTVonline",
+            "https://www.pinterest.com/GeTvonline",
+            "https://www.quora.com/profile/GeTvonline",
+            "https://www.reddit.com/user/GetTVonline/",
+            "https://t.me/Gettvonline"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://gettv.online/#website",
+          "url": "https://gettv.online/",
+          "name": "GetTV.online",
+          "description": "Get the best IPTV service with GetTV.online. Simple setup for your compatible device, premium channels, and fast support. Start your IPTV subscription today.",
+          "publisher": { "@id": "https://gettv.online/#organization" },
+          "potentialAction": { "@type": "SearchAction", "target": "https://gettv.online/search?q={search_term_string}", "query-input": "required name=search_term_string" },
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://gettv.online/blog#webpage",
+          "url": "https://gettv.online/blog",
+          "name": "IPTV Tech Blog | GetTV.online",
+          "description": "Read the latest IPTV articles, tips, and guides from the GetTV.online tech blog to make the most of your streaming setup.",
+          "isPartOf": { "@id": "https://gettv.online/#website" },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gettv.online/" },
+              { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://gettv.online/blog" }
+            ]
+          }
+        },
+        {
+          "@type": "CollectionPage",
+          "name": "GetTV Tech Blog",
+          "description": "A collection of articles, tips, and guides related to IPTV and streaming.",
+          "url": "https://gettv.online/blog",
+          "about": { "@id": "https://gettv.online/#organization" }
+        }
+      ]
+    }
+    </script>
 </body>
 </html>

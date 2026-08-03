@@ -92,12 +92,8 @@ async function loadBlogPost() {
             "headline": post.title,
             "description": post.metaDescription,
             "image": post.featuredImage || "https://gettv.online/assets/images/gettvonline.webp",
-            "author": { "@type": "Organization", "name": "GetTV.online", "url": "https://gettv.online" },
-            "publisher": {
-                "@type": "Organization",
-                "name": "GetTV.online",
-                "logo": { "@type": "ImageObject", "url": "https://gettv.online/assets/images/logogettv.svg" }
-            },
+            "author": { "@id": "https://gettv.online/#organization" },
+            "publisher": { "@id": "https://gettv.online/#organization" },
             "datePublished": new Date(post.publishedDate.seconds * 1000).toISOString(),
             "dateModified": post.modifiedDate ? new Date(post.modifiedDate.seconds * 1000).toISOString() : new Date(post.publishedDate.seconds * 1000).toISOString()
         };
