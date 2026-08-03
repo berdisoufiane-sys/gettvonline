@@ -163,6 +163,34 @@ function initializeCookieConsent() {
 }
 
 /**
+ * Initializes the infinite scrolling carousels.
+ * It respects the user's motion preferences and dynamically duplicates content for a seamless loop.
+ */
+function initializeCarousels() {
+    const scrollers = document.querySelectorAll(".scroller");
+
+    // If the user hasn't opted for reduced motion, add the animation.
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        addAnimation();
+    }
+
+    function addAnimation() {
+        scrollers.forEach((scroller) => {
+            scroller.setAttribute("data-animated", true);
+
+            const scrollerInner = scroller.querySelector(".scroller__inner");
+            const scrollerContent = Array.from(scrollerInner.children);
+
+            scrollerContent.forEach((item) => {
+                const duplicatedItem = item.cloneNode(true);
+                duplicatedItem.setAttribute("aria-hidden", true);
+                scrollerInner.appendChild(duplicatedItem);
+            });
+        });
+    }
+}
+
+/**
  * Main application entry point.
  */
 async function main() {
@@ -177,6 +205,7 @@ async function main() {
     setupNewsletterForm(); // This is for the form in the footer
     initializeBackToTopButton();
     initializeCookieConsent();
+    initializeCarousels();
 }
 
 // Wait for the DOM to be fully loaded before running the main app logic

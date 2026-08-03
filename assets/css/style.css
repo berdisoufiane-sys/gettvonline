@@ -10,9 +10,13 @@
         display: flex;
         flex-wrap: nowrap;
         gap: 1.5rem;
-        animation: scroll 30s linear infinite;
         width: max-content;
     }
+
+.scroller[data-animated="true"] .scroller__inner {
+    animation: scroll 30s linear infinite;
+}
+
     /* Reverse scrolling for the second row */
     .scroller__inner[data-direction="right"] {
         animation-direction: reverse;
@@ -33,3 +37,13 @@
     .carousel-image:hover {
         transform: scale(1.05);
     }
+
+.scroller__inner--slow {
+    animation-duration: 80s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroller__inner {
+    animation-play-state: paused;
+  }
+}
