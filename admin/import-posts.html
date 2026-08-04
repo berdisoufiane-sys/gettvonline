@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Posts | GetTV.online Admin</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favlogo2.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous">
+    <style>
+        .drop-zone-active {
+            border-color: #3b82f6; /* blue-500 */
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased flex min-h-screen">
+
+    <!-- Sidebar (Assuming a similar structure to dashboard.html) -->
+    <aside class="w-64 bg-gray-800 p-4 flex-shrink-0">
+        <div class="text-2xl font-bold mb-8">GetTV.online</div>
+        <nav class="space-y-2">
+            <a href="dashboard.html" class="flex items-center p-2 text-gray-300 hover:bg-gray-700 rounded-md"><i class="fa-solid fa-tachometer-alt w-6 mr-2"></i> Dashboard</a>
+            <a href="edit-post.html" class="flex items-center p-2 text-gray-300 hover:bg-gray-700 rounded-md"><i class="fa-solid fa-plus-circle w-6 mr-2"></i> New Post</a>
+            <a href="import-posts.html" class="flex items-center p-2 bg-gray-700 text-white rounded-md"><i class="fa-solid fa-file-import w-6 mr-2"></i> Import Posts</a>
+        </nav>
+        <div class="absolute bottom-4">
+            <button id="logout-button" class="flex items-center p-2 text-gray-300 hover:bg-gray-700 rounded-md w-full text-left"><i class="fa-solid fa-sign-out-alt w-6 mr-2"></i> Logout</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-8" style="visibility: hidden;">
+        <h1 class="text-3xl font-bold mb-6">Import Blog Posts</h1>
+
+        <!-- Step 1: File Upload -->
+        <section id="upload-section" class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+            <h2 class="text-xl font-semibold mb-4">Upload CSV File</h2>
+            <div id="drop-zone" class="border-2 border-dashed border-gray-600 rounded-lg p-10 text-center cursor-pointer hover:border-gray-500 transition-colors">
+                <i class="fa-solid fa-file-csv text-4xl text-gray-500 mb-4"></i>
+                <p class="text-gray-400">Drag & drop your CSV file here</p>
+                <p class="text-gray-500 text-sm my-2">or</p>
+                <label for="file-input" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg cursor-pointer inline-block">
+                    Browse File
+                </label>
+                <input type="file" id="file-input" class="hidden" accept=".csv">
+            </div>
+            <p id="file-name" class="mt-4 text-gray-300"></p>
+        </section>
+
+        <!-- Step 2: Preview & Confirmation -->
+        <section id="preview-section" class="hidden mt-8 bg-gray-800 p-6 rounded-lg border border-gray-700">
+            <h2 class="text-xl font-semibold mb-4">Preview (First 5 Rows)</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-400">
+                    <thead id="preview-head" class="text-xs text-gray-300 uppercase bg-gray-700">
+                        <!-- Headers will be injected here -->
+                    </thead>
+                    <tbody id="preview-body">
+                        <!-- Preview rows will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6 flex items-center justify-end gap-4">
+                <button id="cancel-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="import-btn" class="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg">
+                    <i class="fa-solid fa-rocket mr-2"></i>Start Import
+                </button>
+            </div>
+        </section>
+
+        <!-- Step 3: Import Progress -->
+        <section id="progress-section" class="hidden mt-8 bg-gray-800 p-6 rounded-lg border border-gray-700">
+            <h2 class="text-xl font-semibold mb-4">Importing...</h2>
+            <div class="w-full bg-gray-700 rounded-full h-4">
+                <div id="progress-bar" class="bg-blue-600 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div class="flex justify-between mt-2 text-sm text-gray-400">
+                <span id="progress-text">Processed 0 / 0</span>
+                <div class="flex gap-4">
+                    <span class="text-green-400">Imported: <span id="imported-count">0</span></span>
+                    <span class="text-yellow-400">Skipped: <span id="skipped-count">0</span></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 4: Results -->
+        <section id="results-section" class="hidden mt-8 bg-gray-800 p-6 rounded-lg border border-gray-700">
+            <div id="success-message" class="hidden p-4 mb-4 text-sm text-green-300 bg-green-900/50 rounded-lg border border-green-500/50" role="alert">
+                <span class="font-medium">Import Complete!</span> All valid rows have been processed.
+            </div>
+            <h2 class="text-xl font-semibold mb-4">Import Report</h2>
+            <div class="grid grid-cols-3 gap-4 text-center mb-6">
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-2xl font-bold text-green-400" id="final-imported">0</p>
+                    <p class="text-sm text-gray-400">Imported</p>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-2xl font-bold text-yellow-400" id="final-skipped">0</p>
+                    <p class="text-sm text-gray-400">Skipped / Errors</p>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <p class="text-2xl font-bold text-white" id="final-total">0</p>
+                    <p class="text-sm text-gray-400">Total Rows</p>
+                </div>
+            </div>
+
+            <div id="errors-container" class="hidden">
+                <h3 class="text-lg font-semibold text-red-400 mb-2">Error Details</h3>
+                <div class="max-h-60 overflow-y-auto bg-gray-900 p-4 rounded-md text-sm font-mono">
+                    <table class="w-full">
+                        <thead class="text-left">
+                            <tr>
+                                <th class="p-2">Row</th>
+                                <th class="p-2">Error</th>
+                                <th class="p-2">Title</th>
+                            </tr>
+                        </thead>
+                        <tbody id="errors-table-body">
+                            <!-- Error rows will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-6 text-right">
+                <a href="dashboard.html" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>Back to Dashboard
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module" src="../assets/js/firebase.js"></script>
+    <script type="module" src="import-posts.js"></script>
+</body>
+</html>
