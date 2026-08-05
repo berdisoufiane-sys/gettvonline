@@ -7,8 +7,8 @@ async function loadBlogPosts() {
     container.innerHTML = '<p class="text-center text-gray-400">Loading articles...</p>'; // Loading state
 
     try {
-        const postsRef = collection(db, 'blogPosts');
-        const q = query(postsRef, where("status", "==", "published"), orderBy("publishedDate", "desc"));
+        const postsRef = collection(db, 'posts');
+        const q = query(postsRef, where("status", "==", "published"), orderBy("createdAt", "desc"));
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
@@ -19,18 +19,21 @@ async function loadBlogPosts() {
         let postsHTML = '';
         querySnapshot.forEach((doc) => {
             const post = doc.data();
-            const postUrl = `/${post.slug}`;
-            const publishedDate = new Date(post.publishedDate.seconds * 1000).toLocaleDateString('en-US', {
-                year: 'numeric', month: 'long', day: 'numeric'
-            });
+            if (!post.slug) return; // Skip posts without a slug
 
-            const snippet = post.metaDescription ? `${post.metaDescription.substring(0, 150)}...` : '';
+            const postUrl = `/${post.slug}`;
+            const publishedTimestamp = post.publishedAt || post.createdAt;
+            const publishedDate = publishedTimestamp ? new Date(publishedTimestamp.seconds * 1000).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric'
+            }) : 'N/A';
+
+            const snippet = post.excerpt ? `${post.excerpt.substring(0, 150)}...` : '';
 
             postsHTML += `
                 <article class="bg-gray-800 border border-gray-700 rounded-2xl overflow-hidden flex flex-col md:flex-row hover:border-blue-500 transition-all duration-300 shadow-lg">
-                    ${post.featuredImage ? `
+                    ${post.imageUrl ? `
                     <a href="${postUrl}" class="block md:w-1/3 flex-shrink-0">
-                        <img src="${post.featuredImage}" alt="${post.title}" class="w-full h-48 md:h-full object-cover">
+                        <img src="${post.imageUrl}" alt="${post.title}" class="w-full h-48 md:h-full object-cover">
                     </a>` : ''}
                     <div class="p-6 flex flex-col justify-between flex-1">
                         <div>
