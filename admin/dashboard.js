@@ -39,22 +39,40 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event delegation for delete buttons
     if (mainContent) {
         mainContent.addEventListener('click', async (e) => {
-            const button = e.target.closest('.delete-btn');
-            if (button) {
-                const docId = button.dataset.id;
-                const collectionName = button.dataset.collection;
+            const deleteButton = e.target.closest('.delete-btn');
+            if (deleteButton) {
+                const docId = deleteButton.dataset.id;
+                const collectionName = deleteButton.dataset.collection;
 
                 if (confirm(`Are you sure you want to delete this ${collectionName} entry?`)) {
                     try {
                         await deleteDoc(doc(db, collectionName, docId));
                         // Remove the table row from the UI
-                        button.closest('tr').remove();
+                        deleteButton.closest('tr').remove();
                         console.log(`${collectionName} entry ${docId} deleted.`);
                     } catch (error) {
                         console.error(`Error deleting document: ${error}`);
                         alert('Failed to delete entry.');
                     }
                 }
+            }
+
+            const copyButton = e.target.closest('.copy-link-btn');
+            if (copyButton) {
+                const slug = copyButton.dataset.slug;
+                const url = `https://gettv.online/${slug}`;
+                navigator.clipboard.writeText(url).then(() => {
+                    const originalHTML = copyButton.innerHTML;
+                    copyButton.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Copied!';
+                    copyButton.disabled = true;
+                    setTimeout(() => {
+                        copyButton.innerHTML = originalHTML;
+                        copyButton.disabled = false;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy link: ', err);
+                    alert('Failed to copy link.');
+                });
             }
         });
     }
@@ -75,8 +93,9 @@ async function loadAllSubmissions() {
                     ${item.status === 'published' ? 'Published' : 'Draft'}
                 </span>
             </td>
-            <td class="px-6 py-4">
+            <td class="px-6 py-4 text-right">
                 <a href="edit-post.html?id=${item.id}" class="text-blue-400 hover:text-blue-300 font-medium mr-4"><i class="fa-solid fa-pencil-alt mr-1"></i>Edit</a>
+                ${item.slug ? `<button class="copy-link-btn text-purple-400 hover:text-purple-300 font-medium mr-4" data-slug="${item.slug}" title="Copy public URL"><i class="fa-solid fa-link mr-1"></i>Copy Link</button>` : ''}
                 <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="posts"><i class="fa-solid fa-trash mr-1"></i>Delete</button>
             </td>
         </tr>

@@ -48,8 +48,8 @@ async function loadBlogPost() {
 
     try {
         // 2. Query Firestore for the post with the matching slug.
-        const postsRef = collection(db, 'blogPosts');
-        const q = query(postsRef, where("slug", "==", slug), where("status", "==", "published"));
+        const postsRef = collection(db, 'posts');
+        const q = query(postsRef, where("slug", "==", slug), where("status", "==", "published".toLowerCase()));
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
@@ -65,61 +65,73 @@ async function loadBlogPost() {
 
         const postDoc = querySnapshot.docs[0];
         const post = postDoc.data();
-        const postUrl = `https://gettv.online/${post.slug}`;
+        const canonicalUrl = post.canonical || `https://gettv.online/${post.slug}`;
+        const metaDescription = post.meta?.description || post.excerpt || '';
 
         // 4. Dynamically update the <head> for SEO.
-        document.title = post.title;
-        setMetaTag('meta[name="description"]', 'content', post.metaDescription);
-        document.querySelector('link[rel="canonical"]').href = postUrl;
+        document.title = post.meta?.title || post.title;
+        setMetaTag('meta[name="description"]', 'content', metaDescription);
+        document.querySelector('link[rel="canonical"]').href = canonicalUrl;
 
         // Open Graph
-        setMetaTag('meta[property="og:title"]', 'content', post.title);
-        setMetaTag('meta[property="og:description"]', 'content', post.metaDescription);
-        setMetaTag('meta[property="og:url"]', 'content', postUrl);
+        setMetaTag('meta[property="og:title"]', 'content', post.meta?.title || post.title);
+        setMetaTag('meta[property="og:description"]', 'content', metaDescription);
+        setMetaTag('meta[property="og:url"]', 'content', canonicalUrl);
         setMetaTag('meta[property="og:type"]', 'content', 'article');
-        setMetaTag('meta[property="og:image"]', 'content', post.featuredImage);
+        setMetaTag('meta[property="og:image"]', 'content', post.imageUrl);
 
         // Twitter Card
-        setMetaTag('meta[name="twitter:title"]', 'content', post.title);
-        setMetaTag('meta[name="twitter:description"]', 'content', post.metaDescription);
-        setMetaTag('meta[name="twitter:image"]', 'content', post.featuredImage);
+        setMetaTag('meta[name="twitter:title"]', 'content', post.meta?.title || post.title);
+        setMetaTag('meta[name="twitter:description"]', 'content', metaDescription);
+        setMetaTag('meta[name="twitter:image"]', 'content', post.imageUrl);
 
         // 5. Generate and inject JSON-LD Schema.
-        const articleSchema = {
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "mainEntityOfPage": { "@type": "WebPage", "@id": postUrl },
-            "headline": post.title,
-            "description": post.metaDescription,
-            "image": post.featuredImage || "https://gettv.online/assets/images/gettvonline.webp",
-            "author": { "@id": "https://gettv.online/#organization" },
-            "publisher": { "@id": "https://gettv.online/#organization" },
-            "datePublished": new Date(post.publishedDate.seconds * 1000).toISOString(),
-            "dateModified": post.modifiedDate ? new Date(post.modifiedDate.seconds * 1000).toISOString() : new Date(post.publishedDate.seconds * 1000).toISOString()
-        };
-        setJsonLd('article-schema', articleSchema);
+        if (post.schema?.article) {
+            setJsonLd('article-schema', post.schema.article);
+        } else {
+            const publishedTimestamp = post.publishedAt || post.createdAt;
+            const modifiedTimestamp = post.updatedAt || publishedTimestamp;
+            const articleSchema = {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
+                "headline": post.title,
+                "description": metaDescription,
+                "image": post.imageUrl || "https://gettv.online/assets/images/gettvonline.webp",
+                "author": { "@type": "Organization", "name": post.author || "GetTV.online Team" },
+                "publisher": { "@id": "https://gettv.online/#organization" },
+                "datePublished": publishedTimestamp ? new Date(publishedTimestamp.seconds * 1000).toISOString() : new Date().toISOString(),
+                "dateModified": modifiedTimestamp ? new Date(modifiedTimestamp.seconds * 1000).toISOString() : new Date().toISOString()
+            };
+            setJsonLd('article-schema', articleSchema);
+        }
 
-        const breadcrumbSchema = {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gettv.online/" },
-                { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://gettv.online/blog" },
-                { "@type": "ListItem", "position": 3, "name": post.title }
-            ]
-        };
-        setJsonLd('breadcrumb-schema', breadcrumbSchema);
+        if (post.schema?.breadcrumb) {
+            setJsonLd('breadcrumb-schema', post.schema.breadcrumb);
+        } else {
+            const breadcrumbSchema = {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gettv.online/" },
+                    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://gettv.online/blog" },
+                    { "@type": "ListItem", "position": 3, "name": post.title }
+                ]
+            };
+            setJsonLd('breadcrumb-schema', breadcrumbSchema);
+        }
 
         // 6. Render the article content into the page.
-        const publishedDate = new Date(post.publishedDate.seconds * 1000).toLocaleDateString('en-US', {
+        const publishedTimestamp = post.publishedAt || post.createdAt;
+        const publishedDate = publishedTimestamp ? new Date(publishedTimestamp.seconds * 1000).toLocaleDateString('en-US', {
             year: 'numeric', month: 'long', day: 'numeric'
-        });
+        }) : 'N/A';
 
         postContentContainer.innerHTML = `
-            ${post.featuredImage ? `<img src="${post.featuredImage}" alt="${post.title}" class="rounded-xl mb-8 w-full h-auto object-cover shadow-lg">` : ''}
+            ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" class="rounded-xl mb-8 w-full h-auto object-cover shadow-lg">` : ''}
             <h1 class="text-4xl md:text-5xl font-extrabold mb-4">${post.title}</h1>
-            <p class="text-gray-400 mb-8">Published on ${publishedDate}</p>
-            <div class="prose-content">${post.contentHTML}</div>
+            <p class="text-gray-400 mb-8">Published on ${publishedDate} by ${post.author || 'GetTV.online Team'}</p>
+            <div class="prose-content">${post.content}</div>
         `;
 
     } catch (error) {
