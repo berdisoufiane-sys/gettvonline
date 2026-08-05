@@ -7,20 +7,27 @@ async function loadBlogPosts() {
     container.innerHTML = '<p class="text-center text-gray-400">Loading articles...</p>'; // Loading state
 
     try {
-        const postsRef = collection(db, 'posts');
-        const q = query(postsRef, where("status", "==", "published"), orderBy("createdAt", "desc"));
-        const querySnapshot = await getDocs(q);
+        // Fetch all posts and filter/sort on the client. This is more resilient
+        // and avoids complex Firestore index requirements that can cause silent failures.
+        const querySnapshot = await getDocs(collection(db, 'posts'));
+        const publishedPosts = [];
+        querySnapshot.forEach((doc) => {
+            const post = doc.data();
+            if (post.status === 'published' && post.slug) {
+                publishedPosts.push(post);
+            }
+        });
 
-        if (querySnapshot.empty) {
+        // Sort posts by creation date, newest first
+        publishedPosts.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+
+        if (publishedPosts.length === 0) {
             container.innerHTML = '<p class="text-center text-gray-400">No articles have been published yet. Check back soon!</p>';
             return;
         }
 
         let postsHTML = '';
-        querySnapshot.forEach((doc) => {
-            const post = doc.data();
-            if (!post.slug) return; // Skip posts without a slug
-
+        publishedPosts.forEach((post) => {
             const postUrl = `/${post.slug}`;
             const publishedTimestamp = post.publishedAt || post.createdAt;
             const publishedDate = publishedTimestamp ? new Date(publishedTimestamp.seconds * 1000).toLocaleDateString('en-US', {

@@ -48,11 +48,14 @@ async function loadBlogPost() {
 
     try {
         // 2. Query Firestore for the post with the matching slug.
+        // We query only by slug and check status on the client to avoid complex index requirements.
         const postsRef = collection(db, 'posts');
-        const q = query(postsRef, where("slug", "==", slug), where("status", "==", "published".toLowerCase()));
+        const q = query(postsRef, where("slug", "==", slug));
         const querySnapshot = await getDocs(q);
 
-        if (querySnapshot.empty) {
+        const postDoc = querySnapshot.docs.length > 0 ? querySnapshot.docs[0] : null;
+
+        if (!postDoc || postDoc.data().status !== 'published') {
             // 3. Handle "Not Found" case.
             document.title = "404: Article Not Found | GetTV.online";
             postContentContainer.innerHTML = `
@@ -63,7 +66,6 @@ async function loadBlogPost() {
             return;
         }
 
-        const postDoc = querySnapshot.docs[0];
         const post = postDoc.data();
         const canonicalUrl = post.canonical || `https://gettv.online/${post.slug}`;
         const metaDescription = post.meta?.description || post.excerpt || '';
