@@ -5,7 +5,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "node build-blog.js"
+    "vercel-build": "node build-blog.js"
   },
   "dependencies": {
     "firebase-admin": "^12.0.0"
