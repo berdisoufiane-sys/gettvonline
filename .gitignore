@@ -3,3 +3,8 @@ node_modules/
 npm-debug.log
 
 .DS_Store
+
+# Build artifacts - These are generated during the build process
+blog-index.json
+sitemap.xml
+rss.xml
