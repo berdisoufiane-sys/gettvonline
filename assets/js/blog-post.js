@@ -19,25 +19,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             throw new Error('Post metadata not found in index.');
         }
 
-        // Fetch the actual raw HTML content of the post
-        const contentResponse = await fetch(`/posts/${slug}.html`);
-        if (!contentResponse.ok) throw new Error('Could not load post content.');
-        const postHtml = await contentResponse.text();
-
         // Update the page's head with the correct SEO info
         updateHead(postMeta);
 
-        // Parse the fetched HTML to extract only the <article> content
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(postHtml, 'text/html');
-        const articleContent = doc.querySelector('article')?.innerHTML;
-
-        if (!articleContent) {
-            throw new Error('Article content not found in the source file.');
-        }
-
         // Inject the content and metadata into the page
-        renderPost(postMeta, articleContent);
+        // The content is now directly available in the postMeta object
+        renderPost(postMeta, postMeta.content);
 
     } catch (error) {
         console.error('Error loading post:', error);

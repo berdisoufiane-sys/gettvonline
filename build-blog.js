@@ -58,9 +58,7 @@ async function parsePost(filePath) {
  */
 async function generateBlogIndex(posts) {
     const outputPath = path.join(OUTPUT_DIR, 'blog-index.json');
-    // We don't need the full content in the index
-    const indexPosts = posts.map(({ content, ...rest }) => rest);
-    await fs.writeFile(outputPath, JSON.stringify(indexPosts, null, 2));
+    await fs.writeFile(outputPath, JSON.stringify(posts, null, 2));
     console.log(`✔ Successfully generated blog-index.json with ${posts.length} posts.`);
 }
 
