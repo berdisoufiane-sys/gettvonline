@@ -3,10 +3,6 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/blog", "destination": "/blog-listing.html" },
-    {
-      "source": "/:path((?!pricing|channels|tutorial|contact|trial|blog|about|privacy|refund-policy|terms-of-service|admin|api|_next|assets|images).+)",
-      "destination": "/blog-post.html"
-    }
   ],
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },

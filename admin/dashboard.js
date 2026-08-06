@@ -79,28 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadAllSubmissions() {
-    // Load Posts
-    loadAndDisplayData('posts', 'posts-body', (item) => `
-        <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700/50">
-            <td class="px-6 py-4">
-                ${item.imageUrl ? `<img src="${item.imageUrl}" alt="Cover" class="h-10 w-16 object-cover rounded">` : 'No Image'}
-            </td>
-            <td class="px-6 py-4">${formatDate(item.createdAt)}</td>
-            <td class="px-6 py-4 font-medium text-white">${item.title}</td>
-            <td class="px-6 py-4">${item.author || 'N/A'}</td>
-            <td class="px-6 py-4">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${item.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}">
-                    ${item.status === 'published' ? 'Published' : 'Draft'}
-                </span>
-            </td>
-            <td class="px-6 py-4 text-right">
-                <a href="edit-post.html?id=${item.id}" class="text-blue-400 hover:text-blue-300 font-medium mr-4"><i class="fa-solid fa-pencil-alt mr-1"></i>Edit</a>
-                ${item.slug ? `<button class="copy-link-btn text-purple-400 hover:text-purple-300 font-medium mr-4" data-slug="${item.slug}" title="Copy public URL"><i class="fa-solid fa-link mr-1"></i>Copy Link</button>` : ''}
-                <button class="delete-btn text-red-500 hover:text-red-400 font-medium" data-id="${item.id}" data-collection="posts"><i class="fa-solid fa-trash mr-1"></i>Delete</button>
-            </td>
-        </tr>
-    `);
-
     // Load Trial Requests
     loadAndDisplayData('trial', 'trial-requests-body', (item) => `
         <tr class="bg-gray-800 border-b border-gray-700 hover:bg-gray-700/50">
@@ -164,8 +142,7 @@ async function loadAndDisplayData(collectionName, tableBodyId, rowTemplate) {
     if (!tableBody) return;
 
     try {
-        // Order posts by creation date, newest first. Other collections are not ordered.
-        const dataQuery = collectionName === 'posts' ? query(collection(db, collectionName), orderBy("createdAt", "desc")) : query(collection(db, collectionName));
+        const dataQuery = query(collection(db, collectionName));
         const querySnapshot = await getDocs(dataQuery);
         if (querySnapshot.empty) {
             tableBody.innerHTML = `<tr><td colspan="100%" class="text-center py-4 text-gray-500">No entries found.</td></tr>`;
