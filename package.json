@@ -1,12 +1,18 @@
 {
-  "name": "gettv-online-backend",
+  "name": "gettv-online-project",
   "version": "1.0.0",
+  "description": "Static site and build system for GetTV.online",
   "type": "module",
   "private": true,
+  "scripts": {
+    "build": "node scripts/build-blog.js"
+  },
   "dependencies": {
     "firebase-admin": "^12.0.0"
   },
   "devDependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "rss": "^1.2.2",
     "tailwindcss": "^4.3.3"
   }
 }
