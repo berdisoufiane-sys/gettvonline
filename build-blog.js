@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 import RSS from 'rss';
 
 const SITE_URL = 'https://gettv.online';
