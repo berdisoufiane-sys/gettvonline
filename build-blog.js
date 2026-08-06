@@ -151,14 +151,18 @@ async function main() {
         const postFiles = files.filter(file => file.endsWith('.html'));
 
         if (postFiles.length === 0) {
-            console.log('ℹ No posts found in /posts directory. Skipping blog generation.');
-            // Still generate empty/default files to avoid 404s
-            await generateBlogIndex([]);
-            await generateRssFeed([]);
-            await generateSitemap([]);
-            console.log('✅ Build process completed.');
+            console.log('ℹ No HTML posts found in /posts directory. Generating empty files.');
+            // This is a valid state, so we generate empty files and succeed the build.
+            await Promise.all([
+                generateBlogIndex([]),
+                generateRssFeed([]),
+                generateSitemap([]),
+            ]);
+            console.log('✅ Build process completed with no posts.');
             return;
         }
+
+        console.log(`Found ${postFiles.length} post(s). Parsing...`);
 
         const postPromises = postFiles.map(file => parsePost(path.join(POSTS_DIR, file)));
         let posts = (await Promise.all(postPromises)).filter(Boolean); // Filter out nulls from parsing errors
@@ -176,11 +180,12 @@ async function main() {
         console.log('✅ Blog build process completed successfully!');
     } catch (error) {
         if (error.code === 'ENOENT') {
-             console.log('ℹ /posts directory not found. Skipping blog generation.');
-             await generateBlogIndex([]);
-             await generateRssFeed([]);
-             await generateSitemap([]);
-             console.log('✅ Build process completed.');
+            // This is a fatal error. The posts directory MUST exist for a valid build.
+            console.error(`\n🔥🔥🔥 BUILD FAILED 🔥🔥🔥`);
+            console.error(`Error: The '/posts' directory was not found.`);
+            console.error(`Please make sure a 'posts' directory exists in your project root and that it has been committed to your Git repository.`);
+            console.error(`Run 'git status' to see if the directory is untracked.\n`);
+            process.exit(1); // Exit with an error code to fail the Vercel build
         } else {
             console.error('🔥 A critical error occurred during the build process:', error);
             process.exit(1); // Exit with an error code to fail the Vercel build
