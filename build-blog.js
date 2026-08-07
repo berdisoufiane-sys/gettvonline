@@ -147,6 +147,9 @@ async function main() {
     console.log('🚀 Starting blog build process...');
 
     try {
+        const rootContent = await fs.readdir(process.cwd());
+        console.log('🔍 Files and folders in project root:', rootContent);
+
         const files = await fs.readdir(POSTS_DIR);
         const postFiles = files.filter(file => file.endsWith('.html'));
 
