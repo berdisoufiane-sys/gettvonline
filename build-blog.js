@@ -4,9 +4,8 @@ import * as cheerio from 'cheerio';
 import RSS from 'rss';
 
 const SITE_URL = 'https://gettv.online';
-const ROOT_DIR = process.cwd();
-const POSTS_DIR = path.join(ROOT_DIR, 'posts');
-const OUTPUT_DIR = path.join(ROOT_DIR, 'public'); // Vercel will deploy from the 'public' directory
+const POSTS_DIR = path.join(process.cwd(), 'posts');
+const OUTPUT_DIR = process.cwd(); // Vercel builds from the root
 
 /**
  * Extracts metadata from a single blog post HTML file.
@@ -145,37 +144,7 @@ ${postEntries}
  * Main build function.
  */
 async function main() {
-    console.log('🚀 Starting build process...');
-
-    // 1. Clean and create the public output directory
-    console.log('🧹 Cleaning up old output directory...');
-    await fs.rm(OUTPUT_DIR, { recursive: true, force: true });
-    await fs.mkdir(OUTPUT_DIR, { recursive: true });
-
-    // 2. Copy all source files to the public directory
-    console.log('📂 Copying source files to public directory...');
-    const sourceItems = await fs.readdir(ROOT_DIR);
-    const itemsToCopy = sourceItems.filter(file => ![
-        'node_modules',
-        '.git',
-        '.gitignore',
-        'package.json',
-        'package-lock.json',
-        'build-blog.js',
-        'public',      // Don't copy the output dir into itself
-        'posts',       // Handled by the blog generation logic
-        'README.md'    // Not needed in deployment
-    ].includes(file));
-
-    for (const item of itemsToCopy) {
-        const sourcePath = path.join(ROOT_DIR, item);
-        const destPath = path.join(OUTPUT_DIR, item);
-        await fs.cp(sourcePath, destPath, { recursive: true });
-    }
-    console.log('✅ Source files copied.');
-
-    // 3. Run the blog generation process
-    console.log('✍️ Starting blog generation...');
+    console.log('🚀 Starting blog build process...');
 
     try {
         const files = await fs.readdir(POSTS_DIR);
@@ -189,7 +158,7 @@ async function main() {
                 generateRssFeed([]),
                 generateSitemap([]),
             ]);
-            console.log('✅ Blog generation completed with no posts.');
+            console.log('✅ Build process completed with no posts.');
             return;
         }
 
@@ -208,7 +177,7 @@ async function main() {
             generateSitemap(posts),
         ]);
 
-        console.log('✅ Blog generation completed successfully!');
+        console.log('✅ Blog build process completed successfully!');
     } catch (error) {
         if (error.code === 'ENOENT') {
             // This is a fatal error. The posts directory MUST exist for a valid build.
