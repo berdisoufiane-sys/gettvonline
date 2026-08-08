@@ -1,8 +1,8 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "outputDirectory": "public",
   "rewrites": [
-    { "source": "/blog/:slug", "destination": "/blog-post.html" },
     { "source": "/blog", "destination": "/blog-listing.html" },
     { "source": "/rss", "destination": "/rss.xml" }
   ],  
@@ -18,7 +18,6 @@
     { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
     { "source": "/refund-policy.html", "destination": "/refund-policy", "permanent": true },
     { "source": "/terms-of-service.html", "destination": "/terms-of-service", "permanent": true },
-    { "source": "/blog-post.html", "destination": "/blog", "permanent": true }
   ],
   "headers": [
     {

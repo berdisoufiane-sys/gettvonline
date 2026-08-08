@@ -8,3 +8,6 @@ npm-debug.log
 blog-index.json
 sitemap.xml
 rss.xml
+
+# Vercel build output directory
+/public

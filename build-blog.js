@@ -4,8 +4,9 @@ import * as cheerio from 'cheerio';
 import RSS from 'rss';
 
 const SITE_URL = 'https://gettv.online';
-const POSTS_DIR = path.join(process.cwd(), 'posts');
-const OUTPUT_DIR = process.cwd(); // Vercel builds from the root
+const ROOT_DIR = process.cwd();
+const POSTS_DIR = path.join(ROOT_DIR, 'posts');
+const OUTPUT_DIR = path.join(ROOT_DIR, 'public'); // Vercel will deploy from the 'public' directory
 
 /**
  * Extracts metadata from a single blog post HTML file.
@@ -141,11 +142,78 @@ ${postEntries}
 }
 
 /**
+ * Generates individual static HTML pages for each blog post.
+ * This is a more robust method than client-side rendering.
+ * @param {Array<object>} posts - An array of post metadata objects.
+ */
+async function generateStaticPostPages(posts) {
+    const templatePath = path.join(ROOT_DIR, 'blog-post.html');
+    try {
+        await fs.access(templatePath);
+    } catch {
+        console.warn(`! Warning: blog-post.html template not found. Skipping static page generation.`);
+        return;
+    }
+    const templateHtml = await fs.readFile(templatePath, 'utf-8');
+    const outputBlogDir = path.join(OUTPUT_DIR, 'blog');
+    await fs.mkdir(outputBlogDir, { recursive: true });
+
+    console.log('📄 Generating static pages for each post...');
+
+    for (const post of posts) {
+        const $ = cheerio.load(templateHtml);
+
+        // Update head with post-specific SEO metadata
+        $('title').text(post.title);
+        $('link[rel="canonical"]').attr('href', post.url);
+        $('meta[name="description"]').attr('content', post.description);
+        $('meta[property="og:title"]').attr('content', post.title);
+        $('meta[property="og:description"]').attr('content', post.description);
+        $('meta[property="og:url"]').attr('content', post.url);
+        $('meta[property="og:image"]').attr('content', post.featuredImage);
+        $('meta[name="twitter:title"]').attr('content', post.title);
+        $('meta[name="twitter:description"]').attr('content', post.description);
+        $('meta[name="twitter:url"]').attr('content', post.url);
+        $('meta[name="twitter:image"]').attr('content', post.featuredImage);
+
+        // Inject the article content directly into the template
+        $('#post-content-container').html(post.content);
+
+        const finalHtml = $.html();
+        const outputPath = path.join(outputBlogDir, `${post.slug}.html`);
+        await fs.writeFile(outputPath, finalHtml);
+    }
+    console.log(`✔ Successfully generated ${posts.length} static post pages.`);
+}
+
+/**
  * Main build function.
  */
 async function main() {
-    console.log('🚀 Starting blog build process...');
+    console.log('🚀 Starting static build process...');
 
+    // 1. Clean and create the public output directory
+    console.log('🧹 Cleaning up old /public directory...');
+    await fs.rm(OUTPUT_DIR, { recursive: true, force: true });
+    await fs.mkdir(OUTPUT_DIR, { recursive: true });
+
+    // 2. Copy all source files to the public directory
+    console.log('📂 Copying source files to /public directory...');
+    const sourceItems = await fs.readdir(ROOT_DIR);
+    const itemsToCopy = sourceItems.filter(file => ![
+        'node_modules', '.git', '.gitignore', 'package.json', 'package-lock.json',
+        'build-blog.js', 'public', 'posts', 'api', '.vercel', 'README.md'
+    ].includes(file));
+
+    for (const item of itemsToCopy) {
+        const sourcePath = path.join(ROOT_DIR, item);
+        const destPath = path.join(OUTPUT_DIR, item);
+        await fs.cp(sourcePath, destPath, { recursive: true });
+    }
+    console.log('✅ Source files copied.');
+
+    // 3. Run the blog generation process
+    console.log('✍️ Starting blog generation...');
     try {
         const files = await fs.readdir(POSTS_DIR);
         const postFiles = files.filter(file => file.endsWith('.html'));
@@ -158,7 +226,7 @@ async function main() {
                 generateRssFeed([]),
                 generateSitemap([]),
             ]);
-            console.log('✅ Build process completed with no posts.');
+            console.log('✅ Blog generation completed with no posts.');
             return;
         }
 
@@ -172,12 +240,13 @@ async function main() {
 
         // Generate all necessary files
         await Promise.all([
+            generateStaticPostPages(posts),
             generateBlogIndex(posts),
             generateRssFeed(posts),
             generateSitemap(posts),
         ]);
 
-        console.log('✅ Blog build process completed successfully!');
+        console.log('✅ Build process completed successfully!');
     } catch (error) {
         if (error.code === 'ENOENT') {
             // This is a fatal error. The posts directory MUST exist for a valid build.
