@@ -1,0 +1,28 @@
+# Node.js
+node_modules/
+npm-debug.log
+
+.DS_Store
+
+# Build artifacts - These are generated during the build process
+blog-index.json
+sitemap.xml
+rss.xml
+
+# Vercel build output directory
+/public
+
+# Environment variables and local secrets — never commit these
+.env
+.env.local
+.env.*.local
+
+# Vercel CLI project link (contains project/org IDs, not meant to be shared)
+.vercel
+
+# Firebase CLI local cache/logs
+.firebase
+firebase-debug.log
+
+# Local Claude Code tool settings (machine-specific, not project config)
+.claude/

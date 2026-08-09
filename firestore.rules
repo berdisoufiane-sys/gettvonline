@@ -1,0 +1,46 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Admin = signed in AND carries the "admin" custom claim.
+    // Being merely authenticated is not enough: this project's Firebase Auth
+    // could in principle allow self-service sign-up, so gating on auth != null
+    // alone would let any newly created account read/delete customer form
+    // submissions and write blog posts. The claim must be set out-of-band via
+    // the Admin SDK (see scripts/set-admin-claim.js) for a specific trusted UID.
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    // Posts can be read by anyone, but only created, updated, or deleted by an admin.
+    match /posts/{postId} {
+      allow read: if true;
+      allow write: if isAdmin(); // Covers create, update, delete
+    }
+
+    // Trial requests, contact messages, newsletter signups, and channel list requests
+    // are only created via the backend function (server-side, using the Admin SDK,
+    // which bypasses these rules entirely).
+    // They can only be read or deleted by an admin from the dashboard.
+    match /trial/{trialId} {
+      allow read, delete: if isAdmin();
+      allow create, update: if false; // Prevent client-side writes
+    }
+
+    match /contact/{contactId} {
+      allow read, delete: if isAdmin();
+      allow create, update: if false; // Prevent client-side writes
+    }
+
+    match /newsletter/{newsletterId} {
+      allow read, delete: if isAdmin();
+      allow create, update: if false; // Prevent client-side writes
+    }
+
+    match /channelList/{channelListId} {
+      allow read, delete: if isAdmin();
+      allow create, update: if false; // Prevent client-side writes
+    }
+  }
+}

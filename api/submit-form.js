@@ -1,0 +1,178 @@
+import admin from 'firebase-admin';
+
+let db;
+let firebaseAdminError = null;
+
+// --- Helper function to initialize Firebase Admin SDK ---
+// This ensures we only initialize the app once per server instance.
+function initializeFirebaseAdmin() {
+  // Check if already initialized
+  if (admin.apps.length) {
+    db = admin.firestore();
+    return;
+  }
+
+  try {
+    // Check if the environment variable is set
+    if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+      throw new Error('FIREBASE_SERVICE_ACCOUNT_KEY environment variable is not set.');
+    }
+    const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount)
+    });
+  } catch (error) {
+    // Capture the error to be reported in the handler
+    firebaseAdminError = `Firebase admin initialization error: ${error.message}. Please check that the FIREBASE_SERVICE_ACCOUNT_KEY environment variable is set correctly in Vercel.`;
+    console.error(error.stack);
+    // Explicitly return here to prevent db from being assigned on failure.
+    return;
+  }
+  // Assign db only after a successful initialization.
+  db = admin.firestore();
+}
+
+initializeFirebaseAdmin();
+
+// Form data comes straight from unauthenticated public visitors — never interpolate it
+// into HTML (email body) without escaping, or a submitted field becomes markup injection.
+function escapeHtml(value) {
+  if (value === null || value === undefined) return '';
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// --- Main Serverless Function Handler ---
+export default async function handler(req, res) {
+  // Check if Firebase Admin SDK initialized correctly
+  if (firebaseAdminError) {
+    console.error(firebaseAdminError);
+    return res.status(500).json({ message: 'Server configuration error.', error: firebaseAdminError });
+  }
+
+  // 1. Security: Only allow POST requests
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Only POST requests allowed' });
+  }
+
+  const formData = req.body;
+
+  try {
+    // 2. Determine which collection to save to based on the formType
+    let collectionName = '';
+    let emailSubject = '';
+    let emailHtmlContent = '';
+
+    switch (formData.formType) {
+      case 'contact':
+        collectionName = 'contact';
+        emailSubject = `New Contact Message: ${formData.subject || 'No Subject'}`;
+        emailHtmlContent = `
+          <p>You have a new contact message:</p>
+          <ul>
+            <li><strong>Name:</strong> ${escapeHtml(formData.name) || 'N/A'}</li>
+            <li><strong>Email:</strong> ${escapeHtml(formData.email) || 'N/A'}</li>
+            <li><strong>Subject:</strong> ${escapeHtml(formData.subject) || 'N/A'}</li>
+            <li><strong>Message:</strong> ${escapeHtml(formData.message) || 'N/A'}</li>
+          </ul>`;
+        break;
+      case 'trial':
+        collectionName = 'trial';
+        emailSubject = `New Free Trial Request from ${formData.name}`;
+
+        // Conditionally add MAC address if the device is a MAG box
+        let macAddressHtml = '';
+        if (formData.device && formData.device.toLowerCase().includes('mag') && formData.macAddress && formData.macAddress !== 'N/A') {
+            macAddressHtml = `<li><strong>MAC Address:</strong> ${escapeHtml(formData.macAddress)}</li>`;
+        }
+
+        emailHtmlContent = `
+          <p>You have a new free trial request:</p>
+          <ul>
+            <li><strong>Name:</strong> ${escapeHtml(formData.name) || 'N/A'}</li>
+            <li><strong>Email:</strong> ${escapeHtml(formData.email) || 'N/A'}</li>
+            <li><strong>Country:</strong> ${escapeHtml(formData.country) || 'N/A'}</li>
+            <li><strong>Plan:</strong> ${escapeHtml(formData.plan) || 'N/A'}</li>
+            <li><strong>Device:</strong> ${escapeHtml(formData.device) || 'N/A'}</li>
+            ${macAddressHtml}
+          </ul>`;
+        break;
+      case 'newsletter':
+        collectionName = 'newsletter';
+        emailSubject = `New Newsletter Subscription: ${formData.email}`;
+        emailHtmlContent = `<p>A new user has subscribed: <strong>${escapeHtml(formData.email)}</strong></p>`;
+        break;
+      case 'channelList':
+        collectionName = 'channelList';
+        emailSubject = `Channel List Request from ${formData.email}`;
+        emailHtmlContent = `<p>A user requested the channel list:</p>
+          <ul>
+            <li><strong>Email:</strong> ${escapeHtml(formData.email)}</li>
+            <li><strong>Region:</strong> ${escapeHtml(formData.preferredRegion) || 'N/A'}</li>
+          </ul>`;
+        break;
+      default:
+        throw new Error('Invalid form type provided.');
+    }
+
+    // 3. Save the data to Firestore
+    await db.collection(collectionName).add({
+      ...formData,
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      status: 'new' // A consistent status for all submissions
+    });
+
+    // --- 4. Send email notification using Brevo with enhanced logging ---
+    console.log('--- PREPARING TO SEND BREVO EMAIL ---');
+    if (!process.env.BREVO_API_KEY || !process.env.SENDER_EMAIL || !process.env.ADMIN_EMAIL) {
+        console.error('ERROR: One or more email environment variables (BREVO_API_KEY, SENDER_EMAIL, ADMIN_EMAIL) are not set in Vercel.');
+    } else {
+        console.log(`Attempting to send email from [${process.env.SENDER_EMAIL}] to [${process.env.ADMIN_EMAIL}]`);
+    }
+
+    try {
+        const brevoResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'api-key': process.env.BREVO_API_KEY,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                sender: { name: 'GetTV.online', email: process.env.SENDER_EMAIL },
+                to: [{ email: process.env.ADMIN_EMAIL }],
+                subject: emailSubject,
+                htmlContent: emailHtmlContent
+            })
+        });
+
+        if (!brevoResponse.ok) {
+            const errorBody = await brevoResponse.json();
+            console.error('--- BREVO EMAIL SENDING FAILED (API Response not OK) ---');
+            console.error(`Status: ${brevoResponse.status} ${brevoResponse.statusText}`);
+            console.error('Error Body:', JSON.stringify(errorBody, null, 2));
+            console.error('ACTION: Please check your BREVO_API_KEY, SENDER_EMAIL, and ADMIN_EMAIL environment variables in Vercel. Also ensure your sender email is verified in your Brevo account.');
+        } else {
+            const responseBody = await brevoResponse.json();
+            console.log('--- BREVO EMAIL API CALL SUCCEEDED ---');
+            console.log(`Status: ${brevoResponse.status}`);
+            console.log('Brevo Response Body:', JSON.stringify(responseBody, null, 2));
+        }
+    } catch (networkError) {
+        console.error('--- BREVO EMAIL SENDING FAILED (Network or Fetch Error) ---');
+        console.error('This usually means there is a problem with the Vercel function environment or network, not your code.');
+        console.error(networkError);
+    }
+
+    // 5. Send a success response back to the frontend
+    return res.status(200).json({ message: 'Submission successful!' });
+
+  } catch (error) {
+    console.error('Error processing form:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+}

@@ -1,0 +1,7 @@
+/* A simple, dark theme for the admin panel */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* You can add any custom admin styles here in the future */
