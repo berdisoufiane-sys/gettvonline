@@ -320,7 +320,7 @@ async function main() {
         'build-blog.js', 'public', 'posts', 'api', '.vercel', 'README.md',
         // Config/tooling that must never be served as static files on the live site.
         '.env', '.env.local', '.env.production', '.env.development',
-        'firebase.json', 'firestore.rules', '.firebase', '.vscode', 'scripts', 'vercel.json',
+        'firebase.json', 'firestore.rules', '.firebase', '.vscode', '.claude', 'scripts', 'vercel.json',
         // Post/listing templates: consumed directly by this script, not copied verbatim.
         'blog-post.html',
     ].includes(file));

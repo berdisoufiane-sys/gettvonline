@@ -24,5 +24,7 @@ rss.xml
 .firebase
 firebase-debug.log
 
-# Local Claude Code tool settings (machine-specific, not project config)
-.claude/
+# Local Claude Code tool settings (machine-specific) — but keep .claude/skills,
+# agents, and commands, which are shared project config meant to be versioned
+.claude/settings.local.json
+.claude/*.local.json
