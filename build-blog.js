@@ -8,7 +8,7 @@ const ROOT_DIR = process.cwd();
 const POSTS_DIR = path.join(ROOT_DIR, 'posts');
 const OUTPUT_DIR = path.join(ROOT_DIR, 'public'); // Vercel deploys from the 'public' directory
 
-const DEFAULT_OG_IMAGE = '/assets/images/gettvonline.webp';
+const DEFAULT_OG_IMAGE = '/assets/images/getTv.webp';
 
 // Every existing top-level route. A post slug matching one of these would silently
 // overwrite a real, already-indexed page, so it's treated as a hard build failure.
