@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 /* Force-include class names used across the whole site so the build isn't limited
    to files sitting next to this CSS file (Tailwind v4 auto content detection scans

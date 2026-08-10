@@ -1,0 +1,41 @@
+<!--
+  POST TEMPLATE — copy this file, rename it to your slug (e.g. best-iptv-apps-2026.html),
+  and place it in /posts/. The filename (minus .html) becomes the URL:
+  posts/best-iptv-apps-2026.html -> gettv.online/best-iptv-apps-2026
+
+  Rules for the automation script:
+  - Filenames must be lowercase, hyphen-separated, and must NOT match an existing
+    top-level page name (about, pricing, channels, contact, trial, tutorial, privacy,
+    refund-policy, terms-of-service, blog, blog-listing, blog-post, 404, admin, api).
+    The build fails loudly if a slug collides, instead of overwriting a real page.
+  - "title", "description", and "publishDate" are required. The build fails loudly
+    if any are missing.
+  - "author", "category", and "featuredImage" are optional and fall back to sensible
+    defaults if omitted.
+  - "publishDate" must be an ISO date string: "YYYY-MM-DD".
+  - "featuredImage" can be an absolute path under /assets/images/ or a full URL.
+  - The body inside <template id="post-body"> is raw HTML — headings, paragraphs,
+    links, lists, etc. No <html>/<head>/<body> wrapper, no header/footer: those are
+    added automatically at build time.
+  - This file (_TEMPLATE.html, leading underscore) is ignored by the build — it is
+    never published as a post itself.
+-->
+<script type="application/json" id="post-frontmatter">
+{
+  "title": "Post Title Goes Here",
+  "description": "One or two sentences summarizing the post, used for the meta description, social previews, and the blog listing excerpt.",
+  "author": "GetTV.online Team",
+  "publishDate": "2026-01-01",
+  "category": "General",
+  "featuredImage": "/assets/images/gettvonline.webp"
+}
+</script>
+<template id="post-body">
+  <p>Opening paragraph introducing the topic.</p>
+
+  <h2>First section heading</h2>
+  <p>Section content.</p>
+
+  <h2>Second section heading</h2>
+  <p>Section content.</p>
+</template>
