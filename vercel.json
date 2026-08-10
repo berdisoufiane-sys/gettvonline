@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "outputDirectory": "public",
   "rewrites": [
-    { "source": "/blog", "destination": "/blog-listing.html" },
+    { "source": "/blog", "destination": "/blog-listing" },
     { "source": "/rss", "destination": "/rss.xml" }
   ],  
   "redirects": [
@@ -13,7 +13,7 @@
     { "source": "/tutorial.html", "destination": "/tutorial", "permanent": true },
     { "source": "/contact.html", "destination": "/contact", "permanent": true },
     { "source": "/trial.html", "destination": "/trial", "permanent": true },
-    { "source": "/blog-listing.html", "destination": "/blog", "permanent": true },
+    { "source": "/blog-listing", "destination": "/blog", "permanent": true },
     { "source": "/about.html", "destination": "/about", "permanent": true },
     { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
     { "source": "/refund-policy.html", "destination": "/refund-policy", "permanent": true },
