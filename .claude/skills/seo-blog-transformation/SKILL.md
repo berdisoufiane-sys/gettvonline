@@ -3,6 +3,7 @@ name: SEO Blog Transformation
 description: Transform an existing HTML blog post (in this project's posts/ folder or elsewhere) into a substantially improved, original, SEO-optimized article while preserving its focus keyword, search intent, and URL. Use when the user asks to rewrite, regenerate, optimize, or improve an existing blog post's SEO, fix an existing article, or process a new raw HTML post file dropped into posts/ (e.g. scraped/AI-generated content that needs cleanup). Also handles featured-image matching from /assets/images/FeatureImagePost/ and automatic PNG-to-WebP conversion for featured images.
 ---
 
+
 # SEO Blog Transformation Skill for Claude Code
 
 ## ROLE
@@ -207,9 +208,39 @@ Prefer concise, useful introductions.
 
 ---
 
-# 6. TABLE OF CONTENTS
+# 6. TABLE OF CONTENTS — MANDATORY
 
-Add a professional Table of Contents near the beginning of the article, preferably after the introduction or immediately before the main content.
+A Table of Contents (TOC) is REQUIRED for every blog article.
+
+The TOC must NEVER be omitted.
+
+## RULE 1 — IF A TOC ALREADY EXISTS
+
+If the HTML already contains a Table of Contents:
+
+* DO NOT create a second TOC.
+* DO NOT remove the existing TOC.
+* Preserve its existing CSS classes and visual design.
+* Improve and update it when necessary.
+* Make sure it reflects the final H2 structure.
+* Fix broken anchor links.
+* Fix missing or incorrect IDs.
+* Remove duplicate TOC entries.
+* Keep the TOC in a logical position near the beginning of the article.
+
+The existing TOC must remain visually consistent with the website.
+
+---
+
+## RULE 2 — IF NO TOC EXISTS
+
+If the article does NOT contain a Table of Contents:
+
+**YOU MUST CREATE ONE.**
+
+Do not skip this step.
+
+Add the TOC near the beginning of the article, normally after the introduction or in the position used by the website's other articles.
 
 Example:
 
@@ -224,21 +255,190 @@ Example:
 </nav>
 ```
 
-Requirements:
+---
 
-* Automatically derive entries from important H2 sections.
-* Every TOC link must point to an existing ID.
-* IDs must be unique.
-* Do not include the H1.
-* Do not include every minor H3.
-* Use readable anchor text.
-* Do not break existing CSS.
+## RULE 3 — BUILD THE TOC FROM THE FINAL CONTENT
 
-If the website already has a TOC style, preserve and reuse it.
+The TOC must be generated from the article's FINAL heading structure.
 
-If there is no existing style, use clean semantic HTML and minimal inline styling only when necessary.
+Do not create the TOC before the content structure is finalized.
+
+Include:
+
+* important H2 headings
+* H3 headings only when they represent meaningful subsections
+
+Normally, do NOT include:
+
+* H1
+* tiny subsections
+* navigation headings
+* footer headings
+* unrelated page headings
+* FAQ questions
+
+unless the website's existing TOC convention explicitly includes them.
 
 ---
+
+## RULE 4 — UNIQUE ANCHOR IDS
+
+Every TOC destination must have a unique ID.
+
+Example:
+
+```html
+<h2 id="best-options">Best Options</h2>
+```
+
+TOC:
+
+```html
+<a href="#best-options">Best Options</a>
+```
+
+Requirements:
+
+* IDs must be unique.
+* IDs must be stable.
+* IDs should be readable.
+* IDs should normally use lowercase kebab-case.
+* Do not create duplicate IDs.
+* Do not use spaces in IDs.
+
+Example:
+
+GOOD:
+
+```html
+<h2 id="how-it-works">How It Works</h2>
+```
+
+BAD:
+
+```html
+<h2 id="how it works">How It Works</h2>
+```
+
+---
+
+## RULE 5 — VERIFY EVERY TOC LINK
+
+After creating or updating the TOC, verify every link.
+
+For each:
+
+```html
+<a href="#example">
+```
+
+there MUST be a corresponding:
+
+```html
+id="example"
+```
+
+in the article.
+
+Do not leave broken TOC links.
+
+---
+
+## RULE 6 — TOC MUST MATCH FINAL HEADINGS
+
+The final TOC must accurately reflect the final article.
+
+If headings are changed during rewriting:
+
+* update the TOC
+* update the corresponding IDs
+* remove obsolete entries
+* add new relevant sections
+
+Never leave an outdated TOC after modifying the article.
+
+---
+
+## RULE 7 — DO NOT DUPLICATE
+
+Before inserting a TOC, inspect the entire HTML document.
+
+Check for common TOC implementations such as:
+
+* `<nav class="table-of-contents">`
+* `<nav id="toc">`
+* `<div class="toc">`
+* `<div id="toc">`
+* WordPress/plugin-style TOCs
+* custom JavaScript TOCs
+* automatically generated heading navigation
+
+If one already exists, update it instead of creating another.
+
+There must normally be **ONE TOC per article**.
+
+---
+
+## RULE 8 — PRESERVE WEBSITE DESIGN
+
+If the project already has:
+
+* TOC CSS
+* TOC JavaScript
+* TOC classes
+* responsive TOC behavior
+* collapsible TOC
+* sticky TOC
+
+preserve the existing implementation.
+
+Do not replace a working TOC with a completely different design.
+
+If no styling exists, create clean semantic HTML that fits the existing article design.
+
+---
+
+## RULE 9 — TOC QUALITY
+
+The TOC should help the reader navigate the article.
+
+Use concise, readable anchor text.
+
+Do not repeat the focus keyword unnecessarily.
+
+Do not create headings purely for the purpose of expanding the TOC.
+
+The TOC must reflect useful sections, not SEO keyword stuffing.
+
+---
+
+## RULE 10 — FINAL TOC CHECK
+
+Before saving the HTML, verify:
+
+[ ] TOC exists
+[ ] Exactly one TOC normally exists
+[ ] Existing TOC preserved if already present
+[ ] New TOC created if missing
+[ ] TOC reflects final H2 structure
+[ ] Anchor IDs are unique
+[ ] Every TOC link has a valid destination
+[ ] No broken anchors
+[ ] No duplicate entries
+[ ] H1 is normally excluded
+[ ] Website styling preserved
+[ ] Responsive behavior preserved
+[ ] TOC position is appropriate
+[ ] TOC was checked AFTER the final content rewrite
+
+If the article has no TOC at the beginning of the task, the final article MUST contain one.
+
+Never finish the task with:
+
+`TOC: skipped`
+
+unless the HTML is technically incapable of supporting navigation, in which case report the exact reason.
+
 
 # 7. CONTENT REWRITING
 
@@ -329,45 +529,439 @@ If a relevant article exists in the project, use its real URL.
 
 ---
 
-# 10. EXTERNAL LINKS
+# 10. EXTERNAL LINKS — AUTHORITATIVE SOURCE & REFERENCE SYSTEM
 
-Improve external references when useful.
+External links must be added for **user value, factual support, context, and trust** — never simply to create SEO signals.
 
-Use authoritative and relevant sources.
+The goal is to connect the article to authoritative, relevant, and trustworthy sources.
 
-Good examples can include:
+## PRIMARY RULE
 
-* Official organizations
-* Official product documentation
+Do NOT automatically add external links to every article.
+
+First determine whether an external source genuinely helps the reader understand, verify, or explore a claim.
+
+If an authoritative source is useful, add it naturally.
+
+If no relevant authoritative source exists, do not add a random external link.
+
+---
+
+# 10.1 SOURCE PRIORITY
+
+When researching external references, prefer sources in this order when relevant:
+
+### Tier 1 — Primary / Official Sources
+
+Prefer the original authoritative source whenever available.
+
+Examples:
+
 * Government websites
+* Official organizations
+* Official documentation
+* Official product/service documentation
 * Universities
-* Recognized industry organizations
-* Original research
-* Official company pages when appropriate
+* Research institutions
+* Standards organizations
+* Original publishers
+* Official statistics
+* Official company/product pages
+
+Examples of source types:
+
+```text
+.gov
+.edu
+official organization websites
+official documentation
+official standards organizations
+```
+
+---
+
+### Tier 2 — High-Authority Reference Sources
+
+When appropriate, consider:
+
+* Wikipedia
+* Wikimedia Commons
+* Wiktionary
+* Britannica
+* Encyclopedia/reference resources
+* Library resources
+* Major educational institutions
+* Established research databases
+
+These sources are useful primarily for:
+
+* definitions
+* historical background
+* terminology
+* entities
+* general concepts
+* images/media references
+
+Do not use them automatically when a better primary source exists.
+
+---
+
+### Tier 3 — High-Quality Industry Sources
+
+Depending on the topic, consider:
+
+* recognized industry organizations
+* established technology documentation
+* reputable professional organizations
+* recognized publications
+* authoritative nonprofit organizations
+* respected specialist websites
+
+Only use sources that are genuinely relevant to the article.
+
+---
+
+# 10.2 WIKIPEDIA
+
+Wikipedia may be used when it provides useful background information about:
+
+* a person
+* company
+* technology
+* historical event
+* scientific concept
+* geographic location
+* cultural topic
+* technical terminology
+* organization
+* other notable entities
+
+Example:
+
+```html id="v3o7hf"
+<a href="https://en.wikipedia.org/wiki/Example">
+  Example background information
+</a>
+```
 
 Rules:
 
-* Do not add random external links.
-* Do not add links simply for SEO.
-* Do not link to low-quality websites.
-* Do not invent URLs.
-* Verify that the target exists whenever possible.
-* Use descriptive anchor text.
-* Keep external links relevant to the specific statement.
+* Use the most relevant Wikipedia article.
+* Verify that the page exists.
+* Do not invent Wikipedia URLs.
+* Do not link to Wikipedia merely because it has high authority.
+* Prefer a primary source when the claim requires an authoritative original source.
+* Use Wikipedia mainly as a reference/background resource.
 
-When appropriate:
+---
 
-```html
-<a href="https://example.com"
-   target="_blank"
-   rel="noopener noreferrer">
-   descriptive anchor text
+# 10.3 WIKIMEDIA COMMONS
+
+Use Wikimedia Commons when it provides useful media or contextual information.
+
+Potential uses:
+
+* historical images
+* maps
+* public-domain media
+* diagrams
+* geographic references
+* cultural/historical material
+
+Do not download or reuse copyrighted images merely because they appear on Wikimedia Commons.
+
+If using a Wikimedia image, verify:
+
+* license
+* attribution requirements
+* source
+* suitability for commercial use when relevant
+
+Do not automatically replace the website's existing images with Wikimedia images.
+
+---
+
+# 10.4 WIKTIONARY
+
+Wiktionary may be useful for:
+
+* terminology
+* definitions
+* word origins
+* language-related explanations
+* technical terms where a dictionary definition is useful
+
+Use it only when it adds genuine value.
+
+Example:
+
+```html id="a9cq4e"
+<a href="https://en.wiktionary.org/wiki/example">
+  definition of the term
+</a>
+```
+
+Do not add Wiktionary links simply for SEO.
+
+---
+
+# 10.5 SOURCE SELECTION BY ARTICLE TYPE
+
+Choose external sources based on the topic.
+
+### Technology
+
+Prefer:
+
+* official documentation
+* official developer documentation
+* standards organizations
+* GitHub repositories when they are the official project source
+* reputable technical organizations
+* Wikipedia for general background when useful
+
+### Health
+
+Prefer:
+
+* government health agencies
+* hospitals
+* universities
+* recognized medical organizations
+* peer-reviewed research
+
+Do not rely primarily on Wikipedia for medical claims.
+
+### Finance
+
+Prefer:
+
+* government financial authorities
+* central banks
+* official regulators
+* recognized financial institutions
+* established research organizations
+
+### Travel
+
+Prefer:
+
+* official tourism boards
+* government tourism websites
+* transportation authorities
+* official attractions
+
+### History
+
+Prefer:
+
+* museums
+* universities
+* archives
+* libraries
+* recognized historical institutions
+* Wikipedia for general background when useful
+
+### Definitions / terminology
+
+Prefer:
+
+* official dictionaries
+* Wiktionary
+* recognized encyclopedias
+* industry glossaries
+
+### Products / services
+
+Prefer:
+
+* official product pages
+* official documentation
+* manufacturer documentation
+* official support pages
+
+---
+
+# 10.6 EXTERNAL LINK RELEVANCE
+
+Every external link must have a clear purpose.
+
+Before adding a link, ask:
+
+1. What claim or concept does this link support?
+2. Is the destination authoritative?
+3. Is it relevant to the reader?
+4. Is there a better primary source?
+5. Does the destination actually contain the information being referenced?
+
+If the answer is unclear, do not add the link.
+
+---
+
+# 10.7 ANCHOR TEXT
+
+Use natural, descriptive anchor text.
+
+GOOD:
+
+```html id="x0v3f6"
+<a href="https://en.wikipedia.org/wiki/Internet_Protocol_television">
+  background on Internet Protocol television
+</a>
+```
+
+BAD:
+
+```html id="0ik84h"
+<a href="https://en.wikipedia.org/wiki/Internet_Protocol_television">
+  click here
+</a>
+```
+
+Also avoid:
+
+```text
+best IPTV
+best IPTV service
+best IPTV 2026
+best IPTV
+```
+
+repeated as anchors across multiple external links.
+
+Anchor text should describe the destination or the concept being referenced.
+
+---
+
+# 10.8 NUMBER OF EXTERNAL LINKS
+
+Do NOT target an arbitrary number of external links.
+
+The number should depend on:
+
+* article length
+* number of factual claims
+* topic complexity
+* research requirements
+* reader needs
+
+A short article may need only one useful external reference.
+
+A research-heavy article may require several.
+
+More external links does NOT automatically mean better SEO.
+
+---
+
+# 10.9 DO NOT FABRICATE SOURCES
+
+NEVER:
+
+* invent URLs
+* invent studies
+* invent organizations
+* invent citations
+* invent statistics
+* invent publication titles
+* invent authors
+* invent source names
+
+Before adding an external link, verify that the destination exists.
+
+If the source cannot be verified, do not create the link.
+
+---
+
+# 10.10 EXTERNAL LINKS AND SEO
+
+External links are NOT a guaranteed ranking signal simply because they point to authoritative websites.
+
+Use them primarily to:
+
+* support claims
+* provide additional information
+* improve trust
+* help readers research the topic
+* provide useful references
+
+Do not create artificial external-link patterns designed solely to manipulate search rankings.
+
+Do not force links to Wikipedia, Wikimedia, Wiktionary, or other large websites into unrelated content.
+
+---
+
+# 10.11 LINK ATTRIBUTES
+
+For normal editorial references, use standard links.
+
+Example:
+
+```html id="k1dfc9"
+<a href="https://example.com">
+  relevant source
+</a>
+```
+
+If the website intentionally opens external references in a new tab:
+
+```html id="x8k4tp"
+<a
+  href="https://example.com"
+  target="_blank"
+  rel="noopener noreferrer">
+  relevant source
 </a>
 ```
 
 Do not automatically add `nofollow` to every external link.
 
+Use `nofollow`, `sponsored`, or `ugc` only when appropriate for the relationship and website policy.
+
 ---
+
+# 10.12 EXTERNAL SOURCE AUDIT
+
+Before saving the article, inspect every external link.
+
+For each link verify:
+
+[ ] Destination exists
+[ ] Destination is relevant
+[ ] Source is trustworthy
+[ ] Anchor text is descriptive
+[ ] Link supports nearby content
+[ ] No fabricated URL
+[ ] No unnecessary duplicate link
+[ ] No suspicious low-quality website
+[ ] No unnecessary keyword-stuffed anchor
+[ ] Link attributes are appropriate
+
+---
+
+# 10.13 FINAL EXTERNAL LINK STRATEGY
+
+The final article should contain a **natural reference profile**.
+
+Depending on the article, this can include a combination of:
+
+```text
+Official source
+      +
+Educational/reference source
+      +
+Industry source
+      +
+Wikipedia/Wikimedia/Wiktionary when relevant
+```
+
+But never force all categories into every article.
+
+The final decision must always be based on:
+
+**relevance + authority + usefulness + factual support**
+
+rather than link quantity.
+
 
 # 11. IMAGES
 
@@ -761,17 +1355,17 @@ Focus keyword:
 ...
 
 Updated:
-✔ SEO title
-✔ Meta description
-✔ Content structure
-✔ Table of Contents
-✔ Internal links
-✔ External references
-✔ Image ALT text
-✔ Open Graph metadata
-✔ Schema
-✔ FAQ
-✔ HTML validation
+✓ SEO title
+✓ Meta description
+✓ Content structure
+✓ Table of Contents
+✓ Internal links
+✓ External references
+✓ Image ALT text
+✓ Open Graph metadata
+✓ Schema
+✓ FAQ
+✓ HTML validation
 ```
 
 Do not claim that Google will index the page, rank it, or consider it unique.
@@ -1044,15 +1638,15 @@ After processing the article, report:
 
 ```text
 Featured image:
-✔ Found
+✓ Found
 
 File:
 /assets/images/FeatureImagePost/best-iptv-2026.webp
 
 Used as:
-✔ Hero / Featured Image
-✔ Open Graph Image
-✔ Twitter Image
+✓ Hero / Featured Image
+✓ Open Graph Image
+✓ Twitter Image
 
 ALT:
 "Best IPTV services in 2026"
@@ -1069,8 +1663,625 @@ Checked:
 
 No image path was invented.
 ```
+# 27. AUTOMATIC PNG TO WEBP CONVERSION
 
-# 28. PROJECT-SPECIFIC ADAPTATION NOTES
+The user will normally place blog featured images in PNG format inside:
+
+`/assets/images/FeatureImagePost/`
+
+The user should NOT be required to manually convert images.
+
+Claude Code must handle PNG → WebP conversion automatically when processing a blog post.
+
+## SOURCE IMAGE
+
+Example:
+
+```text
+/assets/images/FeatureImagePost/best-iptv-2026.png
+```
+
+The corresponding optimized image should be:
+
+```text
+/assets/images/FeatureImagePost/best-iptv-2026.webp
+```
+
+---
+
+## CONVERSION RULES
+
+When a suitable `.png` featured image is found:
+
+1. Verify that the PNG file exists.
+2. Check whether a corresponding `.webp` already exists.
+3. If the WebP does not exist, convert the PNG to WebP.
+4. If the WebP already exists, check whether the PNG is newer.
+5. If the PNG is newer, regenerate the WebP.
+6. Preserve the original PNG.
+7. Do not delete the original PNG unless explicitly instructed.
+8. Use the generated `.webp` in the HTML.
+
+Example:
+
+```text
+Before:
+
+/assets/images/FeatureImagePost/best-iptv-2026.png
+```
+
+After:
+
+```text
+/assets/images/FeatureImagePost/best-iptv-2026.png
+/assets/images/FeatureImagePost/best-iptv-2026.webp
+```
+
+The HTML must reference:
+
+```html
+src="/assets/images/FeatureImagePost/best-iptv-2026.webp"
+```
+
+NOT:
+
+```html
+src="/assets/images/FeatureImagePost/best-iptv-2026.png"
+```
+
+---
+
+## WEBP QUALITY
+
+Use a sensible WebP quality setting suitable for website performance while preserving visual quality.
+
+Target:
+
+* Good visual quality
+* Significantly smaller file size than PNG when appropriate
+* No visible degradation that harms the featured image
+
+Do not aggressively compress images.
+
+For photographic/complex images, prefer lossy WebP.
+
+For images where transparency or lossless quality is important, use an appropriate WebP mode.
+
+---
+
+## CONVERSION TOOL
+
+Before converting images, inspect the available environment and use an installed image conversion utility/library when available.
+
+Preferred options:
+
+1. `cwebp`
+2. ImageMagick
+3. Sharp
+4. Python Pillow
+
+Do not assume a specific tool is installed.
+
+First check what is available.
+
+For example:
+
+```bash
+cwebp -version
+```
+
+or:
+
+```bash
+magick -version
+```
+
+or verify whether the project already contains a suitable Node/Python image-processing dependency.
+
+Use the simplest reliable tool available in the project environment.
+
+---
+
+## DO NOT BREAK TRANSPARENCY
+
+If the PNG contains transparency:
+
+* Preserve transparency when converting to WebP.
+* Do not replace transparent areas with an unwanted background color.
+* Verify the generated WebP after conversion.
+
+---
+
+## VERIFY THE OUTPUT
+
+After conversion:
+
+1. Confirm the `.webp` file exists.
+2. Confirm it can be read/opened.
+3. Confirm the file is not empty or corrupted.
+4. Confirm the HTML points to the `.webp`.
+5. Confirm the WebP is actually smaller when appropriate.
+
+If conversion fails:
+
+* Do not create a fake `.webp` path.
+* Keep the valid PNG reference.
+* Report the conversion failure clearly.
+
+---
+
+## HTML UPDATE
+
+After successful conversion:
+
+```html
+<img
+  src="/assets/images/FeatureImagePost/best-iptv-2026.webp"
+  alt="Best IPTV services in 2026"
+  width="1200"
+  height="630">
+```
+
+Also update:
+
+```html
+<meta property="og:image"
+      content="/assets/images/FeatureImagePost/best-iptv-2026.webp">
+```
+
+and, when present:
+
+```html
+<meta name="twitter:image"
+      content="/assets/images/FeatureImagePost/best-iptv-2026.webp">
+```
+
+---
+
+## OTHER ARTICLE IMAGES
+
+For images inside the article body:
+
+* Do not automatically convert every image unless the task explicitly requires it.
+* The automatic PNG → WebP workflow in this section primarily applies to the featured image.
+* Preserve existing article image behavior unless optimization is clearly beneficial and safe.
+
+---
+
+## FINAL REPORT
+
+After processing:
+
+```text
+Featured image optimization:
+
+✓ Source PNG found
+✓ PNG preserved
+✓ Converted to WebP
+✓ HTML updated to WebP
+✓ Open Graph updated
+✓ Twitter image updated
+
+Source:
+best-iptv-2026.png
+
+WebP:
+best-iptv-2026.webp
+```
+
+If the WebP already existed:
+
+```text
+✓ Existing WebP found
+✓ WebP checked
+✓ No unnecessary conversion performed
+```
+
+If conversion failed:
+
+```text
+⚠ WebP conversion failed
+✓ Original PNG preserved
+✓ HTML kept using the valid PNG
+```
+
+# 28. SEARCH-INTENT-BASED RECOMMENDATIONS
+
+Analyze the article's topic and search intent before deciding whether a Recommendations section would genuinely improve the article.
+
+Do NOT automatically add a Recommendations section to every article.
+
+Only add it when the topic involves:
+
+* choosing between products/services
+* comparing multiple solutions
+* choosing an option based on user needs
+* alternatives
+* "best" lists
+* tools/platforms
+* different use cases
+* competing solutions
+* decision-making
+
+## DYNAMIC RECOMMENDATIONS
+
+Never use fixed keywords from this skill.
+
+Every article has its own:
+
+* primary focus keyword
+* secondary keywords
+* related entities
+* search intent
+* audience
+* topic
+
+Extract these dynamically from the current article.
+
+For example, if the article is about a software tool, recommendations could be based on:
+
+* beginners
+* advanced users
+* budget-conscious users
+* professionals
+
+If the article is about travel:
+
+* first-time visitors
+* families
+* couples
+* budget travelers
+
+If the article is about technology:
+
+* beginners
+* power users
+* users prioritizing price
+* users prioritizing performance
+
+The user categories MUST be determined from the actual article topic.
+
+Do not force predefined categories onto unrelated articles.
+
+---
+
+## RECOMMENDATION STRUCTURE
+
+When appropriate, create:
+
+```html
+<section id="recommendations">
+  <h2>Our Recommendations</h2>
+
+  <ul>
+    <li>
+      <strong>Best for [user type]:</strong>
+      Useful recommendation based on the article's evidence.
+    </li>
+
+    <li>
+      <strong>Best for [user type]:</strong>
+      Useful recommendation based on the article's evidence.
+    </li>
+
+    <li>
+      <strong>Best for [user type]:</strong>
+      Useful recommendation based on the article's evidence.
+    </li>
+  </ul>
+
+  <p>
+    Short overall takeaway comparing the main options.
+  </p>
+</section>
+```
+
+Keep recommendations evidence-based.
+
+Do not invent advantages, disadvantages, prices, features, ratings, or performance claims.
+
+---
+
+# 29. COMPARISON SUMMARY
+
+If the article compares two or more products, services, tools, methods, or solutions, consider adding a short comparison summary.
+
+The summary should answer:
+
+* What is the main difference?
+* Who is each option best suited for?
+* What is the most important trade-off?
+* Which option should a user choose based on their needs?
+
+Prefer approximately 3–5 concise sentences.
+
+If a comparison table already communicates this clearly, do not duplicate the entire table in prose.
+
+---
+
+# 30. USER-NEED MATCHING
+
+Recommendations should focus on the user's needs rather than simply declaring one option "the best."
+
+Use decision-oriented language such as:
+
+* Best for beginners
+* Best for advanced users
+* Best for budget-conscious users
+* Best for performance
+* Best for flexibility
+* Best for specific use cases
+
+Only use categories that genuinely apply to the article.
+
+Do not create artificial categories simply to increase content length.
+
+---
+
+# 31. KEYWORD ADAPTATION
+
+NEVER hard-code keywords into the Recommendations section.
+
+Before writing recommendations:
+
+1. Identify the primary focus keyword.
+2. Identify secondary keywords.
+3. Identify related terms and entities.
+4. Identify search intent.
+5. Determine which terms naturally belong in the recommendation section.
+
+Use only relevant terms.
+
+Do not force every keyword into the section.
+
+Do not repeat keywords unnecessarily.
+
+Do not use keyword stuffing.
+
+The recommendations should sound natural even if all SEO keywords were removed.
+
+---
+
+# 32. TRUST, SAFETY AND LEGAL CONTEXT
+
+If the article topic involves:
+
+* privacy
+* security
+* health
+* finance
+* legal matters
+* copyrighted content
+* potentially regulated services
+* online safety
+* sensitive personal information
+
+include an appropriate trust/safety note when genuinely useful.
+
+The note must be specific to the topic.
+
+Do not add generic warnings to every article.
+
+Never provide instructions for illegal activity.
+
+Never make unsupported legal claims.
+
+When legal information is important, prefer authoritative sources and clearly distinguish general information from professional legal advice.
+
+---
+
+# 33. ORIGINALITY / PLAGIARISM CHECK
+
+The goal of the transformation is to create genuinely original editorial content.
+
+Do NOT attempt to manipulate plagiarism detection systems or artificially lower similarity scores.
+
+Before saving the final article:
+
+### STEP 1 — Compare with the original
+
+Compare the transformed article against the original article supplied by the user.
+
+Identify:
+
+* paragraphs that remain substantially unchanged
+* sentences with very similar structure
+* repeated phrases
+* duplicated wording
+* unchanged introductions
+* unchanged conclusions
+* sections that were only minimally modified
+
+### STEP 2 — Rewrite overly similar passages
+
+If a passage is unnecessarily close to the original:
+
+* rewrite it naturally
+* change the structure
+* improve the explanation
+* combine or split paragraphs where appropriate
+* add useful context when justified
+* remove redundant wording
+
+Do NOT change factual information simply to create artificial differences.
+
+### STEP 3 — Preserve important information
+
+Do not remove:
+
+* factual information
+* useful definitions
+* necessary terminology
+* proper names
+* URLs
+* citations
+* technical specifications
+
+simply because they appear in the original.
+
+---
+
+# 34. EXTERNAL PLAGIARISM CHECK
+
+Claude Code must NOT claim that it performed a full internet plagiarism check unless an actual external plagiarism/search service is available.
+
+Local comparison against the original article is NOT equivalent to an internet plagiarism check.
+
+If an external plagiarism API/service is configured and available:
+
+1. Submit the relevant content according to the service's API.
+2. Retrieve the similarity/originality result.
+3. Identify problematic passages.
+4. Rewrite them naturally.
+5. Run the check again if supported.
+6. Report the result accurately.
+
+If no external service is available, report:
+
+```text
+External plagiarism check:
+Not available.
+
+Local originality check:
+Completed against the original article.
+```
+
+Never fabricate a plagiarism percentage.
+
+Never claim:
+
+* "100% plagiarism free"
+* "Google approved"
+* "Google cannot detect this"
+* "Copyscape passed"
+
+unless the relevant service actually returned that result.
+
+---
+
+# 35. ORIGINALITY REPORT
+
+At the end of the transformation, provide:
+
+```text
+Originality Check
+
+✓ Original article compared
+✓ Similar passages reviewed
+✓ Repetitive wording improved
+✓ Content structure substantially improved
+
+External plagiarism checker:
+Not configured
+
+Local originality check:
+Completed
+```
+
+If an external service is available:
+
+```text
+Originality Check
+
+✓ Original article compared
+✓ External plagiarism check completed
+✓ Similar passages reviewed
+✓ Final content reviewed
+
+External checker:
+[Service name]
+
+Result:
+[Actual returned result]
+```
+
+---
+
+# 36. SEMANTIC CONTENT EXPANSION
+
+Do not increase article length just for SEO.
+
+Instead, identify information gaps that are useful for the search intent.
+
+Potential additions include:
+
+* practical examples
+* comparison tables
+* recommendations
+* pros and cons
+* FAQs
+* common mistakes
+* use cases
+* alternatives
+* selection criteria
+* limitations
+* important considerations
+
+Only add sections that improve the reader's ability to understand the topic or make a decision.
+
+---
+
+# 37. CONTENT GAP ANALYSIS
+
+When the project contains related articles or when reliable sources are available, identify useful topics that the existing article does not adequately cover.
+
+Look for:
+
+* important subtopics
+* unanswered user questions
+* missing comparisons
+* missing practical information
+* missing definitions
+* missing limitations
+* missing alternatives
+
+Do not copy competitors.
+
+Do not reproduce competitor wording.
+
+Use content-gap research only to identify information that would genuinely improve the article.
+
+---
+
+# 38. FACTUAL CONSISTENCY CHECK
+
+Before saving the final article:
+
+Check that:
+
+* dates are consistent
+* numbers are consistent
+* product/service names are consistent
+* links correspond to the claims they support
+* headings match their content
+* comparison tables match the surrounding text
+* FAQs match the article
+* schema matches visible content
+
+Do not invent missing facts.
+
+If a fact cannot be verified, preserve the original information only when it appears reasonable and clearly presented; otherwise flag it for manual review rather than fabricating a replacement.
+
+---
+
+# 39. FINAL CONTENT QUALITY GATE
+
+Before completing the task, ask internally:
+
+1. Is this genuinely more useful than the original?
+2. Is the structure clearer?
+3. Does it satisfy the search intent better?
+4. Are recommendations actually useful?
+5. Are comparisons easy to understand?
+6. Are keywords used naturally?
+7. Are important information gaps addressed?
+8. Is the content genuinely rewritten rather than mechanically paraphrased?
+9. Are factual claims supported or preserved accurately?
+10. Did the transformation avoid unnecessary SEO manipulation?
+
+Only save the final version after passing this quality gate.
+
+# 40. PROJECT-SPECIFIC ADAPTATION NOTES
 
 This project (GetTV.online) does not use a raw-HTML blog architecture. Its blog system
 (see `build-blog.js`, `posts/_TEMPLATE.html`, and `blog-post.html`) works like this:
