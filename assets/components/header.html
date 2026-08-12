@@ -22,7 +22,13 @@
             <!-- Right side: Trial Button and Mobile Menu Button -->
             <div class="flex items-center">
                 <!-- Language Switcher -->
-                <div id="google_translate_element" class="mr-4"></div>
+                <div id="google_translate_element" class="mr-4" aria-label="Choose language"></div>
+                <script type="text/javascript">
+                    function googleTranslateElementInit() {
+                        new google.translate.TranslateElement({ pageLanguage: 'en', autoDisplay: false }, 'google_translate_element');
+                    }
+                </script>
+                <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 
                 <!-- Header Social Icons (Hidden on small/medium screens) -->
                 <div class="hidden lg:flex items-center space-x-4 text-gray-400 text-lg mr-6">

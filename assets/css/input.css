@@ -49,3 +49,59 @@
     .carousel-image:hover {
         transform: scale(1.05);
     }
+
+/* Google Translate language switcher: restyle to match the dark theme and
+   strip Google's default chrome (banner, tooltips, highlight boxes) instead
+   of the default white/light widget styling. */
+#google_translate_element {
+    display: inline-block;
+    max-width: 8.5rem;
+}
+#google_translate_element .goog-te-gadget {
+    font-family: inherit !important;
+    font-size: 0 !important;
+    color: transparent !important;
+}
+#google_translate_element .goog-te-gadget .goog-te-combo {
+    display: inline-block;
+    max-width: 100%;
+    font-family: inherit;
+    font-size: 0.8rem;
+    line-height: 1.25rem;
+    color: #d1d5db;
+    background-color: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.5rem;
+    outline: none;
+}
+#google_translate_element .goog-te-gadget .goog-te-combo:hover {
+    border-color: #4b5563;
+}
+#google_translate_element .goog-logo-link,
+#google_translate_element img {
+    display: none !important;
+}
+.goog-te-banner-frame,
+.skiptranslate > iframe {
+    display: none !important;
+}
+body {
+    top: 0 !important;
+    position: static !important;
+}
+.goog-tooltip,
+.goog-tooltip:hover {
+    display: none !important;
+}
+/* Google appends its "Google Translate" attribution link directly to <body>,
+   outside #google_translate_element, using an auto-generated class name.
+   The VIpgJd- prefix has been stable across recent widget versions. */
+body > .skiptranslate,
+a[class*="VIpgJd-"] {
+    display: none !important;
+}
+.goog-text-highlight {
+    background: none !important;
+    box-shadow: none !important;
+}
