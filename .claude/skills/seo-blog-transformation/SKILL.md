@@ -2281,7 +2281,188 @@ Before completing the task, ask internally:
 
 Only save the final version after passing this quality gate.
 
-# 40. PROJECT-SPECIFIC ADAPTATION NOTES
+
+
+# 40 SEO Metadata & Focus Keyword
+
+Before generating SEO metadata, analyze the complete blog content.
+
+The Focus Keyword MUST be determined from the article content itself.
+
+Do not randomly invent a Focus Keyword.
+
+### Focus Keyword Detection
+
+Analyze:
+
+1. Article title
+2. H1
+3. Introduction
+4. Main headings (H2/H3)
+5. Main topic and search intent
+6. Repeated important terms
+7. Words and phrases that best describe what the article is targeting
+
+Select ONE primary Focus Keyword.
+
+The Focus Keyword should:
+- Clearly represent the main search intent.
+- Be directly relevant to the article.
+- Ideally appear naturally multiple times in the content.
+- Prefer a specific search phrase over a generic single word when appropriate.
+- Avoid overly broad keywords.
+- Avoid keyword stuffing.
+
+Example:
+
+Article:
+"Install IPTV Smarters Pro on Roku: What Actually Works in 2026"
+
+Possible Focus Keyword:
+
+"IPTV Smarters Pro on Roku"
+
+Do NOT automatically use:
+"IPTV"
+
+because it is too broad for this specific article.
+
+### SEO Title
+
+Maximum:
+60 characters.
+
+Rules:
+- The Focus Keyword should appear naturally in the SEO Title.
+- Prefer placing the Focus Keyword near the beginning.
+- Make the title attractive and readable.
+- Preserve the article's search intent.
+- Do not keyword-stuff.
+- Do not unnecessarily repeat words.
+- Automatically shorten the title if it exceeds 60 characters.
+
+Example:
+
+Focus Keyword:
+IPTV Smarters Pro on Roku
+
+SEO Title:
+IPTV Smarters Pro on Roku: What Works in 2026
+
+### Primary Link / Slug
+
+Maximum:
+75 characters.
+
+Rules:
+- Use the Focus Keyword whenever practical.
+- Use lowercase letters.
+- Use hyphens between words.
+- No unnecessary words.
+- No special characters.
+- Keep the URL short and descriptive.
+- Remove stop words when doing so does not hurt readability.
+- Do not include dates unless they provide meaningful SEO value.
+
+Example:
+
+Focus Keyword:
+IPTV Smarters Pro on Roku
+
+Slug:
+iptv-smarters-pro-roku
+
+### Meta Description
+
+Maximum:
+160 characters.
+
+Rules:
+- The Focus Keyword MUST appear naturally in the Meta Description.
+- Explain what the article helps the reader understand or do.
+- Match the article's search intent.
+- Make the description compelling and useful.
+- Do not keyword-stuff.
+- Do not simply repeat the SEO Title.
+- Automatically rewrite the description if it exceeds 160 characters.
+
+Example:
+
+Focus Keyword:
+IPTV Smarters Pro on Roku
+
+Meta Description:
+Learn how IPTV Smarters Pro works on Roku, what options are available, and the best way to watch IPTV on your Roku device.
+
+### SEO Validation
+
+Before finalizing the article metadata, ALWAYS validate:
+
+1. Focus Keyword
+2. SEO Title character count
+3. Primary Slug character count
+4. Meta Description character count
+5. Focus Keyword presence in SEO Title
+6. Focus Keyword presence in Meta Description
+7. Focus Keyword relevance to the article
+8. Search intent consistency
+
+Required limits:
+
+SEO Title:
+MAX 60 characters
+
+Primary Slug:
+MAX 75 characters
+
+Meta Description:
+MAX 160 characters
+
+If a limit is exceeded:
+
+1. Rewrite the metadata.
+2. Preserve the Focus Keyword whenever possible.
+3. Recalculate the character count.
+4. Repeat until all limits pass.
+
+Do not finalize metadata while any configured limit is exceeded.
+
+### Required SEO Output
+
+Always return:
+
+Focus Keyword:
+[detected focus keyword]
+
+SEO Title:
+[SEO title]
+
+Title Characters:
+[number]
+
+Primary Slug:
+[slug]
+
+Slug Characters:
+[number]
+
+Meta Description:
+[meta description]
+
+Meta Description Characters:
+[number]
+
+Focus Keyword in Title:
+PASS / FAIL
+
+Focus Keyword in Description:
+PASS / FAIL
+
+SEO Validation:
+PASS / FAIL
+
+
+# 41. PROJECT-SPECIFIC ADAPTATION NOTES
 
 This project (GetTV.online) does not use a raw-HTML blog architecture. Its blog system
 (see `build-blog.js`, `posts/_TEMPLATE.html`, and `blog-post.html`) works like this:
@@ -2324,3 +2505,11 @@ When this skill is applied in this project, adapt accordingly:
 * After editing a post, run `npm run vercel-build` to confirm it builds without errors
   (the build fails loudly on missing frontmatter fields or slug collisions — treat a build
   failure as a signal to fix the post file, not to bypass the check).
+* **Standing instruction — always save as draft**: the final step of this skill in this
+  project is to set `"status": "draft"` in the frontmatter (see `build-blog.js`'s
+  status/publishAt support). Never set or leave it as `"published"`. A draft post is
+  excluded from the live site entirely (no static page, no `/blog` listing entry, no
+  sitemap/RSS entry) until something explicitly promotes it later. This applies to every
+  post this skill transforms going forward, not just a one-time batch — do not ask whether
+  to publish; always finish by saving as `draft`. Promoting drafts to published is handled
+  by a separate scheduler process, not by this skill.
