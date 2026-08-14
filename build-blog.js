@@ -68,6 +68,20 @@ async function parsePost(filePath) {
         throw new Error(`${fileName}: publishDate "${frontmatter.publishDate}" is not a valid date (expected YYYY-MM-DD).`);
     }
 
+    const status = frontmatter.status || 'published';
+    const VALID_STATUSES = ['draft', 'scheduled', 'published'];
+    if (!VALID_STATUSES.includes(status)) {
+        throw new Error(`${fileName}: status "${status}" is not valid. Expected one of: ${VALID_STATUSES.join(', ')}.`);
+    }
+    if (status === 'scheduled') {
+        if (!frontmatter.publishAt) {
+            throw new Error(`${fileName}: status is "scheduled" but publishAt is missing.`);
+        }
+        if (Number.isNaN(new Date(frontmatter.publishAt).getTime())) {
+            throw new Error(`${fileName}: publishAt "${frontmatter.publishAt}" is not a valid date.`);
+        }
+    }
+
     if (RESERVED_SLUGS.has(slug)) {
         throw new Error(`${fileName}: slug "${slug}" collides with an existing top-level page. Rename the file.`);
     }
@@ -91,6 +105,10 @@ async function parsePost(filePath) {
         featuredImage: frontmatter.featuredImage || DEFAULT_OG_IMAGE,
         readingTime: Math.max(1, Math.ceil(wordCount / 200)),
         content: bodyHtml,
+        status,
+        publishAt: frontmatter.publishAt || null,
+        createdAt: frontmatter.createdAt || null,
+        updatedAt: frontmatter.updatedAt || null,
     };
 }
 
@@ -351,6 +369,18 @@ async function main() {
             console.error(`\nSee posts/_TEMPLATE.html for the expected post file structure.\n`);
             process.exit(1);
         }
+        const now = new Date();
+        const draftCount = posts.filter((post) => post.status === 'draft').length;
+        const notYetDue = posts.filter((post) => post.status === 'scheduled' && new Date(post.publishAt) > now);
+        posts = posts.filter((post) => {
+            if (post.status === 'draft') return false;
+            if (post.status === 'scheduled') return new Date(post.publishAt) <= now;
+            return true;
+        });
+        if (draftCount > 0 || notYetDue.length > 0) {
+            console.log(`ℹ Excluding ${draftCount} draft post(s) and ${notYetDue.length} scheduled post(s) not yet due from this build.`);
+        }
+
         posts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
     } else {
         console.log('ℹ No posts found. Generating an empty blog.');

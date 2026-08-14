@@ -12,8 +12,18 @@
     if any are missing.
   - "author", "category", and "featuredImage" are optional and fall back to sensible
     defaults if omitted.
-  - "publishDate" must be an ISO date string: "YYYY-MM-DD".
+  - "publishDate" must be an ISO date string: "YYYY-MM-DD". This is the display date
+    shown on the post/listing; it does not gate whether the post is built.
   - "featuredImage" can be an absolute path under /assets/images/ or a full URL.
+  - "status" is optional and defaults to "published" if omitted (so every existing
+    post with no status field keeps working exactly as before). Valid values:
+      "draft"      - never built, never appears anywhere on the live site.
+      "scheduled"  - built only once "publishAt" has passed; excluded until then.
+      "published"  - built immediately, same as omitting status entirely.
+  - "publishAt" is required when status is "scheduled", and must be a valid
+    ISO 8601 timestamp (e.g. "2026-08-20T09:00:00Z"). Ignored for other statuses.
+  - "createdAt" / "updatedAt" are optional ISO timestamps, carried through into
+    blog-index.json for future tooling. Not currently used by the build itself.
   - The body inside <template id="post-body"> is raw HTML — headings, paragraphs,
     links, lists, etc. No <html>/<head>/<body> wrapper, no header/footer: those are
     added automatically at build time.
