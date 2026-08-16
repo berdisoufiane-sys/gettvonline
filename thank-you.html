@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Your Order | GetTV.online</title>
+    <meta name="description" content="Your GetTV.online order was received. Here's what happens next and when to expect your activation email.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://gettv.online/thank-you">
+
+    <!-- Performance & Security -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.clarity.ms">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VLK4VFW5Q8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VLK4VFW5Q8');
+    </script>
+
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "xw3pgr0rr7");
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favlogo2.svg">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
+
+    <style>
+        @keyframes ty-pop {
+            0% { transform: scale(0.6); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes ty-rise {
+            0% { transform: translateY(10px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .ty-icon { animation: ty-pop 0.5s ease-out both; }
+        .ty-card { animation: ty-rise 0.5s ease-out both; }
+        .ty-card:nth-of-type(2) { animation-delay: 0.08s; }
+        .ty-card:nth-of-type(3) { animation-delay: 0.16s; }
+        .ty-card:nth-of-type(4) { animation-delay: 0.24s; }
+        @media (prefers-reduced-motion: reduce) {
+            .ty-icon, .ty-card { animation: none; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased flex flex-col min-h-screen">
+
+    <div id="header-placeholder"></div>
+
+    <main id="main-content" class="flex-grow">
+        <!-- 1. Confirmation Hero -->
+        <section class="container mx-auto px-6 pt-16 pb-10 md:pt-20 md:pb-14 text-center max-w-3xl">
+            <div class="ty-icon relative inline-flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-green-500/10 border border-green-400/30 mb-6">
+                <div class="absolute inset-0 rounded-full bg-green-500/20 blur-xl" aria-hidden="true"></div>
+                <i class="fa-solid fa-circle-check text-green-400 text-4xl md:text-5xl relative" aria-hidden="true"></i>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold">Thank You for Your Order!</h1>
+            <p class="text-lg text-gray-300 mt-4">Your order has been received successfully.</p>
+            <p class="text-gray-400 mt-3 max-w-xl mx-auto">We're processing your order now. Your activation details will be sent to the email address provided during checkout. There's nothing else you need to do right now.</p>
+        </section>
+
+        <div class="container mx-auto px-6 pb-20 max-w-3xl space-y-6">
+
+            <!-- Order Information (only rendered if real order data is present in the URL) -->
+            <section id="order-info-card" class="ty-card hidden bg-gray-800 border border-gray-700 rounded-2xl p-6 md:p-8">
+                <h2 class="text-xl font-bold flex items-center gap-3">
+                    <i class="fa-solid fa-receipt text-blue-400" aria-hidden="true"></i> Order Summary
+                </h2>
+                <dl id="order-info-fields" class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm"></dl>
+            </section>
+
+            <!-- 2. Delivery Information -->
+            <section class="ty-card bg-gray-800 border border-gray-700 rounded-2xl p-6 md:p-8">
+                <h2 class="text-xl font-bold flex items-center gap-3">
+                    <i class="fa-solid fa-clock text-blue-400" aria-hidden="true"></i> When Will I Receive My Code?
+                </h2>
+                <p class="text-gray-400 mt-3">Your activation code is normally delivered by email within a few minutes, but please allow
+                    <span class="inline-block bg-blue-500/10 border border-blue-400/30 text-blue-300 font-semibold px-3 py-1 rounded-lg mx-1">up to 2 hours</span>
+                    for delivery.</p>
+            </section>
+
+            <!-- 3. Email Folder Reminder -->
+            <section class="ty-card bg-gray-800 border border-gray-700 rounded-2xl p-6 md:p-8">
+                <h2 class="text-xl font-bold flex items-center gap-3">
+                    <i class="fa-regular fa-envelope text-blue-400" aria-hidden="true"></i> Check Your Email
+                </h2>
+                <p class="text-gray-400 mt-3">Please check the email address you used during checkout.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 text-center">
+                        <i class="fa-solid fa-inbox text-blue-400 text-xl mb-2" aria-hidden="true"></i>
+                        <p class="font-semibold text-sm">Inbox</p>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 text-center">
+                        <i class="fa-solid fa-triangle-exclamation text-blue-400 text-xl mb-2" aria-hidden="true"></i>
+                        <p class="font-semibold text-sm">Spam / Junk</p>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 text-center">
+                        <i class="fa-solid fa-folder-open text-blue-400 text-xl mb-2" aria-hidden="true"></i>
+                        <p class="font-semibold text-sm">Promotions / Other</p>
+                    </div>
+                </div>
+                <p class="text-gray-500 text-sm mt-5">If you don't see our email in your Inbox, please check your Spam, Junk or Promotions folder.</p>
+            </section>
+
+            <!-- 4. Support Section -->
+            <section class="ty-card bg-gray-800 border border-gray-700 rounded-2xl p-6 md:p-8">
+                <h2 class="text-xl font-bold flex items-center gap-3">
+                    <i class="fa-solid fa-headset text-blue-400" aria-hidden="true"></i> Need Help?
+                </h2>
+                <p class="text-gray-400 mt-3">Our support team is here to help if you have any questions about your order or haven't received your activation details.</p>
+
+                <div class="flex flex-col sm:flex-row gap-3 mt-6">
+                    <a href="/contact" class="flex-1 text-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-5 rounded-lg transition">
+                        <i class="fa-solid fa-paper-plane mr-2" aria-hidden="true"></i>Contact Support
+                    </a>
+                    <a href="https://tawk.to/chat/668ff3497a36f5aaec972f51/1i2h4sm1p" target="_blank" rel="noopener noreferrer" class="flex-1 text-center border border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white font-bold py-3 px-5 rounded-lg transition">
+                        <i class="fa-solid fa-comments mr-2" aria-hidden="true"></i>Live Support
+                    </a>
+                </div>
+                <p class="text-gray-500 text-sm mt-4">Or email us directly at <a href="mailto:support@gettv.online" class="text-blue-400 hover:text-blue-300">support@gettv.online</a>.</p>
+            </section>
+
+            <!-- 6. Reassurance Section -->
+            <section class="ty-card bg-gradient-to-br from-blue-600/10 to-gray-800 border border-blue-500/30 rounded-2xl p-6 md:p-8 text-center">
+                <i class="fa-solid fa-shield-halved text-blue-400 text-2xl mb-3" aria-hidden="true"></i>
+                <p class="font-semibold text-lg">There's nothing else you need to do right now.</p>
+                <p class="text-gray-400 mt-2">Just keep an eye on your email. If your activation details haven't arrived within 2 hours, contact our support team and we'll help you.</p>
+            </section>
+
+            <!-- 7. Useful Navigation -->
+            <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                <a href="/" class="flex-1 text-center bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold py-3 px-5 rounded-lg transition">
+                    <i class="fa-solid fa-arrow-left mr-2" aria-hidden="true"></i>Back to GetTV.online
+                </a>
+                <a href="/contact" class="flex-1 text-center bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold py-3 px-5 rounded-lg transition">
+                    <i class="fa-solid fa-headset mr-2" aria-hidden="true"></i>Contact Support
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script type="module" src="/assets/js/firebase.js" defer></script>
+    <script type="module" src="/assets/js/app.js" defer></script>
+    <script>
+        // Populate the Order Summary card only from real, safe values passed in the
+        // URL by the checkout flow. Nothing here is invented; the card stays hidden
+        // if no recognized parameter is present.
+        (function () {
+            var params = new URLSearchParams(window.location.search);
+            var fieldMap = [
+                { key: 'order_id', label: 'Order ID' },
+                { key: 'email', label: 'Email' },
+                { key: 'plan', label: 'Plan' },
+                { key: 'status', label: 'Payment Status' },
+                { key: 'date', label: 'Order Date' }
+            ];
+
+            var fieldsHtml = '';
+            fieldMap.forEach(function (field) {
+                var value = params.get(field.key);
+                if (value) {
+                    var safeValue = document.createElement('div');
+                    safeValue.textContent = value;
+                    fieldsHtml += '<div>' +
+                        '<dt class="text-gray-500 uppercase tracking-wide text-xs">' + field.label + '</dt>' +
+                        '<dd class="text-white font-medium mt-1">' + safeValue.innerHTML + '</dd>' +
+                        '</div>';
+                }
+            });
+
+            if (fieldsHtml) {
+                document.getElementById('order-info-fields').innerHTML = fieldsHtml;
+                document.getElementById('order-info-card').classList.remove('hidden');
+            }
+        })();
+    </script>
+</body>
+</html>
