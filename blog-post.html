@@ -64,7 +64,11 @@
             <!-- Post body is injected here by build-blog.js -->
         </article>
 
-        <div class="mt-12 pt-8 border-t border-gray-800 text-center">
+        <div id="post-share" class="mt-10 pt-8 border-t border-gray-800">
+            <!-- Share buttons are injected here by build-blog.js -->
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-gray-800 text-center">
             <a href="/blog" class="text-blue-400 hover:text-blue-300 font-semibold"><i class="fa-solid fa-arrow-left mr-2" aria-hidden="true"></i>Back to the blog</a>
         </div>
     </main>
@@ -72,5 +76,16 @@
   <div id="footer-placeholder"></div>
    <script type="module" src="/assets/js/firebase.js" defer></script>
     <script type="module" src="/assets/js/app.js" defer></script>
+    <script>
+        document.addEventListener('click', function (e) {
+            var btn = e.target.closest('.js-copy-link');
+            if (!btn) return;
+            navigator.clipboard.writeText(btn.dataset.url).then(function () {
+                var original = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i>';
+                setTimeout(function () { btn.innerHTML = original; }, 1500);
+            });
+        });
+    </script>
 </body>
 </html>

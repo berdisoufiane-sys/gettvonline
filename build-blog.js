@@ -241,6 +241,20 @@ async function generateStaticPostPages(posts) {
 
         $('#post-content-container').html(post.content);
 
+        const encodedUrl = encodeURIComponent(canonicalUrl);
+        const encodedTitle = encodeURIComponent(post.title);
+        $('#post-share').html(`
+            <p class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">Share this article</p>
+            <div class="flex flex-wrap items-center gap-3">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" title="Share on Facebook" class="w-11 h-11 grid place-items-center rounded-full bg-gray-800 border border-gray-700 text-gray-300 hover:text-white hover:bg-blue-600 hover:border-blue-600 transition"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                <a href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}" target="_blank" rel="noopener noreferrer" aria-label="Share on X" title="Share on X" class="w-11 h-11 grid place-items-center rounded-full bg-gray-800 border border-gray-700 text-gray-300 hover:text-white hover:bg-gray-950 hover:border-gray-950 transition"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+                <a href="https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}" target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp" title="Share on WhatsApp" class="w-11 h-11 grid place-items-center rounded-full bg-gray-800 border border-gray-700 text-gray-300 hover:text-white hover:bg-green-600 hover:border-green-600 transition"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+                <a href="https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}" target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram" title="Share on Telegram" class="w-11 h-11 grid place-items-center rounded-full bg-gray-800 border border-gray-700 text-gray-300 hover:text-white hover:bg-blue-500 hover:border-blue-500 transition"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn" title="Share on LinkedIn" class="w-11 h-11 grid place-items-center rounded-full bg-gray-800 border border-gray-700 text-gray-300 hover:text-white hover:bg-blue-700 hover:border-blue-700 transition"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+                <button type="button" class="js-copy-link w-11 h-11 grid place-items-center rounded-full bg-gray-800 border border-gray-700 text-gray-300 hover:text-white hover:bg-gray-700 transition" data-url="${escapeHtml(canonicalUrl)}" aria-label="Copy link to this article" title="Copy link"><i class="fa-solid fa-link" aria-hidden="true"></i></button>
+            </div>
+        `);
+
         await fs.writeFile(path.join(OUTPUT_DIR, `${post.slug}.html`), $.html());
     }
     console.log(`✔ Successfully generated ${posts.length} static post page(s) at site root.`);
