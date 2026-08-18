@@ -1,0 +1,66 @@
+<script type="application/json" id="post-frontmatter">
+{
+  "title": "How the Xtream Codes API Works with IPTV Smarters Pro",
+  "description": "What the Xtream Codes API actually is, how IPTV Smarters Pro connects through it, and how to set it up correctly with a subscription's real login details.",
+  "author": "GetTV.online Team",
+  "publishDate": "2026-08-18",
+  "category": "Setup Guides",
+  "featuredImage": "/assets/images/getTv.webp",
+  "status": "draft"
+}
+</script>
+<template id="post-body">
+  <p>Xtream Codes API is one of the two standard ways IPTV subscriptions get delivered to a player app, the other being a static M3U playlist. IPTV Smarters Pro supports both, but the Xtream Codes login method is worth understanding on its own since it behaves differently from a plain playlist.</p>
+
+  <nav aria-label="Table of contents" class="bg-gray-800/60 border border-gray-700 rounded-xl p-5 not-prose">
+    <p class="font-semibold text-white mb-2">In this article</p>
+    <ul class="space-y-1 text-blue-400">
+      <li><a href="#what-is-xtream-codes">What Xtream Codes API actually is</a></li>
+      <li><a href="#xtream-vs-m3u">Xtream Codes vs. a static M3U playlist</a></li>
+      <li><a href="#setting-up">Setting it up in IPTV Smarters Pro</a></li>
+      <li><a href="#troubleshooting">Troubleshooting a failed connection</a></li>
+      <li><a href="#gettv-xtream">Getting Xtream Codes credentials from GetTV.online</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <h2 id="what-is-xtream-codes">What Xtream Codes API actually is</h2>
+  <p>Xtream Codes started as panel software IPTV providers use to manage subscriber accounts, channel lineups, and billing, and its API became a de facto standard connection method: a username, password, and server address that a player app queries to pull your channel list, EPG, and video-on-demand catalog. Many providers that don't run the original Xtream Codes software still expose a compatible API, since it's become the common format player apps expect.</p>
+
+  <h2 id="xtream-vs-m3u">Xtream Codes vs. a static M3U playlist</h2>
+  <p>A static M3U file is a fixed list, updating it means generating and reloading a new file. An Xtream Codes login is dynamic: the player queries the server live each time, so channel changes, EPG updates, and new VOD content show up without you having to manually refresh anything. That's the main practical advantage, less maintenance on your end.</p>
+
+  <h2 id="setting-up">Setting it up in IPTV Smarters Pro</h2>
+  <ol>
+    <li>Open IPTV Smarters Pro and choose to add a new user or playlist.</li>
+    <li>Select the Xtream Codes API login option (as opposed to M3U URL).</li>
+    <li>Enter your provider's server URL, username, and password exactly as sent to you.</li>
+    <li>Save, and give the app a moment to load your channel list and EPG.</li>
+  </ol>
+  <p>A typo in the server URL or password is the most common reason this step fails, copy and paste the details directly rather than retyping them by hand.</p>
+
+  <h2 id="troubleshooting">Troubleshooting a failed connection</h2>
+  <ul>
+    <li><strong>"Invalid credentials" error:</strong> Double-check for extra spaces or line breaks copied along with the username or password.</li>
+    <li><strong>Connects but no channels load:</strong> Confirm your subscription or trial is actually active, not just that the login details were accepted.</li>
+    <li><strong>Works intermittently:</strong> This usually points to a network issue on your end rather than the API itself, test on a different network to isolate the cause.</li>
+  </ul>
+
+  <h2 id="gettv-xtream">Getting Xtream Codes credentials from GetTV.online</h2>
+  <p>GetTV.online issues Xtream Codes API login details (server address, username, password) after your subscription or trial is activated, ready to enter directly into IPTV Smarters Pro or any compatible player. <a href="/trial">Request a free trial</a> to test the connection, or see our <a href="/tutorial">setup guide</a> for other apps and devices.</p>
+
+  <section id="faq">
+    <h2>FAQ</h2>
+    <h3>Is Xtream Codes API the same as an M3U playlist?</h3>
+    <p>No. M3U is a static file; Xtream Codes API is a live login that a player queries directly, so it stays current without you needing to reload a file.</p>
+
+    <h3>Why does my IPTV Smarters Pro connection say invalid credentials?</h3>
+    <p>Usually a typo, or extra spaces or line breaks copied along with the server URL, username, or password. Copy and paste the details directly rather than retyping them.</p>
+
+    <h3>Does every IPTV provider support Xtream Codes API?</h3>
+    <p>Most modern IPTV providers do, since it's become the standard connection method player apps expect, but confirm with your specific provider.</p>
+
+    <h3>Does GetTV.online provide Xtream Codes login details?</h3>
+    <p>Yes, sent after your subscription or trial is activated. <a href="/trial">Request a free trial</a> to get started.</p>
+  </section>
+</template>
