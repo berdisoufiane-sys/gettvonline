@@ -1,0 +1,205 @@
+<script type="application/json" id="post-frontmatter">
+{
+  "title": "M3U Converter: Create or Parse M3U IPTV URLs Online",
+  "description": "A free online M3U converter that builds an M3U playlist URL from your Xtream Codes login, or parses an existing M3U URL back into its hostname, username, and password. Runs entirely in your browser.",
+  "author": "GetTV.online Team",
+  "publishDate": "2026-08-19",
+  "category": "Tools",
+  "featuredImage": "/assets/images/getTv.webp",
+  "status": "draft"
+}
+</script>
+<template id="post-body">
+  <p>This M3U converter does two things: build a working M3U playlist URL from an Xtream Codes login (hostname, username, password), or parse an existing M3U URL back into those three parts. Everything runs in your browser, nothing you type here is sent anywhere or stored.</p>
+
+  <nav aria-label="Table of contents" class="bg-gray-800/60 border border-gray-700 rounded-xl p-5 not-prose">
+    <p class="font-semibold text-white mb-2">In this article</p>
+    <ul class="space-y-1 text-blue-400">
+      <li><a href="#the-tool">M3U converter tool</a></li>
+      <li><a href="#what-is-m3u">What is an M3U file?</a></li>
+      <li><a href="#how-to-create">How to create or make an M3U file</a></li>
+      <li><a href="#m3u-vs-wpl">M3U vs. WPL, and MP3 playlists</a></li>
+      <li><a href="#regional-packs">M3U playlists with regional channel packs</a></li>
+      <li><a href="#gettv-m3u">Getting your own M3U or Xtream Codes login</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <h2 id="the-tool">M3U converter tool</h2>
+
+  <div class="not-prose bg-gray-800 border border-gray-700 rounded-2xl p-6 md:p-8 my-8">
+    <div class="flex gap-2 mb-6 border-b border-gray-700">
+      <button type="button" id="m3u-tab-create" class="px-4 py-2 font-semibold text-blue-400 border-b-2 border-blue-500 transition">Create URL</button>
+      <button type="button" id="m3u-tab-parse" class="px-4 py-2 font-semibold text-gray-400 border-b-2 border-transparent transition">Parse URL</button>
+    </div>
+
+    <div id="m3u-panel-create">
+      <div class="space-y-4">
+        <div>
+          <label for="m3u-host" class="block text-sm text-gray-400 mb-1">Server / Hostname</label>
+          <input id="m3u-host" type="text" placeholder="http://your-provider.com:port" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500">
+        </div>
+        <div>
+          <label for="m3u-user" class="block text-sm text-gray-400 mb-1">Username</label>
+          <input id="m3u-user" type="text" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+        </div>
+        <div>
+          <label for="m3u-pass" class="block text-sm text-gray-400 mb-1">Password</label>
+          <input id="m3u-pass" type="text" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+        </div>
+        <button type="button" id="m3u-generate" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition">Generate M3U URL</button>
+        <div id="m3u-create-result" class="hidden">
+          <label class="block text-sm text-gray-400 mb-1 mt-4">Your M3U URL</label>
+          <div class="flex gap-2">
+            <input id="m3u-create-output" type="text" readonly class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+            <button type="button" id="m3u-create-copy" class="js-copy-link shrink-0 w-11 h-11 grid place-items-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-200 transition" aria-label="Copy M3U URL" title="Copy"><i class="fa-solid fa-copy" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m3u-panel-parse" class="hidden">
+      <div class="space-y-4">
+        <div>
+          <label for="m3u-url-input" class="block text-sm text-gray-400 mb-1">M3U URL</label>
+          <input id="m3u-url-input" type="text" placeholder="http://your-provider.com:port/get.php?username=...&password=...&type=m3u_plus" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500">
+        </div>
+        <button type="button" id="m3u-parse-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition">Parse URL</button>
+        <p id="m3u-parse-error" class="hidden text-red-400 text-sm"></p>
+        <div id="m3u-parse-result" class="hidden space-y-3 mt-4">
+          <div>
+            <label class="block text-sm text-gray-400 mb-1">Server / Hostname</label>
+            <div class="flex gap-2">
+              <input id="m3u-parse-host" type="text" readonly class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+              <button type="button" class="js-copy-link m3u-parse-copy shrink-0 w-11 h-11 grid place-items-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-200 transition" data-target="m3u-parse-host" aria-label="Copy hostname" title="Copy"><i class="fa-solid fa-copy" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-400 mb-1">Username</label>
+            <div class="flex gap-2">
+              <input id="m3u-parse-user" type="text" readonly class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+              <button type="button" class="js-copy-link m3u-parse-copy shrink-0 w-11 h-11 grid place-items-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-200 transition" data-target="m3u-parse-user" aria-label="Copy username" title="Copy"><i class="fa-solid fa-copy" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-400 mb-1">Password</label>
+            <div class="flex gap-2">
+              <input id="m3u-parse-pass" type="text" readonly class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-white">
+              <button type="button" class="js-copy-link m3u-parse-copy shrink-0 w-11 h-11 grid place-items-center rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-200 transition" data-target="m3u-parse-pass" aria-label="Copy password" title="Copy"><i class="fa-solid fa-copy" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-gray-500 text-xs mt-6"><i class="fa-solid fa-lock mr-1" aria-hidden="true"></i>No registration. Nothing you enter is sent anywhere, the conversion happens entirely in your browser.</p>
+  </div>
+
+  <h2 id="what-is-m3u">What is an M3U file?</h2>
+  <p>An M3U file is a plain text playlist format: a list of media URLs, one per line, that a player reads and turns into a browsable list. The format dates back to early MP3 players, where an M3U file just listed paths to audio tracks. IPTV players extended it into "M3U Plus," adding metadata (channel name, logo, group) alongside each stream link, which is what turns a bare list of URLs into a proper channel guide.</p>
+
+  <h2 id="how-to-create">How to create or make an M3U file</h2>
+  <p>For IPTV, you don't usually write an M3U file by hand, your provider generates it from your account. The URL above is exactly that: a link that, when opened by a player, returns the M3U file contents on the fly rather than a static file. If you specifically need a downloadable file instead of a live URL, most browsers let you save the URL's response directly (open the generated link, then use your browser's save-page option), though a live URL is generally more reliable since it reflects channel updates automatically.</p>
+
+  <h2 id="m3u-vs-wpl">M3U vs. WPL, and MP3 playlists</h2>
+  <p>WPL (Windows Media Player Playlist) is Microsoft's own XML-based playlist format, functionally similar to M3U but not interchangeable without conversion, since the two use different internal structures. If your goal is a simple audio playlist (an MP3-to-M3U conversion, for example), that's a different, much simpler task than IPTV: it just means listing local file paths in a text file, one per line, saved with an .m3u extension, no server, username, or password involved. That's a distinct use of the same file format from the IPTV M3U URLs this tool works with.</p>
+
+  <h2 id="regional-packs">M3U playlists with regional channel packs</h2>
+  <p>Many IPTV providers organize their channel lineup into regional packs, African, European, and others, within a single M3U Plus feed, using the group metadata mentioned earlier to sort channels by region in a player's guide. Whether a specific pack is included depends entirely on your provider's actual channel lineup, worth confirming directly rather than assuming from the file format alone.</p>
+
+  <h2 id="gettv-m3u">Getting your own M3U or Xtream Codes login</h2>
+  <p>GetTV.online provides both a private M3U playlist URL and Xtream Codes login (hostname, username, password) after your subscription or trial is activated, so you can use whichever format your player prefers, or convert between them with the tool above. <a href="/trial">Request a free trial</a> to get real login details, or see our <a href="/tutorial">setup guide</a> for player-specific instructions.</p>
+
+  <section id="faq">
+    <h2>FAQ</h2>
+    <h3>What is an M3U file?</h3>
+    <p>A plain text playlist of media URLs. For IPTV, the "M3U Plus" variant adds channel names, logos, and grouping alongside each stream link.</p>
+
+    <h3>How do I create an M3U URL from my Xtream Codes login?</h3>
+    <p>Enter your server, username, and password into the tool above and click Generate. It builds the standard <code>get.php?username=...&password=...&type=m3u_plus&output=ts</code> URL format that most IPTV players expect.</p>
+
+    <h3>What does this M3U decoder actually do when parsing a URL?</h3>
+    <p>It reads an existing M3U URL and extracts the hostname, username, and password from it, the reverse of building one, useful if you have a URL but need the individual login details for a different app.</p>
+
+    <h3>Is this M3U converter free and does it require registration?</h3>
+    <p>Yes, it's free with no registration, and it runs entirely in your browser rather than sending anything to a server.</p>
+
+    <h3>Can I use this to convert MP3 files into an M3U playlist?</h3>
+    <p>No, this tool is built for IPTV-style M3U URLs (server, username, password). A simple MP3 playlist is just a plain list of local file paths, a different and much simpler task that doesn't need a converter tool.</p>
+
+    <h3>What's the difference between M3U and WPL?</h3>
+    <p>Both are playlist formats, but WPL is Windows Media Player's own XML-based format, structurally different from M3U's plain text list, so converting between them requires more than renaming the file extension.</p>
+
+    <h3>Does GetTV.online provide both M3U and Xtream Codes access?</h3>
+    <p>Yes, both formats are provided after activation. <a href="/trial">Request a free trial</a> to get your own login details.</p>
+  </section>
+
+  <script>
+  (function () {
+    var tabCreate = document.getElementById('m3u-tab-create');
+    var tabParse = document.getElementById('m3u-tab-parse');
+    var panelCreate = document.getElementById('m3u-panel-create');
+    var panelParse = document.getElementById('m3u-panel-parse');
+
+    function showCreate() {
+      panelCreate.classList.remove('hidden');
+      panelParse.classList.add('hidden');
+      tabCreate.classList.add('text-blue-400', 'border-blue-500');
+      tabCreate.classList.remove('text-gray-400', 'border-transparent');
+      tabParse.classList.remove('text-blue-400', 'border-blue-500');
+      tabParse.classList.add('text-gray-400', 'border-transparent');
+    }
+    function showParse() {
+      panelParse.classList.remove('hidden');
+      panelCreate.classList.add('hidden');
+      tabParse.classList.add('text-blue-400', 'border-blue-500');
+      tabParse.classList.remove('text-gray-400', 'border-transparent');
+      tabCreate.classList.remove('text-blue-400', 'border-blue-500');
+      tabCreate.classList.add('text-gray-400', 'border-transparent');
+    }
+    tabCreate.addEventListener('click', showCreate);
+    tabParse.addEventListener('click', showParse);
+
+    document.getElementById('m3u-generate').addEventListener('click', function () {
+      var host = document.getElementById('m3u-host').value.trim();
+      var user = document.getElementById('m3u-user').value.trim();
+      var pass = document.getElementById('m3u-pass').value.trim();
+      if (!host || !user || !pass) return;
+      if (!/^https?:\/\//i.test(host)) host = 'http://' + host;
+      host = host.replace(/\/+$/, '');
+      var url = host + '/get.php?username=' + encodeURIComponent(user) + '&password=' + encodeURIComponent(pass) + '&type=m3u_plus&output=ts';
+      var out = document.getElementById('m3u-create-output');
+      out.value = url;
+      document.getElementById('m3u-create-copy').dataset.url = url;
+      document.getElementById('m3u-create-result').classList.remove('hidden');
+    });
+
+    document.getElementById('m3u-parse-btn').addEventListener('click', function () {
+      var input = document.getElementById('m3u-url-input').value.trim();
+      var errorEl = document.getElementById('m3u-parse-error');
+      var resultEl = document.getElementById('m3u-parse-result');
+      try {
+        var parsed = new URL(input);
+        var host = parsed.protocol + '//' + parsed.host;
+        var user = parsed.searchParams.get('username') || '';
+        var pass = parsed.searchParams.get('password') || '';
+        document.getElementById('m3u-parse-host').value = host;
+        document.getElementById('m3u-parse-user').value = user;
+        document.getElementById('m3u-parse-pass').value = pass;
+        var copyBtns = document.querySelectorAll('.m3u-parse-copy');
+        for (var i = 0; i < copyBtns.length; i++) {
+          var btn = copyBtns[i];
+          var target = document.getElementById(btn.dataset.target);
+          btn.dataset.url = target.value;
+        }
+        resultEl.classList.remove('hidden');
+        errorEl.classList.add('hidden');
+      } catch (e) {
+        resultEl.classList.add('hidden');
+        errorEl.textContent = "That doesn't look like a valid URL. Check it and try again.";
+        errorEl.classList.remove('hidden');
+      }
+    });
+  })();
+  </script>
+</template>
